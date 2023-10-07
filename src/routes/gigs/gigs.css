@@ -1,0 +1,3 @@
+.gigs {
+  grid-template-columns: repeat(auto-fit, minmax(16.25rem, 1fr));
+}

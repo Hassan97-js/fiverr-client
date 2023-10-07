@@ -1,0 +1,12 @@
+.btn--default {
+  background-color: #1cbf73;
+  color: #fff;
+}
+
+.btn--default :hover {
+  background-color: #18d17b;
+}
+
+.btn--sm {
+  font-size: 0.75rem;
+}

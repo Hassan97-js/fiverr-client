@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 100%;
+    font-synthesis: none;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+
+  #root > *:nth-child(2) {
+    @apply flex-1;
+  }
+
+  h1 {
+    @apply font-bold xl:text-6xl md:text-5xl sm:text-4xl text-3xl tracking-tight;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-bold leading-tight tracking-tighter;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+
+  h5 {
+    @apply text-lg;
+  }
+
+  p {
+    @apply tracking-tight;
+  }
+
+  small,
+  .text-small {
+    @apply text-sm;
+  }
+
+  input {
+    @apply border border-neutral-200 text-base text-neutral-700 outline-none rounded-md px-2 py-1;
+  }
+
+  button {
+    @apply inline-flex items-center justify-center border border-transparent outline-none bg-transparent font-poppins text-inherit no-underline select-none transition touch-manipulation cursor-pointer;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply text-center text-base font-medium rounded-lg px-5 py-2.5 focus:outline-none transition;
+  }
+
+  .btn-sharp {
+    @apply text-center text-base font-medium px-5 py-2.5 focus:outline-none transition;
+  }
+
+  .btn-xs {
+    @apply text-xs;
+  }
+
+  .btn-sm {
+    @apply text-sm;
+  }
+
+  .btn-primary {
+    @apply text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300;
+  }
+
+  .btn-primary-outline {
+    @apply text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300;
+  }
+
+  .btn-secondary {
+    @apply text-white bg-neutral-700 hover:bg-neutral-800 focus:ring-4 focus:ring-neutral-300;
+  }
+
+  .btn-secondary-outline {
+    @apply text-neutral-700 hover:text-white border border-neutral-700 hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-neutral-300;
+  }
+
+  .btn-danger {
+    @apply text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300;
+  }
+
+  .tag {
+    @apply border border-neutral-600 text-sm font-medium rounded-full py-1 px-3;
+  }
+}
+
+@layer utilities {
+  .section-container {
+    @apply container py-24 xl:py-32;
+  }
+
+  .hero-container {
+    @apply container py-16 xl:py-24;
+  }
+}
