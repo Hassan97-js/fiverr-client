@@ -41,10 +41,6 @@
     @apply text-lg;
   }
 
-  p {
-    @apply tracking-tight;
-  }
-
   small,
   .text-small {
     @apply text-sm;
