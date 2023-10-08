@@ -1,20 +1,13 @@
 import axios from "axios";
 
-export const makeApiRequest = ({
-  method,
-  url,
-  data,
-  params,
-  credentials = true,
-  validateStatus
-}) => {
+export const makeApiRequest = ({ method, url, data, params, validateStatus }) => {
   return axios({
     method,
-    baseURL: "https://fiverr-server-2dn7.onrender.com/api",
+    baseURL: "http://localhost:5000/api",
     url,
     params,
     data,
-    withCredentials: credentials,
+    withCredentials: true,
     validateStatus
   });
 };
