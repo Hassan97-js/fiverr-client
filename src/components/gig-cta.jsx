@@ -5,6 +5,7 @@ import CustomIcon from "./custom-icon";
 
 const GigCTA = ({
   currentUserId,
+  isSeller,
   containerClassName = "",
   gigUserId,
   price,
@@ -49,7 +50,7 @@ const GigCTA = ({
           );
         })}
 
-        {currentUserId !== gigUserId ? (
+        {currentUserId !== gigUserId && !isSeller ? (
           <Link
             to={`/payment/${params.id}`}
             className="btn btn-primary block w-full mt-5 tracking-wide">

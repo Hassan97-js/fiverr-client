@@ -20,7 +20,6 @@ const { responsive } = uiConfig;
 
 const AwaitedGig = () => {
   const [gigResponse, reviewsResponse] = useAsyncValue();
-
   const { currentUser } = useCurrentUserContext();
 
   const gig = gigResponse.data;
@@ -90,7 +89,8 @@ const AwaitedGig = () => {
       </div>
 
       <GigCTA
-        currentUserId={currentUser?.id}
+        currentUserId={currentUser.id}
+        isSeller={currentUser.isSeller}
         gigUserId={gigUserId}
         deliveryDays={deliveryDays}
         description={shortDescription}
