@@ -14,7 +14,7 @@ const Signin = () => {
       method="post"
       className="section-container flex flex-col justify-center items-center">
       <div className="flex flex-col gap-x-10 gap-y-9 w-1/4 min-w-max">
-        <h1 className="self-start">Signin</h1>
+        <h1 className="self-start">Sign in</h1>
 
         <div>
           <div className="flex flex-col gap-x-8 gap-y-6">
@@ -45,7 +45,7 @@ const Signin = () => {
           disabled={isBusy}
           type="submit"
           className={`btn btn-primary self-start ${isBusy ? "bg-green-400" : ""}`}>
-          {isBusy ? "Logging in..." : "Log in"}
+          {isBusy ? "Signing in..." : "Sign in"}
         </Button>
       </div>
     </fetcher.Form>
