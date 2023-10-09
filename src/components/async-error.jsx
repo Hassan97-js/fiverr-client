@@ -16,7 +16,7 @@ const AsyncError = ({
     <div className={parentClasses}>
       <Alert parentClasses={alertClasses} alertVariant={alertVariant}>
         <p className={errorMessageClasses}>{errorMessage}</p>
-        <p>If the problem persists, please contact us</p>
+        {/* <p>If the problem persists, please contact us</p> */}
       </Alert>
 
       <Link className={linkClasses} to={linkPath}>

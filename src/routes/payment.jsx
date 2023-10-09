@@ -1,11 +1,18 @@
 import { Suspense } from "react";
 import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
+import { useCurrentUserContext } from "../context";
 
 import { AsyncError, CheckoutForm, Spinner } from "../components";
 
 const AwaitedPayment = () => {
   const [stripe, paymentIntent] = useAsyncValue();
+  const { currentUser } = useCurrentUserContext();
+
+  if (currentUser.isSeller) {
+    return <AsyncError errorMessage="Sellers are not allowed to make orders!" />;
+  }
+
   const clientSecret = paymentIntent.data.clientSecret;
 
   const appearance = {
@@ -34,11 +41,7 @@ const Payment = () => {
   return (
     <section className="section-container min-h-[37.5rem]">
       <Suspense fallback={<Spinner />}>
-        <Await
-          resolve={paymentPromise}
-          errorElement={
-            <AsyncError errorMessage="Failed to initialize the payment!" />
-          }>
+        <Await resolve={paymentPromise}>
           <AwaitedPayment />
         </Await>
       </Suspense>
