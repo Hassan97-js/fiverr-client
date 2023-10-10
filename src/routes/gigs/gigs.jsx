@@ -63,9 +63,9 @@ const Gigs = () => {
       <Breadcrumb>FIVERR &gt; GRAPHICS & DESIGN &gt;</Breadcrumb>
 
       <h1 className="mb-4">AI Artists</h1>
-      <h5 className="font-normal">
+      <p className="tracking-wider">
         Explore the boundaries of art and technology with Fiverr&apos;s AI artists
-      </h5>
+      </p>
 
       <Form method="GET" className="flex flex-col items-start py-5 gap-5 mt-6 mb-24">
         <div className="flex flex-col items-start mb-5 gap-5">
