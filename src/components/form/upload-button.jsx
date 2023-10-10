@@ -6,8 +6,6 @@ const UploadButton = ({
   type = "button",
   placeholderText
 }) => {
-  console.log(imgPreviewURL);
-
   return (
     <>
       <Button
