@@ -15,8 +15,7 @@ const UploadWidget = ({
         cloudName,
         uploadPreset,
         tags: ["gig image"],
-        maxImageWidth: 1200,
-        sources: ["local", "url", "camera"]
+        maxImageWidth: 1200
       },
       (error, result) => {
         if (error || (result && result.event === "success")) {

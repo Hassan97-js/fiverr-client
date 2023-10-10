@@ -6,12 +6,14 @@ const UploadButton = ({
   type = "button",
   placeholderText
 }) => {
+  console.log(imgPreviewURL);
+
   return (
     <>
       <Button
         type={type}
         onClickHandler={onClick}
-        className="flex flex-col items-center justify-center w-full h-48 border-2 border-neutral-300 border-dashed rounded-lg cursor-pointer bg-neutral-50 pt-5 pb-6">
+        className="flex flex-col items-center justify-center w-full h-48 border-2 border-neutral-300 border-dashed rounded-lg cursor-pointer bg-neutral-50 mb-8 pt-5 pb-6">
         <svg
           aria-hidden="true"
           className="w-10 h-10 mb-3 text-neutral-400"
@@ -39,10 +41,9 @@ const UploadButton = ({
         </p>
       </Button>
 
-      <div className="flex gap-10">
-        {!!imgPreviewURL &&
-        Array.isArray(imgPreviewURL) &&
-        imgPreviewURL?.length > 0 ? (
+      <div className="flex items-center gap-10">
+        {Array.isArray(imgPreviewURL) &&
+          imgPreviewURL?.length > 0 &&
           imgPreviewURL.map((url) => {
             return (
               <div key={url} className="flex items-center gap-6 mt-1 mb-8">
@@ -65,28 +66,29 @@ const UploadButton = ({
                 </div>
               </div>
             );
-          })
-        ) : imgPreviewURL?.length > 0 ? (
-          <div className="flex items-center gap-6 mt-5 mb-8">
-            <div>
-              <img
-                className="w-12 h-12 rounded-md object-cover object-center"
-                src={imgPreviewURL}
-                alt="Uploaded resource"
-              />
-            </div>
+          })}
 
-            <a
-              href={imgPreviewURL}
-              className="font-medium text-green-600 underline hover:no-underline"
-              target="_blank"
-              rel="noreferrer">
-              Uploaded Image URL
-            </a>
-          </div>
-        ) : (
-          ""
-        )}
+        {!Array.isArray(imgPreviewURL) &&
+          typeof imgPreviewURL === "string" &&
+          imgPreviewURL.length > 0 && (
+            <div className="flex items-center gap-6">
+              <div>
+                <img
+                  className="w-12 h-12 rounded-md object-cover object-center"
+                  src={imgPreviewURL}
+                  alt="Uploaded resource"
+                />
+              </div>
+
+              <a
+                href={imgPreviewURL}
+                className="font-medium text-green-600 underline hover:no-underline"
+                target="_blank"
+                rel="noreferrer">
+                Uploaded Image URL
+              </a>
+            </div>
+          )}
       </div>
     </>
   );

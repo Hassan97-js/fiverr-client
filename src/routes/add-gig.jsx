@@ -79,7 +79,7 @@ const AddGig = () => {
 
   return (
     <Form ref={formRef} method="POST" className="section-container">
-      <div className="flex flex-col gap-x-10 gap-y-7 mb-6">
+      <div className="flex flex-col gap-x-10 gap-y-7 mb-12">
         {!!actionError && (
           <span className="text-normal font-bold text-red-500">{actionError}</span>
         )}

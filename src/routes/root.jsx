@@ -14,7 +14,7 @@ const Root = () => {
       handleRemoveCurrentUser();
       navigate("/signin");
     },
-    timeout: 2 * 60 * 1000
+    timeout: 10 * 60 * 1000
   });
 
   return (

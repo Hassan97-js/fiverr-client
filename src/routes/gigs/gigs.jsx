@@ -63,7 +63,7 @@ const Gigs = () => {
       <Breadcrumb>FIVERR &gt; GRAPHICS & DESIGN &gt;</Breadcrumb>
 
       <h1 className="mb-4">AI Artists</h1>
-      <p className="tracking-wider">
+      <p>
         Explore the boundaries of art and technology with Fiverr&apos;s AI artists
       </p>
 
