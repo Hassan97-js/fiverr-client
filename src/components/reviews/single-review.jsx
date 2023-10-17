@@ -6,18 +6,19 @@ import CustomIcon from "../custom-icon";
 
 const Review = ({
   sellerName,
-  sellerImgURL,
+  sellerImage,
   countryName,
-  countryImgURL,
+  countryImage,
   description
 }) => {
-  const fallbackImg = "https://picsum.photos/200";
+  const fallbackImage = "https://picsum.photos/200";
+
   return (
     <div className="flex flex-wrap flex-col gap-3 flex-1 rounded-sm shadow-md px-8 py-6 sm:min-w-[400px] sm:min-h-[23.75rem]">
       <div className="flex gap-3">
         <img
           className="w-8 h-8 object-cover object-center rounded-full"
-          src={sellerImgURL || fallbackImg}
+          src={sellerImage || fallbackImage}
           alt=""
         />
 
@@ -26,7 +27,7 @@ const Review = ({
           <div className="flex gap-2 items-center">
             <img
               className="w-4 h-4"
-              src={countryImgURL}
+              src={countryImage}
               alt={`${countryName} flag`}
             />
             <span>{countryName}</span>

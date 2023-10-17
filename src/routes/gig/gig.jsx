@@ -29,7 +29,7 @@ const AwaitedGig = () => {
     title,
     description,
     starNumber,
-    gigImgs,
+    gigImages,
     userId: userInfo,
     features: services,
     deliveryTime: deliveryDays,
@@ -39,9 +39,9 @@ const AwaitedGig = () => {
     shortDescription
   } = gig;
 
-  const { _id: gigUserId, imgURL, username, country } = userInfo;
+  const { _id: gigUserId, image, username, country } = userInfo;
 
-  const fallbackImg = "https://picsum.photos/200";
+  const fallbackImage = "https://picsum.photos/200";
 
   return (
     <div className="awaited-gig">
@@ -53,12 +53,12 @@ const AwaitedGig = () => {
             itemClass="mr-10 rounded-lg overflow-hidden"
             containerClass="max-w-3xl rounded-md mb-10"
             responsive={responsive}>
-            {gigImgs.map((imgURL) => {
+            {gigImages.map((image) => {
               return (
                 <img
                   className="w-full h-full object-cover"
-                  key={imgURL}
-                  src={imgURL}
+                  key={image}
+                  src={image}
                   alt=""
                 />
               );
@@ -82,7 +82,7 @@ const AwaitedGig = () => {
           memberDate="Aug 2022"
           rating={starNumber}
           responseTime="4 hours"
-          sellerImg={imgURL || fallbackImg}
+          sellerImage={image || fallbackImage}
         />
 
         <Reviews gigUserId={gigUserId} reviews={reviews} />

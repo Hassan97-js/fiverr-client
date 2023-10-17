@@ -20,16 +20,16 @@ export const createGigAction = async ({ request }) => {
     }
 
     // eslint-disable-next-line no-unused-vars
-    const { agreed, features, gigImgs, ...otherEntries } = formEntries;
+    const { agreed, features, images, ...otherEntries } = formEntries;
 
     const featuresArray = features
       .trim()
       .split(",")
       .map((feature) => feature.trim());
 
-    const parsedGigImgs = JSON.parse(gigImgs);
+    const parsedImages = JSON.parse(images);
 
-    const data = { featuresArray, gigImgs: parsedGigImgs, ...otherEntries };
+    const data = { featuresArray, images: parsedImages, ...otherEntries };
 
     const response = await makeApiRequest({
       method: "post",

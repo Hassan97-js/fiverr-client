@@ -7,7 +7,7 @@ const AboutSeller = ({
   currentUserId,
   gigUserId,
   sellerName,
-  sellerImg,
+  sellerImage,
   rating,
   fromCountry,
   memberDate,
@@ -25,7 +25,7 @@ const AboutSeller = ({
           <div className="flex items-center gap-4">
             <img
               className="self-start w-12 h-12 object-cover object-postion-center rounded-full"
-              src={sellerImg}
+              src={sellerImage}
               alt=""
             />
 

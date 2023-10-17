@@ -28,7 +28,7 @@ const AwaitedPublicGigs = () => {
   const publicGigsElements = publicGigs.map((gig) => {
     const {
       _id: gigId,
-      gigCoverImg,
+      gigCoverImage,
       price,
       description,
       category,
@@ -44,7 +44,7 @@ const AwaitedPublicGigs = () => {
         gigId={gigId}
         totalStars={totalStars}
         starNumber={starNumber}
-        gigCoverImg={gigCoverImg}
+        gigCoverImage={gigCoverImage}
         price={price}
         description={description}
         category={category}

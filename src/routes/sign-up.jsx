@@ -87,14 +87,14 @@ const Signup = () => {
             />
 
             <div className="flex-1">
-              <input type="hidden" name="imgURL" value={uploadURL} required />
+              <input type="hidden" name="image" value={uploadURL} required />
 
               <UploadWidget
                 labelText="Profile picture"
                 placeholderText="Please upload a profile picture"
                 cloudName={cloud.cloud_name}
                 uploadPreset={cloud.upload_preset}
-                imgPreviewURL={uploadURL}
+                imagePreviewURL={uploadURL}
                 onUpload={({ error, result }) => {
                   handleUpload({ error, result });
                 }}

@@ -9,7 +9,7 @@ import { capitalize, formatCurrency, getRatingAverage } from "../utils";
 const GigCard = ({
   userInfo,
   gigId,
-  gigCoverImg,
+  coverImage,
   category,
   price,
   description,
@@ -17,18 +17,18 @@ const GigCard = ({
   starNumber
 }) => {
   const styles = {
-    backgroundImage: `url(${gigCoverImg})`,
+    backgroundImage: `url(${coverImage})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "top"
   };
 
-  const { username, imgURL } = userInfo;
+  const { username, image } = userInfo;
 
   const formattedPrice = formatCurrency(price);
   const gigRating = getRatingAverage(totalStars, starNumber);
 
-  const fallbackImg = "https://picsum.photos/200";
+  const fallbackImage = "https://picsum.photos/200";
 
   return (
     <Link
@@ -41,7 +41,7 @@ const GigCard = ({
           <div className="flex items-center gap-3 mb-5">
             <img
               className="object-cover rounded-full w-8 h-8"
-              src={imgURL || fallbackImg}
+              src={image || fallbackImage}
               alt="a freelancing client image"
             />
 

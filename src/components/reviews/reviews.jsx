@@ -77,8 +77,8 @@ const Reviews = ({ reviews: reviewsArray, gigUserId }) => {
               <Review
                 key={id}
                 sellerName={capitalize(username)}
-                sellerImgURL="https://images.pexels.com/photos/839586/pexels-photo-839586.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                countryImgURL="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1fa-1f1f8.png"
+                sellerImage="https://images.pexels.com/photos/839586/pexels-photo-839586.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                countryImage="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1fa-1f1f8.png"
                 countryName={country}
                 description={description}
               />

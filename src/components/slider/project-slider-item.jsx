@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
 const ProjectSliderItem = ({ project }) => {
-  const { imgURL, category, client } = project;
+  const { image, category, client } = project;
 
   return (
     <Link to="/" className="flex flex-col gap-4 w-full">
       <div>
-        <img className="rounded-t-md" src={imgURL} alt={`${category} gig image`} />
+        <img className="rounded-t-md" src={image} alt={`${category} gig image`} />
       </div>
 
       <div className="flex items-center gap-3 py-3 px-5">

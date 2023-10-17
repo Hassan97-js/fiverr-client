@@ -63,7 +63,7 @@ const Navbar = () => {
               </figcaption>
               <img
                 className="w-10 h-10 rounded-full object-cover object-center"
-                src={currentUser?.imgURL || "https://faces3.b-cdn.net/Colombia.png"}
+                src={currentUser?.image || "https://faces3.b-cdn.net/Colombia.png"}
                 alt="Profile picture"
               />
             </figure>

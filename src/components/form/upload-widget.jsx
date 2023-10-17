@@ -5,7 +5,7 @@ const UploadWidget = ({
   cloudName,
   uploadPreset,
   onUpload,
-  imgPreviewURL,
+  imagePreviewURL,
   labelText,
   placeholderText
 }) => {
@@ -35,7 +35,7 @@ const UploadWidget = ({
       </label>
       <UploadButton
         placeholderText={placeholderText}
-        imgPreviewURL={imgPreviewURL}
+        imagePreviewURL={imagePreviewURL}
         onClick={handleUploadImageWidget}
       />
     </>

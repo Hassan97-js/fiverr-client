@@ -8,7 +8,7 @@ const ChatRoom = ({ userId, messages = [] }) => {
           const { _id: id, userId: userInfo } = message;
 
           const isSender = userId === userInfo._id;
-          const userImage = userInfo?.imgURL;
+          const userImage = userInfo?.image;
 
           return (
             <ChatMessage

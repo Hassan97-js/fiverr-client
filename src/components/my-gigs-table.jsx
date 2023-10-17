@@ -24,7 +24,7 @@ const MyGigsTable = ({ tableHeaders = [], tableData = [], clickable = false }) =
   });
 
   const tableBodyElements = tableData.map((item) => {
-    const { _id: id, gigCoverImg: imgURL, title, price, sales } = item;
+    const { _id: id, gigCoverImage: image, title, price, sales } = item;
 
     return (
       <tr
@@ -35,10 +35,10 @@ const MyGigsTable = ({ tableHeaders = [], tableData = [], clickable = false }) =
         <td
           scope="row"
           className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
-          {imgURL ? (
+          {image ? (
             <img
               className="max-w-none w-12 h-12 object-cover object-center rounded-full"
-              src={imgURL}
+              src={image}
               alt=""
             />
           ) : (
