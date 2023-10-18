@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 
-import { useCurrentUserContext } from "../context";
+import { useUserContext } from "../context";
 import { capitalize, makeApiRequest, setIsActive } from "../utils";
 import { useClickAway } from "../hooks";
 
@@ -10,7 +10,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const isOpen = useClickAway(dropdownRef);
 
-  const { currentUser, handleRemoveCurrentUser } = useCurrentUserContext();
+  const { currentUser, handleRemoveCurrentUser } = useUserContext();
 
   const handleSignout = async () => {
     try {

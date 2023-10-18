@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
-import { useCurrentUserContext } from "../context";
+import { useUserContext } from "../context";
 
 import { AsyncError, CheckoutForm, Spinner } from "../components";
 
 const AwaitedPayment = () => {
   const [stripe, paymentIntent] = useAsyncValue();
-  const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useUserContext();
 
   if (currentUser.isSeller) {
     return <AsyncError errorMessage="Sellers are not allowed to make orders!" />;

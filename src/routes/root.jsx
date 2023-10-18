@@ -1,31 +1,41 @@
+import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import { useIdleTimer } from "react-idle-timer";
 
-import { Outlet, useNavigate } from "react-router-dom";
-
 import { Navbar, Footer } from "../components";
-import { useCurrentUserContext } from "../context";
+// import { useUserContext } from "../context";
 
 const Root = () => {
-  const navigate = useNavigate();
-  const { handleRemoveCurrentUser } = useCurrentUserContext();
+  // const data = useLoaderData();
+  // const navigate = useNavigate();
+  // const { handleRemoveCurrentUser } = useUserContext();
 
-  useIdleTimer({
-    onIdle: () => {
-      handleRemoveCurrentUser();
-      navigate("/signin");
-    },
-    timeout: 10 * 60 * 1000
-  });
+  // console.log(data);
+
+  /**
+   1. Get user using current token in loader
+      - If token expired redirect to /sign-in page
+        - remove the currentUser from session storage
+   2. Save currentUser in outletContext
+   3. Consume the currentUser in the routes
+  */
+
+  // useIdleTimer({
+  //   onIdle: () => {
+  //     handleRemoveCurrentUser();
+  //     navigate("/signin");
+  //   },
+  //   timeout: 15 * 60 * 1000
+  // });
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <main>
         <Outlet />
       </main>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

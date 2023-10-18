@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import { UserContext } from "./user-context";
+import { useOutletContext } from "react-router-dom";
 
-export const useCurrentUserContext = () => {
-  const context = useContext(UserContext);
+export const useUserContext = () => {
+  const context = useOutletContext();
 
   if (!context) {
-    throw new Error("useCloudinaryContext must be used within a CloudinaryProvider");
+    throw new Error("useOutletContext must be used within a RouterProvider");
   }
 
   return context;

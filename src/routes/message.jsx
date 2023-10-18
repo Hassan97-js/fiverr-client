@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 
-import { useCurrentUserContext } from "../context";
+import { useUserContext } from "../context";
 import { AsyncError, Breadcrumb, ChatInput, ChatRoom, Spinner } from "../components";
 
 const AwaitedMessages = () => {
   const messagesResponse = useAsyncValue();
-  const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useUserContext();
 
   const messages = messagesResponse.data;
 

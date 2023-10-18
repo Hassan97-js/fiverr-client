@@ -1,7 +1,7 @@
-import { defer } from "react-router-dom";
+import { defer, redirect } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
-import { makeApiRequest } from "../utils";
+import { makeApiRequest, removeData, retrieveData } from "../utils";
 
 /**
  * @param {import("react-router-dom").LoaderFunctionArgs} request
@@ -46,6 +46,41 @@ export const paymentLoader = ({ params }) => {
   const paymentPromise = Promise.all([loadStripePromise, paymentIntentPromise]);
 
   return defer({ paymentPromise });
+};
+
+export const fetchCurrentUserFromDB = async () => {
+  try {
+    const currentToken = retrieveData("token");
+
+    console.log(currentToken);
+
+    if (!currentToken) {
+      return redirect("sign-in");
+    }
+
+    const response = await makeApiRequest({
+      method: "get",
+      url: `user/current`,
+      headers: {
+        Authorization: `Bearer ${currentToken}`
+      }
+    });
+
+    if (response.status === 401) {
+      removeData("token");
+      return redirect("/signin");
+    }
+
+    if (response.status > 399 && response.status < 600) {
+      throw Error(`Something went wrong: ${response.status}`);
+    }
+
+    // return response.data;
+
+    return null;
+  } catch (error) {
+    throw Error(error);
+  }
 };
 
 /**

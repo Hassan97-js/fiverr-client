@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 
-import { useCurrentUserContext } from "../context";
+import { useUserContext } from "../context";
 import { Spinner, MessagesTable, AsyncError } from "../components";
 
 const AwaitedConversations = () => {
   const conversationsResponse = useAsyncValue();
-  const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useUserContext();
 
   const conversations = conversationsResponse.data;
 

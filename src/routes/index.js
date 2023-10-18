@@ -21,7 +21,8 @@ import {
   fetchMessagesFromDB,
   paymentLoader,
   successLoader,
-  fetchMyGigsFromDB
+  fetchMyGigsFromDB,
+  fetchCurrentUserFromDB
 } from "./loaders";
 
 import {
@@ -56,6 +57,7 @@ export {
   fetchConversationsFromDB,
   fetchMessagesFromDB,
   fetchMyGigsFromDB,
+  fetchCurrentUserFromDB,
   paymentLoader,
   successLoader,
   deleteGigAction,

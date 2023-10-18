@@ -7,7 +7,7 @@ import Button from "../custom-button/button";
 import CustomInput from "../form/custom-input";
 import SelectInput from "../form/select-input";
 
-import { useCurrentUserContext } from "../../context";
+import { useUserContext } from "../../context";
 import { capitalize } from "../../utils";
 
 const AddReview = () => {
@@ -60,7 +60,7 @@ const AddReview = () => {
 };
 
 const Reviews = ({ reviews: reviewsArray, gigUserId }) => {
-  const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useUserContext();
 
   const currentUserId = currentUser?.id;
 

@@ -1,4 +1,4 @@
 import { UserContext, UserProvider } from "./user-context";
-import { useCurrentUserContext } from "./hooks";
+import { useUserContext } from "./hooks";
 
-export { UserContext, UserProvider, useCurrentUserContext };
+export { UserContext, UserProvider, useUserContext };

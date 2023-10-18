@@ -10,7 +10,7 @@ import {
   Spinner,
   AsyncError
 } from "../../components";
-import { useCurrentUserContext } from "../../context";
+import { useUserContext } from "../../context";
 
 import { uiConfig } from "../../data";
 
@@ -20,7 +20,7 @@ const { responsive } = uiConfig;
 
 const AwaitedGig = () => {
   const [gigResponse, reviewsResponse] = useAsyncValue();
-  const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useUserContext();
 
   const gig = gigResponse.data;
   const reviews = reviewsResponse.data;
