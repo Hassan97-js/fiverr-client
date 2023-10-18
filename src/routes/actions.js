@@ -225,7 +225,7 @@ export const signinAction = async ({ request }) => {
       throw Error(`Something went wrong: ${response.status}`);
     }
 
-    storeData("currentUser", response.data);
+    storeData("token", response.data);
 
     return redirectDocument("/");
   } catch (error) {

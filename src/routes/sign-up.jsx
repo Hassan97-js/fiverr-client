@@ -78,8 +78,8 @@ const Signup = () => {
             />
 
             <CustomInput
-              classNames="mb-3"
               inputName="password"
+              classNames="mb-3"
               inputType="password"
               labelText="Password"
               inputId="password"
@@ -102,8 +102,8 @@ const Signup = () => {
             </div>
 
             <CustomInput
-              classNames="mb-3"
               inputName="country"
+              classNames="mb-3"
               labelText="Country"
               inputId="country"
               placeholderText="Enter your country name"
