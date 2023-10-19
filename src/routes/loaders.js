@@ -1,7 +1,32 @@
 import { defer, redirect } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
-import { makeApiRequest, removeData, retrieveData } from "../utils";
+import {
+  checkIfAuthenticated,
+  getCurrentUser,
+  makeApiRequest,
+  retrieveData
+} from "../utils";
+
+/* const isAuthenticated = await checkIfAuthenticated();
+
+  if (!isAuthenticated) {
+    throw redirect("/sign-in");
+  }*/
+
+export const rootLoader = async () => {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser) {
+      return null;
+    }
+
+    return { currentUser };
+  } catch (error) {
+    throw Error(error);
+  }
+};
 
 /**
  * @param {import("react-router-dom").LoaderFunctionArgs} request
@@ -48,45 +73,10 @@ export const paymentLoader = ({ params }) => {
   return defer({ paymentPromise });
 };
 
-export const fetchCurrentUserFromDB = async () => {
-  try {
-    const currentToken = retrieveData("token");
-
-    console.log(currentToken);
-
-    if (!currentToken) {
-      return redirect("sign-in");
-    }
-
-    const response = await makeApiRequest({
-      method: "get",
-      url: `user/current`,
-      headers: {
-        Authorization: `Bearer ${currentToken}`
-      }
-    });
-
-    if (response.status === 401) {
-      removeData("token");
-      return redirect("/signin");
-    }
-
-    if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
-    }
-
-    // return response.data;
-
-    return null;
-  } catch (error) {
-    throw Error(error);
-  }
-};
-
 /**
  * @param {import("react-router-dom").LoaderFunctionArgs} request
  */
-export const fetchMessagesFromDB = ({ params }) => {
+export const fetchMessagesLoader = ({ params }) => {
   const messagesPromise = makeApiRequest({
     method: "get",
     url: `messages/${params.id}`
@@ -95,7 +85,7 @@ export const fetchMessagesFromDB = ({ params }) => {
   return defer({ messagesPromise });
 };
 
-export const fetchConversationsFromDB = () => {
+export const fetchConversationsLoader = () => {
   const conversationsPromise = makeApiRequest({
     method: "get",
     url: "conversations"
@@ -104,7 +94,7 @@ export const fetchConversationsFromDB = () => {
   return defer({ conversationsPromise });
 };
 
-export const fetchOrdersFromDB = () => {
+export const fetchOrdersLoader = () => {
   const ordersPromise = makeApiRequest({
     method: "get",
     url: "orders"
@@ -113,10 +103,26 @@ export const fetchOrdersFromDB = () => {
   return defer({ ordersPromise });
 };
 
-export const fetchMyGigsFromDB = () => {
+/**
+ * @param {import("react-router-dom").LoaderFunctionArgs}
+ */
+export const fetchMyGigsLoader = async ({ request }) => {
+  const isAuthenticated = await checkIfAuthenticated();
+
+  const redirectTo = new URL(request.url).pathname;
+
+  if (!isAuthenticated) {
+    throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+  }
+
+  const currentToken = retrieveData("token");
+
   const myGigsPromise = makeApiRequest({
     method: "get",
-    url: "gigs/my"
+    url: "gigs/my",
+    headers: {
+      Authorization: `Bearer ${currentToken.accessToken}`
+    }
   });
 
   return defer({ myGigsPromise });
@@ -125,7 +131,7 @@ export const fetchMyGigsFromDB = () => {
 /**
  * @param {import("react-router-dom").LoaderFunctionArgs} request
  */
-export const fetchGigsFromDB = ({ request }) => {
+export const fetchGigsLoader = async ({ request }) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   // console.log(Object.fromEntries(searchParams.entries()));
@@ -142,7 +148,7 @@ export const fetchGigsFromDB = ({ request }) => {
 /**
  * @param {import("react-router-dom").LoaderFunctionArgs} request
  */
-export const fetchSingleGigFromDB = ({ params }) => {
+export const fetchSingleGigLoader = ({ params }) => {
   const gigsDataPromise = Promise.all([
     makeApiRequest({ method: "get", url: `gigs/single/${params.id}` }),
     makeApiRequest({ method: "get", url: `reviews/${params.id}` })

@@ -13,23 +13,23 @@ import {
   Payment,
   Success,
   Root,
-  fetchGigsFromDB,
-  fetchOrdersFromDB,
-  fetchSingleGigFromDB,
-  fetchConversationsFromDB,
-  fetchMyGigsFromDB,
-  fetchMessagesFromDB,
-  fetchCurrentUserFromDB,
+  fetchGigsLoader,
+  fetchOrdersLoader,
+  fetchSingleGigLoader,
+  fetchConversationsLoader,
+  fetchMyGigsLoader,
+  fetchMessagesLoader,
   paymentLoader,
-  signinAction,
-  signupAction,
+  signInAction,
+  signUpAction,
   addReviewAction,
   isMessageReadAction,
   createMessageAction,
   createConversationAction,
   successLoader,
   deleteGigAction,
-  createGigAction
+  createGigAction,
+  rootLoader
 } from "../../routes";
 
 const routerConfig = [
@@ -37,20 +37,52 @@ const routerConfig = [
     path: "/",
     element: <Root />,
     errorElement: <Error />,
-    loader: fetchCurrentUserFromDB,
+    loader: rootLoader,
     children: [
       {
         index: true,
-        // element: <Home />,
-        element: <h1>Home</h1>,
+        element: <Home />,
         errorElement: <Error />
       },
-      // {
-      //   path: "signup",
-      //   element: <Signup />,
-      //   errorElement: <Error />,
-      //   action: signupAction
-      // },
+      {
+        path: "sign-in",
+        element: <Signin />,
+        errorElement: <Error />,
+        action: signInAction
+      },
+      {
+        path: "sign-up",
+        element: <Signup />,
+        errorElement: <Error />,
+        action: signUpAction
+      },
+      {
+        path: "gigs",
+        element: <Gigs />,
+        errorElement: <Error />,
+        loader: fetchGigsLoader
+      },
+      {
+        path: "gig/:id",
+        element: <Gig />,
+        errorElement: <Error />,
+        loader: fetchSingleGigLoader,
+        action: addReviewAction
+      },
+      {
+        path: "my-gigs",
+        element: <MyGigs />,
+        errorElement: <Error />,
+        loader: fetchMyGigsLoader,
+        action: deleteGigAction
+      },
+      {
+        path: "orders",
+        element: <Orders />,
+        errorElement: <Error />,
+        loader: fetchOrdersLoader,
+        action: createConversationAction
+      }
       // {
       //   path: "payment/:gigId",
       //   element: <Payment />,
@@ -63,25 +95,6 @@ const routerConfig = [
       //   errorElement: <Error />,
       //   loader: successLoader
       // },
-      {
-        path: "sign-in",
-        element: <Signin />,
-        errorElement: <Error />,
-        action: signinAction
-      }
-      // {
-      //   path: "gigs",
-      //   element: <Gigs />,
-      //   errorElement: <Error />,
-      //   loader: fetchGigsFromDB
-      // },
-      // {
-      //   path: "mygigs",
-      //   element: <MyGigs />,
-      //   errorElement: <Error />,
-      //   loader: fetchMyGigsFromDB,
-      //   action: deleteGigAction
-      // },
       // {
       //   path: "add",
       //   element: <AddGig />,
@@ -89,33 +102,20 @@ const routerConfig = [
       //   action: createGigAction
       // },
       // {
-      //   path: "orders",
-      //   element: <Orders />,
-      //   errorElement: <Error />,
-      //   loader: fetchOrdersFromDB,
-      //   action: createConversationAction
-      // },
-      // {
       //   path: "messages",
       //   element: <Messages />,
       //   errorElement: <Error />,
-      //   loader: fetchConversationsFromDB,
+      //   loader: fetchConversationsLoader,
       //   action: isMessageReadAction
       // },
       // {
       //   path: "message/:id",
       //   element: <Message />,
       //   errorElement: <Error />,
-      //   loader: fetchMessagesFromDB,
+      //   loader: fetchMessagesLoader,
       //   action: createMessageAction
       // },
       // {
-      //   path: "gig/:id",
-      //   element: <Gig />,
-      //   errorElement: <Error />,
-      //   loader: fetchSingleGigFromDB,
-      //   action: addReviewAction
-      // }
     ]
   }
 ];

@@ -1,24 +1,19 @@
 import { useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 
-import { useUserContext } from "../context";
-import { capitalize, makeApiRequest, setIsActive } from "../utils";
+import { capitalize, removeData, setIsActive } from "../utils";
 import { useClickAway } from "../hooks";
 
-const Navbar = () => {
+const Navbar = ({ currentUser }) => {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const isOpen = useClickAway(dropdownRef);
 
-  const { currentUser, handleRemoveCurrentUser } = useUserContext();
-
-  const handleSignout = async () => {
+  const handleSignOut = () => {
     try {
-      await makeApiRequest({ method: "post", url: "auth/signout" });
+      removeData("token");
 
-      handleRemoveCurrentUser();
-
-      navigate("/signin");
+      return navigate("/");
     } catch (error) {
       throw Error(error);
     }
@@ -41,7 +36,7 @@ const Navbar = () => {
             role="list">
             <li className="link">
               <NavLink
-                to="/signin"
+                to="/sign-in"
                 className={setIsActive}
                 aria-label="Sign in"
                 title="Sign in">
@@ -50,7 +45,7 @@ const Navbar = () => {
             </li>
 
             <li>
-              <Link to="/signup" className="btn btn-secondary">
+              <Link to="/sign-up" className="btn btn-secondary">
                 Join
               </Link>
             </li>
@@ -75,7 +70,7 @@ const Navbar = () => {
               }`}>
               {currentUser.isSeller && (
                 <>
-                  <Link className="link" to="mygigs" aria-label="Gigs" title="Gigs">
+                  <Link className="link" to="my-gigs" aria-label="Gigs" title="Gigs">
                     My Gigs
                   </Link>
 
@@ -110,7 +105,7 @@ const Navbar = () => {
                 to="."
                 aria-label="Log out"
                 title="Log out"
-                onClick={handleSignout}>
+                onClick={handleSignOut}>
                 Sign out
               </Link>
             </div>

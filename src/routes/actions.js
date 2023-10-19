@@ -203,8 +203,12 @@ export const addReviewAction = async ({ request, params }) => {
 /**
  * @param {import("react-router-dom").ActionFunctionArgs} request
  */
-export const signinAction = async ({ request }) => {
+export const signInAction = async ({ request }) => {
   try {
+    const searchParams = new URLSearchParams(new URL(request.url).searchParams);
+
+    const redirectTo = searchParams.get("redirectTo");
+
     const formData = await request.formData();
 
     const username = formData.get("username");
@@ -227,7 +231,7 @@ export const signinAction = async ({ request }) => {
 
     storeData("token", response.data);
 
-    return redirectDocument("/");
+    return redirect(redirectTo ? redirectTo : "/");
   } catch (error) {
     return error;
   }
@@ -236,7 +240,7 @@ export const signinAction = async ({ request }) => {
 /**
  * @param {import("react-router-dom").ActionFunctionArgs} request
  */
-export const signupAction = async ({ request }) => {
+export const signUpAction = async ({ request }) => {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());

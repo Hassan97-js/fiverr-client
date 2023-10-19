@@ -24,7 +24,7 @@ const MyGigsTable = ({ tableHeaders = [], tableData = [], clickable = false }) =
   });
 
   const tableBodyElements = tableData.map((item) => {
-    const { _id: id, gigCoverImage: image, title, price, sales } = item;
+    const { _id: id, coverImage: image, title, price, sales } = item;
 
     return (
       <tr

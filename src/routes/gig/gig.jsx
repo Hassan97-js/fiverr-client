@@ -1,5 +1,10 @@
 import { Suspense } from "react";
-import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
+import {
+  Await,
+  useAsyncValue,
+  useLoaderData,
+  useOutletContext
+} from "react-router-dom";
 
 import {
   AboutSeller,
@@ -10,7 +15,6 @@ import {
   Spinner,
   AsyncError
 } from "../../components";
-import { useUserContext } from "../../context";
 
 import { uiConfig } from "../../data";
 
@@ -19,8 +23,8 @@ import "./gig.css";
 const { responsive } = uiConfig;
 
 const AwaitedGig = () => {
+  const { currentUser } = useOutletContext();
   const [gigResponse, reviewsResponse] = useAsyncValue();
-  const { currentUser } = useUserContext();
 
   const gig = gigResponse.data;
   const reviews = reviewsResponse.data;
@@ -29,7 +33,7 @@ const AwaitedGig = () => {
     title,
     description,
     starNumber,
-    gigImages,
+    images,
     userId: userInfo,
     features: services,
     deliveryTime: deliveryDays,
@@ -53,7 +57,7 @@ const AwaitedGig = () => {
             itemClass="mr-10 rounded-lg overflow-hidden"
             containerClass="max-w-3xl rounded-md mb-10"
             responsive={responsive}>
-            {gigImages.map((image) => {
+            {images.map((image) => {
               return (
                 <img
                   className="w-full h-full object-cover"
@@ -89,8 +93,8 @@ const AwaitedGig = () => {
       </div>
 
       <GigCTA
-        currentUserId={currentUser.id}
-        isSeller={currentUser.isSeller}
+        currentUserId={currentUser?.id}
+        isSeller={currentUser?.isSeller}
         gigUserId={gigUserId}
         deliveryDays={deliveryDays}
         description={shortDescription}
