@@ -1,11 +1,26 @@
 import { redirect } from "react-router-dom";
-import { makeApiRequest, storeData } from "../utils";
+import {
+  checkIfAuthenticated,
+  makeApiRequest,
+  retrieveData,
+  storeData
+} from "../utils";
 
 /**
  * @param {import("react-router-dom").ActionFunctionArgs} request
  */
 export const createGigAction = async ({ request }) => {
   try {
+    const isAuthenticated = await checkIfAuthenticated();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
+    const currentToken = retrieveData("token");
+
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
@@ -30,20 +45,25 @@ export const createGigAction = async ({ request }) => {
     const parsedImages = JSON.parse(images);
 
     const data = { featuresArray, images: parsedImages, ...otherEntries };
+    console.log(data);
 
-    const response = await makeApiRequest({
-      method: "post",
-      url: "gigs/single",
-      data
-    });
+    // const response = await makeApiRequest({
+    //   method: "post",
+    //   url: "gigs/single",
+    //   data,
+    //   headers: {
+    //     Authorization: `Bearer ${currentToken.accessToken}`
+    //   }
+    // });
 
-    if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
-    }
+    // if (response.status > 399 && response.status < 600) {
+    //   throw Error(`Something went wrong: ${response.status}`);
+    // }
 
-    const gigId = response.data._id;
+    // const gigId = response.data._id;
 
-    return redirect(`/gig/${gigId}`);
+    // return redirect(`/gig/${gigId}`);
+    return null;
   } catch (error) {
     throw Error(error);
   }

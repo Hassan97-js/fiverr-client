@@ -97,6 +97,12 @@ const routerConfig = [
         loader: fetchMessagesLoader,
         action: createMessageAction
       },
+      {
+        path: "add",
+        element: <AddGig />,
+        errorElement: <Error />,
+        action: createGigAction
+      }
       // {
       //   path: "payment/:gigId",
       //   element: <Payment />,
@@ -109,13 +115,6 @@ const routerConfig = [
       //   errorElement: <Error />,
       //   loader: successLoader
       // },
-      // {
-      //   path: "add",
-      //   element: <AddGig />,
-      //   errorElement: <Error />,
-      //   action: createGigAction
-      // },
-      // {
     ]
   }
 ];
