@@ -30,7 +30,7 @@ const OrdersTable = ({
       gigId: gigInfo
     } = item;
 
-    const { gigCoverImage: image, title, price } = gigInfo;
+    const { coverImage: image, title, price } = gigInfo;
 
     return (
       <tr

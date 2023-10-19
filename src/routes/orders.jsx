@@ -27,13 +27,11 @@ const AwaitedOrders = () => {
   ];
 
   return (
-    <>
-      <OrdersTable
-        isSeller={currentUser?.isSeller}
-        tableHeaders={tableHeaders}
-        tableData={completedOrders}
-      />
-    </>
+    <OrdersTable
+      isSeller={currentUser?.isSeller}
+      tableHeaders={tableHeaders}
+      tableData={completedOrders}
+    />
   );
 };
 

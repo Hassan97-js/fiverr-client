@@ -8,12 +8,6 @@ import {
   retrieveData
 } from "../utils";
 
-/* const isAuthenticated = await checkIfAuthenticated();
-
-  if (!isAuthenticated) {
-    throw redirect("/sign-in");
-  }*/
-
 export const rootLoader = async () => {
   try {
     const currentUser = await getCurrentUser();
@@ -94,10 +88,26 @@ export const fetchConversationsLoader = () => {
   return defer({ conversationsPromise });
 };
 
-export const fetchOrdersLoader = () => {
+/**
+ * @param {import("react-router-dom").LoaderFunctionArgs} request
+ */
+export const fetchOrdersLoader = async ({ request }) => {
+  const isAuthenticated = await checkIfAuthenticated();
+
+  const redirectTo = new URL(request.url).pathname;
+
+  if (!isAuthenticated) {
+    throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+  }
+
+  const currentToken = retrieveData("token");
+
   const ordersPromise = makeApiRequest({
     method: "get",
-    url: "orders"
+    url: "orders",
+    headers: {
+      Authorization: `Bearer ${currentToken.accessToken}`
+    }
   });
 
   return defer({ ordersPromise });
