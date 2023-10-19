@@ -82,7 +82,21 @@ const routerConfig = [
         errorElement: <Error />,
         loader: fetchOrdersLoader,
         action: createConversationAction
-      }
+      },
+      {
+        path: "messages",
+        element: <Messages />,
+        errorElement: <Error />,
+        loader: fetchConversationsLoader,
+        action: isMessageReadAction
+      },
+      {
+        path: "message/:id",
+        element: <Message />,
+        errorElement: <Error />,
+        loader: fetchMessagesLoader,
+        action: createMessageAction
+      },
       // {
       //   path: "payment/:gigId",
       //   element: <Payment />,
@@ -100,20 +114,6 @@ const routerConfig = [
       //   element: <AddGig />,
       //   errorElement: <Error />,
       //   action: createGigAction
-      // },
-      // {
-      //   path: "messages",
-      //   element: <Messages />,
-      //   errorElement: <Error />,
-      //   loader: fetchConversationsLoader,
-      //   action: isMessageReadAction
-      // },
-      // {
-      //   path: "message/:id",
-      //   element: <Message />,
-      //   errorElement: <Error />,
-      //   loader: fetchMessagesLoader,
-      //   action: createMessageAction
       // },
       // {
     ]

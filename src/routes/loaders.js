@@ -70,19 +70,48 @@ export const paymentLoader = ({ params }) => {
 /**
  * @param {import("react-router-dom").LoaderFunctionArgs} request
  */
-export const fetchMessagesLoader = ({ params }) => {
+export const fetchMessagesLoader = async ({ request, params }) => {
+  const isAuthenticated = await checkIfAuthenticated();
+
+  const redirectTo = new URL(request.url).pathname;
+
+  if (!isAuthenticated) {
+    throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+  }
+
+  const currentToken = retrieveData("token");
+
   const messagesPromise = makeApiRequest({
     method: "get",
-    url: `messages/${params.id}`
+    url: `messages/${params.id}`,
+    headers: {
+      Authorization: `Bearer ${currentToken.accessToken}`
+    }
   });
 
   return defer({ messagesPromise });
 };
 
-export const fetchConversationsLoader = () => {
+/**
+ * @param {import("react-router-dom").LoaderFunctionArgs} request
+ */
+export const fetchConversationsLoader = async ({ request }) => {
+  const isAuthenticated = await checkIfAuthenticated();
+
+  const redirectTo = new URL(request.url).pathname;
+
+  if (!isAuthenticated) {
+    throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+  }
+
+  const currentToken = retrieveData("token");
+
   const conversationsPromise = makeApiRequest({
     method: "get",
-    url: "conversations"
+    url: "conversations",
+    headers: {
+      Authorization: `Bearer ${currentToken.accessToken}`
+    }
   });
 
   return defer({ conversationsPromise });
