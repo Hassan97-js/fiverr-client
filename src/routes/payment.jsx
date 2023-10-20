@@ -1,16 +1,28 @@
 import { Suspense } from "react";
-import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
+import {
+  Await,
+  useAsyncValue,
+  useLoaderData,
+  useOutletContext
+} from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
-import { useUserContext } from "../context";
 
 import { AsyncError, CheckoutForm, Spinner } from "../components";
 
 const AwaitedPayment = () => {
+  const data = useOutletContext();
   const [stripe, paymentIntent] = useAsyncValue();
-  const { currentUser } = useUserContext();
 
-  if (currentUser.isSeller) {
-    return <AsyncError errorMessage="Sellers are not allowed to make orders!" />;
+  const currentUser = data?.currentUser;
+
+  if (currentUser?.isSeller) {
+    return (
+      <AsyncError
+        linkText="Go back"
+        linkPath="/gigs"
+        errorMessage="Sellers are not allowed to make orders!"
+      />
+    );
   }
 
   const clientSecret = paymentIntent.data.clientSecret;

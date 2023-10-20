@@ -26,7 +26,16 @@ export const rootLoader = async () => {
  * @param {import("react-router-dom").LoaderFunctionArgs} request
  */
 export const successLoader = async ({ request }) => {
+  const isAuthenticated = await checkIfAuthenticated();
+
+  if (!isAuthenticated) {
+    throw redirect("/sign-in?redirectTo=/gigs");
+  }
+
+  const currentToken = retrieveData("token");
+
   const url = new URL(request.url);
+
   const { payment_intent: paymentIntent } = Object.fromEntries(
     new URLSearchParams(url.search)
   );
@@ -37,19 +46,32 @@ export const successLoader = async ({ request }) => {
       url: "orders/single",
       data: {
         paymentIntent
+      },
+      headers: {
+        Authorization: `Bearer ${currentToken.accessToken}`
       }
     });
+
+    return null;
   } catch (error) {
     throw Error(error);
   }
-
-  return null;
 };
 
 /**
  * @param {import("react-router-dom").LoaderFunctionArgs} request
  */
-export const paymentLoader = ({ params }) => {
+export const paymentLoader = async ({ params, request }) => {
+  const isAuthenticated = await checkIfAuthenticated();
+
+  const redirectTo = new URL(request.url).pathname;
+
+  if (!isAuthenticated) {
+    throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+  }
+
+  const currentToken = retrieveData("token");
+
   const loadStripePromise = loadStripe(
     import.meta.env.VITE_STRIPE_TEST_PUBLISHABLE_KEY
   );
@@ -59,6 +81,9 @@ export const paymentLoader = ({ params }) => {
     url: "payment/create-payment-intent",
     data: {
       gigId: params?.gigId
+    },
+    headers: {
+      Authorization: `Bearer ${currentToken.accessToken}`
     }
   });
 

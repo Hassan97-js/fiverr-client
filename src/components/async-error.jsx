@@ -10,7 +10,8 @@ const AsyncError = ({
   errorMessage = "An error has occurred!",
   linkPath = "/",
   linkText = "Back to Home",
-  linkClasses = "btn btn-primary"
+  linkClasses = "btn btn-primary",
+  relative = "route"
 }) => {
   return (
     <div className={parentClasses}>
@@ -19,7 +20,7 @@ const AsyncError = ({
         {/* <p>If the problem persists, please contact us</p> */}
       </Alert>
 
-      <Link className={linkClasses} to={linkPath}>
+      <Link relative={relative} className={linkClasses} to={linkPath}>
         {linkText}
       </Link>
     </div>

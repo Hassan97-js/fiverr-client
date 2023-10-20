@@ -117,7 +117,6 @@ const CheckoutForm = () => {
 
       {elementsLoaded ? (
         <Button
-          id="submit"
           type="submit"
           disabled={isLoading || !stripe || !elements}
           className="btn btn-primary self-center">

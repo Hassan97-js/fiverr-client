@@ -102,19 +102,19 @@ const routerConfig = [
         element: <AddGig />,
         errorElement: <Error />,
         action: createGigAction
+      },
+      {
+        path: "payment/:gigId",
+        element: <Payment />,
+        errorElement: <Error />,
+        loader: paymentLoader
+      },
+      {
+        path: "success",
+        element: <Success />,
+        errorElement: <Error />,
+        loader: successLoader
       }
-      // {
-      //   path: "payment/:gigId",
-      //   element: <Payment />,
-      //   errorElement: <Error />,
-      //   loader: paymentLoader
-      // },
-      // {
-      //   path: "success",
-      //   element: <Success />,
-      //   errorElement: <Error />,
-      //   loader: successLoader
-      // },
     ]
   }
 ];
