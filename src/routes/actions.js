@@ -16,7 +16,7 @@ export const createGigAction = async ({ request }) => {
     const redirectTo = new URL(request.url).pathname;
 
     if (!isAuthenticated) {
-      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
     }
 
     const currentToken = retrieveData("token");
@@ -45,25 +45,25 @@ export const createGigAction = async ({ request }) => {
     const parsedImages = JSON.parse(images);
 
     const data = { featuresArray, images: parsedImages, ...otherEntries };
+
     console.log(data);
 
-    // const response = await makeApiRequest({
-    //   method: "post",
-    //   url: "gigs/single",
-    //   data,
-    //   headers: {
-    //     Authorization: `Bearer ${currentToken.accessToken}`
-    //   }
-    // });
+    const response = await makeApiRequest({
+      method: "post",
+      url: "gigs/single",
+      data,
+      headers: {
+        Authorization: `Bearer ${currentToken.accessToken}`
+      }
+    });
 
-    // if (response.status > 399 && response.status < 600) {
-    //   throw Error(`Something went wrong: ${response.status}`);
-    // }
+    if (response.status > 399 && response.status < 600) {
+      throw Error(`Something went wrong: ${response.status}`);
+    }
 
-    // const gigId = response.data._id;
+    const gigId = response.data._id;
 
-    // return redirect(`/gig/${gigId}`);
-    return null;
+    return redirect(`/gig/${gigId}`);
   } catch (error) {
     throw Error(error);
   }

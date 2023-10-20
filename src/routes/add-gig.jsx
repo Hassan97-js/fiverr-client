@@ -9,7 +9,7 @@ import {
   TextareaInput
 } from "../components";
 
-import UploadWidget from "../components/form/upload-widget";
+import { UploadWidget } from "../components";
 import { createCloudinary } from "../utils";
 
 const AddGig = () => {
@@ -18,19 +18,19 @@ const AddGig = () => {
   } = createCloudinary();
 
   const [uploadURLs, setUploadURLs] = useState({
-    gigCoverImage: "",
-    gigImages: ""
+    coverImage: "",
+    images: ""
   });
 
   const [uploadErrors, setUploadErrors] = useState({
-    gigCoverImageError: null,
-    gigImagesError: null
+    coverImageError: null,
+    imagesError: null
   });
 
   const formRef = useRef(null);
 
-  const { state } = useNavigation();
   const actionData = useActionData();
+  const { state } = useNavigation();
 
   const isBusy = state === "submitting";
 
@@ -41,8 +41,8 @@ const AddGig = () => {
     if (!isBusy) {
       formRef.current?.reset();
       setUploadURLs({
-        gigCoverImage: "",
-        gigImages: []
+        coverImage: "",
+        images: []
       });
     }
   }, [isBusy]);
@@ -52,7 +52,7 @@ const AddGig = () => {
       setUploadErrors((prevErrors) => {
         return {
           ...prevErrors,
-          [isCoverImage ? "gigCoverImageError" : "gigImagesError"]: error
+          [isCoverImage ? "coverImageError" : "imagesError"]: error
         };
       });
 
@@ -62,9 +62,9 @@ const AddGig = () => {
     setUploadURLs((prevImages) => {
       return {
         ...prevImages,
-        [isCoverImage ? "gigCoverImage" : "gigImages"]: isCoverImage
+        [isCoverImage ? "coverImage" : "images"]: isCoverImage
           ? result?.info?.secure_url
-          : [...prevImages.gigImages, result?.info?.secure_url]
+          : [...prevImages.images, result?.info?.secure_url]
       };
     });
   };
@@ -84,9 +84,9 @@ const AddGig = () => {
           <span className="text-normal font-bold text-red-500">{actionError}</span>
         )}
 
-        {(!!uploadErrors?.gigCoverImageError || !!uploadErrors.gigImagesError) && (
+        {(!!uploadErrors?.coverImageError || !!uploadErrors.imagesError) && (
           <span className="text-normal font-bold text-red-500">
-            {uploadErrors.gigCoverImageError || uploadErrors.gigImagesError}
+            {uploadErrors.coverImageError || uploadErrors.imagesError}
           </span>
         )}
 
@@ -126,8 +126,8 @@ const AddGig = () => {
         <div>
           <input
             type="hidden"
-            name="gigCoverImage"
-            value={uploadURLs.gigCoverImage}
+            name="coverImage"
+            value={uploadURLs.coverImage}
             required
           />
           <UploadWidget
@@ -135,7 +135,7 @@ const AddGig = () => {
             labelText="Cover image"
             cloudName={cloud.cloud_name}
             uploadPreset={cloud.upload_preset}
-            imagePreviewURL={uploadURLs.gigCoverImage}
+            imagePreviewURL={uploadURLs.coverImage}
             onUpload={({ error, result }) => {
               handleUpload({ error, result, isCoverImage: true });
             }}
@@ -145,8 +145,8 @@ const AddGig = () => {
         <div>
           <input
             type="hidden"
-            name="gigImages"
-            value={JSON.stringify(uploadURLs.gigImages)}
+            name="images"
+            value={JSON.stringify(uploadURLs.images)}
             required
           />
           <UploadWidget
@@ -154,7 +154,7 @@ const AddGig = () => {
             labelText="Gig images"
             cloudName={cloud.cloud_name}
             uploadPreset={cloud.upload_preset}
-            imagePreviewURL={uploadURLs.gigImages}
+            imagePreviewURL={uploadURLs.images}
             onUpload={({ error, result }) => {
               handleUpload({ error, result, isCoverImage: false });
             }}
