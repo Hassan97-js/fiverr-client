@@ -84,8 +84,6 @@ export const createGigAction = async ({ request }) => {
 
     const data = { featuresArray, images: parsedImages, ...otherEntries };
 
-    console.log(data);
-
     const response = await makeApiRequest({
       method: "post",
       url: "gigs/single",
@@ -121,8 +119,6 @@ export const createConversationAction = async ({ request }) => {
     }
 
     const currentToken = retrieveData("token");
-
-    console.log({ currentToken });
 
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
@@ -170,6 +166,16 @@ export const createConversationAction = async ({ request }) => {
  */
 export const createMessageAction = async ({ request, params }) => {
   try {
+    const isAuthenticated = await checkIfAuthenticated();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
+    const currentToken = retrieveData("token");
+
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
@@ -181,7 +187,10 @@ export const createMessageAction = async ({ request, params }) => {
     const response = await makeApiRequest({
       method: "post",
       url: "messages/single",
-      data
+      data,
+      headers: {
+        Authorization: `Bearer ${currentToken.accessToken}`
+      }
     });
 
     if (response.status > 399 && response.status < 600) {
@@ -199,13 +208,26 @@ export const createMessageAction = async ({ request, params }) => {
  */
 export const isMessageReadAction = async ({ request }) => {
   try {
+    const isAuthenticated = await checkIfAuthenticated();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
+    const currentToken = retrieveData("token");
+
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
     const response = await makeApiRequest({
       method: "put",
       url: `conversations/single`,
-      data
+      data,
+      headers: {
+        Authorization: `Bearer ${currentToken.accessToken}`
+      }
     });
 
     if (response.status > 399 && response.status < 600) {
