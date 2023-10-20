@@ -245,6 +245,16 @@ export const isMessageReadAction = async ({ request }) => {
  */
 export const addReviewAction = async ({ request, params }) => {
   try {
+    const isAuthenticated = await checkIfAuthenticated();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
+    const currentToken = retrieveData("token");
+
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
@@ -257,7 +267,10 @@ export const addReviewAction = async ({ request, params }) => {
     const response = await makeApiRequest({
       method: "post",
       url: "reviews/single",
-      data
+      data,
+      headers: {
+        Authorization: `Bearer ${currentToken.accessToken}`
+      }
     });
 
     if (response.status > 399 && response.status < 600) {
@@ -296,7 +309,7 @@ export const signInAction = async ({ request }) => {
     });
 
     if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
+      return response.data;
     }
 
     storeData("token", response.data);
@@ -331,7 +344,7 @@ export const signUpAction = async ({ request }) => {
       throw Error(`Something went wrong: ${response.status}`);
     }
 
-    return redirect("/signin");
+    return redirect("/sign-in");
   } catch (error) {
     return error;
   }

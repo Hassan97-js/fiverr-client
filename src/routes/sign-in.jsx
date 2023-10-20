@@ -1,18 +1,17 @@
-import { useFetcher } from "react-router-dom";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 
 import { Button, CustomInput } from "../components";
 
 const Signin = () => {
-  const fetcher = useFetcher();
+  const navigation = useNavigation();
+  const actionData = useActionData();
 
-  const isBusy = fetcher.state === "submitting";
-
-  const axiosResponse = fetcher?.data?.response;
-  const actionError = axiosResponse?.data?.message;
+  const isBusy = navigation.state === "submitting";
+  const actionError = actionData?.message;
 
   return (
-    <fetcher.Form
-      method="post"
+    <Form
+      method="POST"
       className="section-container flex flex-col justify-center items-center">
       <div className="flex flex-col gap-x-10 gap-y-9 w-1/4 min-w-max">
         <h1 className="self-start">Sign in</h1>
@@ -49,7 +48,7 @@ const Signin = () => {
           {isBusy ? "Signing in..." : "Sign in"}
         </Button>
       </div>
-    </fetcher.Form>
+    </Form>
   );
 };
 

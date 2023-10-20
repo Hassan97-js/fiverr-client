@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useNavigation, useOutletContext } from "react-router-dom";
 
 import Review from "./single-review";
 
@@ -7,7 +7,6 @@ import Button from "../custom-button/button";
 import CustomInput from "../form/custom-input";
 import SelectInput from "../form/select-input";
 
-import { useUserContext } from "../../context";
 import { capitalize } from "../../utils";
 
 const AddReview = () => {
@@ -60,9 +59,10 @@ const AddReview = () => {
 };
 
 const Reviews = ({ reviews: reviewsArray, gigUserId }) => {
-  const { currentUser } = useUserContext();
+  const { currentUser } = useOutletContext();
 
   const currentUserId = currentUser?.id;
+  const isSeller = currentUser?.isSeller;
 
   return (
     <div className="reviews">
@@ -91,7 +91,7 @@ const Reviews = ({ reviews: reviewsArray, gigUserId }) => {
         </p>
       )}
 
-      {currentUserId !== gigUserId ? <AddReview /> : null}
+      {currentUserId !== gigUserId && !isSeller ? <AddReview /> : null}
     </div>
   );
 };
