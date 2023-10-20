@@ -9,6 +9,44 @@ import {
 /**
  * @param {import("react-router-dom").ActionFunctionArgs} request
  */
+export const deleteGigAction = async ({ request }) => {
+  try {
+    const isAuthenticated = await checkIfAuthenticated();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
+    const currentToken = retrieveData("token");
+
+    const formData = await request.formData();
+    const formEntries = Object.fromEntries(formData.entries());
+
+    const { gigId } = formEntries;
+
+    const response = await makeApiRequest({
+      method: "delete",
+      url: `gigs/single/${gigId}`,
+      headers: {
+        Authorization: `Bearer ${currentToken.accessToken}`
+      }
+    });
+
+    if (response.status > 399 && response.status < 600) {
+      throw Error(`Something went wrong: ${response.status}`);
+    }
+
+    return null;
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+/**
+ * @param {import("react-router-dom").ActionFunctionArgs} request
+ */
 export const createGigAction = async ({ request }) => {
   try {
     const isAuthenticated = await checkIfAuthenticated();
@@ -72,33 +110,20 @@ export const createGigAction = async ({ request }) => {
 /**
  * @param {import("react-router-dom").ActionFunctionArgs} request
  */
-export const deleteGigAction = async ({ request }) => {
-  try {
-    const formData = await request.formData();
-    const formEntries = Object.fromEntries(formData.entries());
-
-    const { gigId } = formEntries;
-
-    const response = await makeApiRequest({
-      method: "delete",
-      url: `gigs/single/${gigId}`
-    });
-
-    if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
-    }
-
-    return null;
-  } catch (error) {
-    throw Error(error);
-  }
-};
-
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
 export const createConversationAction = async ({ request }) => {
   try {
+    const isAuthenticated = await checkIfAuthenticated();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
+    const currentToken = retrieveData("token");
+
+    console.log({ currentToken });
+
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
@@ -110,8 +135,8 @@ export const createConversationAction = async ({ request }) => {
     const response = await makeApiRequest({
       method: "get",
       url: `conversations/single/${fetchId}`,
-      validateStatus: function (status) {
-        return status === 404;
+      headers: {
+        Authorization: `Bearer ${currentToken.accessToken}`
       }
     });
 
@@ -121,6 +146,9 @@ export const createConversationAction = async ({ request }) => {
         url: `conversations/single`,
         data: {
           messageToId: isSeller ? buyerId : sellerId
+        },
+        headers: {
+          Authorization: `Bearer ${currentToken.accessToken}`
         }
       });
 
