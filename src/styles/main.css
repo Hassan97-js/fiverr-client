@@ -22,7 +22,7 @@
   h3,
   h4,
   h5 {
-    @apply font-bold leading-tight tracking-tighter;
+    @apply font-bold leading-tight tracking-tight;
   }
 
   h2 {
