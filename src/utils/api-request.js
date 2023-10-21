@@ -22,3 +22,4 @@ export const makeApiRequest = ({
 
 // https://fiverr-server-2dn7.onrender.com/api
 // http://localhost:5000/api
+// https://myfiverrclone.netlify.app
