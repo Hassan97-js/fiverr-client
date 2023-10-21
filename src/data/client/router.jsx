@@ -49,8 +49,8 @@ const routerConfig = [
         path: "sign-in",
         element: <Signin />,
         errorElement: <Error />,
-        action: signInAction,
-        loader: signInLoader
+        loader: signInLoader,
+        action: signInAction
       },
       {
         path: "sign-up",

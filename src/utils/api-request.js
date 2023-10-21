@@ -10,7 +10,7 @@ export const makeApiRequest = ({
 }) => {
   return axios({
     method,
-    baseURL: "http://localhost:5000/api",
+    baseURL: "https://fiverr-server-2dn7.onrender.com/api",
     url,
     params,
     headers,
