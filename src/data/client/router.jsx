@@ -29,7 +29,8 @@ import {
   successLoader,
   deleteGigAction,
   createGigAction,
-  rootLoader
+  rootLoader,
+  signInLoader
 } from "../../routes";
 
 const routerConfig = [
@@ -48,7 +49,8 @@ const routerConfig = [
         path: "sign-in",
         element: <Signin />,
         errorElement: <Error />,
-        action: signInAction
+        action: signInAction,
+        loader: signInLoader
       },
       {
         path: "sign-up",

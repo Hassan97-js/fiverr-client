@@ -220,3 +220,9 @@ export const fetchSingleGigLoader = ({ params }) => {
 
   return defer({ gigsDataPromise });
 };
+
+export const signInLoader = async () => {
+  const isAuthenticated = await checkIfAuthenticated();
+
+  return isAuthenticated && redirect("/");
+};

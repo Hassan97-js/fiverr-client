@@ -22,7 +22,8 @@ import {
   fetchMessagesLoader,
   paymentLoader,
   successLoader,
-  fetchMyGigsLoader
+  fetchMyGigsLoader,
+  signInLoader
 } from "./loaders";
 
 import {
@@ -52,6 +53,7 @@ export {
   Payment,
   Success,
   rootLoader,
+  signInLoader,
   fetchGigsLoader,
   fetchOrdersLoader,
   fetchSingleGigLoader,
