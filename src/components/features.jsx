@@ -9,8 +9,10 @@ const Features = () => {
   return (
     <section className="section-container">
       <div className="flex flex-col mx-auto px-6 xl:flex-row gap-28">
-        <div>
+        <div className="flex-1">
           <video
+            width={600}
+            height={600}
             className="rounded-md object-cover object-right w-full h-full"
             src={featuresVideo}
             muted
@@ -20,7 +22,7 @@ const Features = () => {
             loop></video>
         </div>
 
-        <div className="flex flex-col gap-10 flex-grow">
+        <div className="flex flex-col gap-10 flex-1">
           <h2>A whole world of freelance talent at your fingertips.</h2>
 
           <div className="flex flex-col gap-8">
