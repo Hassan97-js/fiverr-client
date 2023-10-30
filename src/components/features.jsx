@@ -14,7 +14,7 @@ const Features = () => {
             className="rounded-md object-cover object-right w-full h-full"
             src={featuresVideo}
             muted
-            autoPlay
+            controls={true}
             loop></video>
         </div>
 
