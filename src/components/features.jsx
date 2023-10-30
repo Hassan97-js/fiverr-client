@@ -16,7 +16,7 @@ const Features = () => {
             muted
             playsInline
             controls
-            poster="https://images.unsplash.com/photo-1695653422853-3d8f373fb434?auto=format&fit=crop&q=80&w=2574&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            poster="/public/video-poster.png"
             loop></video>
         </div>
 
