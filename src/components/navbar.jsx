@@ -21,7 +21,7 @@ const Navbar = ({ currentUser }) => {
 
   return (
     <nav className="sticky top-0 z-10 transition-all bg-white drop-shadow-md px-8">
-      <div className="container relative flex flex-col sm:flex-row sm:justify-between w-full sm:gap-10 gap-3 items-center py-5">
+      <div className="container relative flex flex-row items-center justify-between gap-10 w-full py-5">
         <div className="font-bold text-3xl">
           <Link to="." className="link" aria-label="Logo" title="Logo">
             fiverr
@@ -51,13 +51,13 @@ const Navbar = ({ currentUser }) => {
             </li>
           </ul>
         ) : (
-          <div className="mt-6 sm:mt-0">
+          <>
             <figure className="flex items-center gap-3 m-0 cursor-pointer">
               <figcaption className="select-none font-medium">
                 {capitalize(currentUser?.username)}
               </figcaption>
               <img
-                className="w-10 h-10 rounded-full object-cover object-center"
+                className="w-10 h-10 flex-shrink-0 rounded-full object-cover object-center"
                 src={currentUser?.image || "https://faces3.b-cdn.net/Colombia.png"}
                 alt="Profile picture"
               />
@@ -65,7 +65,7 @@ const Navbar = ({ currentUser }) => {
 
             <div
               ref={dropdownRef}
-              className={`absolute top-36 sm:top-24 right-0 z-[2000] flex flex-col gap-3 w-52 p-4 bg-white rounded-md border border-neutral-300 text-neutral-600 font-normal cursor-pointer transition-all ${
+              className={`absolute top-24 right-0 z-[2000] flex flex-col gap-3 w-52 p-4 bg-white rounded-md border border-neutral-300 text-neutral-600 font-normal cursor-pointer transition-all ${
                 isOpen ? "visible opacity-100" : "invisible opacity-0"
               }`}>
               {currentUser.isSeller && (
@@ -109,7 +109,7 @@ const Navbar = ({ currentUser }) => {
                 Sign out
               </Link>
             </div>
-          </div>
+          </>
         )}
       </div>
     </nav>
