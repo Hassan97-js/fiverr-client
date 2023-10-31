@@ -18,7 +18,7 @@ const Features = () => {
             muted
             playsInline
             controls
-            poster="/public/video-poster.png"
+            poster="/video-poster.png"
             loop></video>
         </div>
 
