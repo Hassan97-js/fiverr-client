@@ -8,7 +8,7 @@ import "./styles/main.css";
 
 const router = createBrowserRouter(routerConfig);
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root")!);
 
 root.render(
   <StrictMode>
