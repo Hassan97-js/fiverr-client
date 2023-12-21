@@ -1,4 +1,4 @@
-import { defer, redirect } from "react-router-dom";
+import { type LoaderFunctionArgs, defer, redirect } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -13,19 +13,22 @@ export const rootLoader = async () => {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
-      return null;
+      throw Error("[rootLoader] Unauthorized");
     }
 
     return { currentUser };
   } catch (error) {
-    throw Error(error);
+    throw error;
   }
 };
 
-/**
- * @param {import("react-router-dom").LoaderFunctionArgs} request
- */
-export const successLoader = async ({ request }) => {
+export const signInLoader = async () => {
+  const isAuthenticated = await checkIfAuthenticated();
+
+  return isAuthenticated && redirect("/");
+};
+
+export const successLoader = async ({ request }: LoaderFunctionArgs) => {
   const isAuthenticated = await checkIfAuthenticated();
 
   if (!isAuthenticated) {
@@ -33,6 +36,10 @@ export const successLoader = async ({ request }) => {
   }
 
   const currentToken = retrieveData("token");
+
+  if (!currentToken) {
+    throw Error("[successLoader] Unauthorized");
+  }
 
   const url = new URL(request.url);
 
@@ -48,20 +55,17 @@ export const successLoader = async ({ request }) => {
         paymentIntent
       },
       headers: {
-        Authorization: `Bearer ${currentToken.accessToken}`
+        Authorization: `Bearer ${currentToken}`
       }
     });
 
     return null;
   } catch (error) {
-    throw Error(error);
+    throw error;
   }
 };
 
-/**
- * @param {import("react-router-dom").LoaderFunctionArgs} request
- */
-export const paymentLoader = async ({ params, request }) => {
+export const paymentLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const isAuthenticated = await checkIfAuthenticated();
 
   const redirectTo = new URL(request.url).pathname;
@@ -72,8 +76,14 @@ export const paymentLoader = async ({ params, request }) => {
 
   const currentToken = retrieveData("token");
 
+  if (!currentToken) {
+    throw Error("[paymentLoader] Unauthorized");
+  }
+
+  // Todo: Property 'env' does not exist on type 'ImportMeta'
   const loadStripePromise = loadStripe(
-    import.meta.env.VITE_STRIPE_TEST_PUBLISHABLE_KEY
+    // import.meta.env.VITE_STRIPE_TEST_PUBLISHABLE_KEY
+    "pk_live_51NLn9mHL68wNsu66XDIsdmrz3EUmqbqryCnNNuCXGQQ7CxhT7s3FyrCqqkAkO7ywDbZmp4x4oLdtW1Mt7xmEioXH00GKhXxDdR"
   );
 
   const paymentIntentPromise = makeApiRequest({
@@ -83,7 +93,7 @@ export const paymentLoader = async ({ params, request }) => {
       gigId: params?.gigId
     },
     headers: {
-      Authorization: `Bearer ${currentToken.accessToken}`
+      Authorization: `Bearer ${currentToken}`
     }
   });
 
@@ -92,10 +102,10 @@ export const paymentLoader = async ({ params, request }) => {
   return defer({ paymentPromise });
 };
 
-/**
- * @param {import("react-router-dom").LoaderFunctionArgs} request
- */
-export const fetchMessagesLoader = async ({ request, params }) => {
+export const fetchMessagesLoader = async ({
+  request,
+  params
+}: LoaderFunctionArgs) => {
   const isAuthenticated = await checkIfAuthenticated();
 
   const redirectTo = new URL(request.url).pathname;
@@ -106,21 +116,42 @@ export const fetchMessagesLoader = async ({ request, params }) => {
 
   const currentToken = retrieveData("token");
 
+  if (!currentToken) {
+    throw Error("[fetchMessagesLoader] Unauthorized");
+  }
+
   const messagesPromise = makeApiRequest({
     method: "get",
     url: `messages/${params.id}`,
     headers: {
-      Authorization: `Bearer ${currentToken.accessToken}`
+      Authorization: `Bearer ${currentToken}`
     }
   });
 
   return defer({ messagesPromise });
 };
 
-/**
- * @param {import("react-router-dom").LoaderFunctionArgs} request
- */
-export const fetchConversationsLoader = async ({ request }) => {
+export const addGigLoader = async ({ request, params }: LoaderFunctionArgs) => {
+  try {
+    const isAuthenticated = await checkIfAuthenticated();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
+    const currentToken = retrieveData("token");
+
+    if (!currentToken) {
+      throw Error("[addGigLoader] Unauthorized");
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchConversationsLoader = async ({ request }: LoaderFunctionArgs) => {
   const isAuthenticated = await checkIfAuthenticated();
 
   const redirectTo = new URL(request.url).pathname;
@@ -131,21 +162,22 @@ export const fetchConversationsLoader = async ({ request }) => {
 
   const currentToken = retrieveData("token");
 
+  if (!currentToken) {
+    throw Error("[fetchConversationsLoader] Unauthorized");
+  }
+
   const conversationsPromise = makeApiRequest({
     method: "get",
     url: "conversations",
     headers: {
-      Authorization: `Bearer ${currentToken.accessToken}`
+      Authorization: `Bearer ${currentToken}`
     }
   });
 
   return defer({ conversationsPromise });
 };
 
-/**
- * @param {import("react-router-dom").LoaderFunctionArgs} request
- */
-export const fetchOrdersLoader = async ({ request }) => {
+export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {
   const isAuthenticated = await checkIfAuthenticated();
 
   const redirectTo = new URL(request.url).pathname;
@@ -156,21 +188,22 @@ export const fetchOrdersLoader = async ({ request }) => {
 
   const currentToken = retrieveData("token");
 
+  if (!currentToken) {
+    throw Error("[fetchOrdersLoader] Unauthorized");
+  }
+
   const ordersPromise = makeApiRequest({
     method: "get",
     url: "orders",
     headers: {
-      Authorization: `Bearer ${currentToken.accessToken}`
+      Authorization: `Bearer ${currentToken}`
     }
   });
 
   return defer({ ordersPromise });
 };
 
-/**
- * @param {import("react-router-dom").LoaderFunctionArgs}
- */
-export const fetchMyGigsLoader = async ({ request }) => {
+export const fetchMyGigsLoader = async ({ request }: LoaderFunctionArgs) => {
   const isAuthenticated = await checkIfAuthenticated();
 
   const redirectTo = new URL(request.url).pathname;
@@ -181,21 +214,22 @@ export const fetchMyGigsLoader = async ({ request }) => {
 
   const currentToken = retrieveData("token");
 
+  if (!currentToken) {
+    throw Error("[fetchMyGigsLoader] Unauthorized");
+  }
+
   const myGigsPromise = makeApiRequest({
     method: "get",
     url: "gigs/my",
     headers: {
-      Authorization: `Bearer ${currentToken.accessToken}`
+      Authorization: `Bearer ${currentToken}`
     }
   });
 
   return defer({ myGigsPromise });
 };
 
-/**
- * @param {import("react-router-dom").LoaderFunctionArgs} request
- */
-export const fetchGigsLoader = async ({ request }) => {
+export const fetchGigsLoader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   // console.log(Object.fromEntries(searchParams.entries()));
@@ -209,20 +243,11 @@ export const fetchGigsLoader = async ({ request }) => {
   return defer({ gigsPromise });
 };
 
-/**
- * @param {import("react-router-dom").LoaderFunctionArgs} request
- */
-export const fetchSingleGigLoader = ({ params }) => {
+export const fetchSingleGigLoader = ({ params }: LoaderFunctionArgs) => {
   const gigsDataPromise = Promise.all([
-    makeApiRequest({ method: "get", url: `gigs/single/${params.id}` }),
-    makeApiRequest({ method: "get", url: `reviews/${params.id}` })
+    makeApiRequest({ url: `gigs/single/${params.id}` }),
+    makeApiRequest({ url: `reviews/${params.id}` })
   ]);
 
   return defer({ gigsDataPromise });
-};
-
-export const signInLoader = async () => {
-  const isAuthenticated = await checkIfAuthenticated();
-
-  return isAuthenticated && redirect("/");
 };

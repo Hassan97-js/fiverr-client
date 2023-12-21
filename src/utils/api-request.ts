@@ -1,16 +1,18 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+
+export type TApiRequestConfig = AxiosRequestConfig;
 
 export const makeApiRequest = ({
-  method,
+  method = "get",
   url,
   data,
   params,
   headers,
   validateStatus
-}) => {
+}: AxiosRequestConfig) => {
   return axios({
     method,
-    baseURL: "https://fiverr-server-2dn7.onrender.com/api",
+    baseURL: "http://localhost:5000/api",
     url,
     params,
     headers,

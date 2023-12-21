@@ -1,4 +1,6 @@
-const responsive = {
+import { type ResponsiveType } from "react-multi-carousel";
+
+export const responsiveConfig = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
     items: 1
@@ -15,10 +17,4 @@ const responsive = {
     breakpoint: { max: 400, min: 0 },
     items: 1
   }
-};
-
-const uiConfig = {
-  responsive
-};
-
-export default uiConfig;
+} satisfies ResponsiveType;

@@ -6,6 +6,8 @@ export const checkIfAuthenticated = async () => {
 
     return !!currentUser;
   } catch (error) {
-    return error;
+    console.log(error);
+
+    return false;
   }
 };

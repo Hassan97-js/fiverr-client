@@ -2,12 +2,22 @@ import { Form, useActionData, useNavigation } from "react-router-dom";
 
 import { Button, CustomInput } from "../components";
 
-const Signin = () => {
+const SignIn = () => {
   const navigation = useNavigation();
   const actionData = useActionData();
 
   const isBusy = navigation.state === "submitting";
-  const actionError = actionData?.message;
+
+  let actionError: string | object = "";
+
+  if (typeof actionData === "string") {
+    actionError = actionData;
+  }
+
+  // Todo: Use Zod here?
+  // if (typeof actionData === "object") {
+  //   actionError = actionData?.message;
+  // }
 
   return (
     <Form
@@ -52,4 +62,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignIn;

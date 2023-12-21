@@ -12,7 +12,7 @@ const { heroManImage } = assetsData.images;
 const Hero = () => {
   const [searchDefault, setSearchDefault] = useState("");
 
-  const handleClick = (content) => {
+  const handleClick = (content: string) => {
     setSearchDefault(content);
   };
 

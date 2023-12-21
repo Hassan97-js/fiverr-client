@@ -13,7 +13,7 @@ export const getCurrentUser = async () => {
       method: "get",
       url: "user/current",
       headers: {
-        Authorization: `Bearer ${currentToken.accessToken}`
+        Authorization: `Bearer ${currentToken}`
       }
     });
 
@@ -23,9 +23,13 @@ export const getCurrentUser = async () => {
       return null;
     }
 
+    if (!response.data) {
+      return null;
+    }
+
     return response.data;
   } catch (error) {
     console.log(error);
-    return error;
+    throw new Error("Failed to get current user");
   }
 };

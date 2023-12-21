@@ -1,13 +1,30 @@
+import { type CSSProperties } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Carousel from "react-multi-carousel";
+
+import Carousel, { type ResponsiveType } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import {
+  type ButtonGroupProps,
+  type ArrowProps
+} from "react-multi-carousel/lib/types";
 
 import CustomIcon from "../custom-icon";
 
-const CustomArrowButton = ({ children, onClick = () => {}, dir = "left" }) => {
+type TCustomArrowButtonProps = ArrowProps & {
+  children: React.ReactNode;
+  onClick?: () => void;
+  dir?: "left" | "right";
+  className?: string;
+};
+
+const CustomArrowButton = ({
+  children,
+  onClick = () => {},
+  dir = "left"
+}: TCustomArrowButtonProps) => {
   return (
     <button
-      onClick={() => onClick()}
+      onClick={onClick}
       className={`absolute top-1/2 -translate-y-1/2 z-1 bg-white min-w-[4rem] min-h-[4rem] rounded-full outline-none ${
         dir === "left" ? "left-7" : "right-7"
       }`}>
@@ -16,36 +33,47 @@ const CustomArrowButton = ({ children, onClick = () => {}, dir = "left" }) => {
   );
 };
 
-const ButtonGroup = ({ next, previous, ...rest }) => {
-  const {
-    carouselState: { currentSlide }
-  } = rest;
+type TButtonGroupProps = ButtonGroupProps & {
+  className?: string;
+};
 
+const ButtonGroup = ({ next, previous, carouselState }: TButtonGroupProps) => {
   return (
     <>
       <CustomArrowButton
-        className={currentSlide === 0 ? "disable" : ""}
-        onClick={() => previous()}>
+        className={carouselState?.currentSlide === 0 ? "disable" : ""}
+        onClick={() => previous && previous()}>
         <CustomIcon icon={FaArrowLeft} aria-label="An arrow icon" />
       </CustomArrowButton>
 
-      <CustomArrowButton dir="right" onClick={() => next()}>
+      <CustomArrowButton dir="right" onClick={() => next && next()}>
         <CustomIcon icon={FaArrowRight} aria-label="An arrow icon" />
       </CustomArrowButton>
     </>
   );
 };
 
+export type TSliderProps = {
+  children: React.ReactNode;
+  responsiveConfig: ResponsiveType;
+  className?: string;
+  containerClass?: string;
+  styles?: CSSProperties;
+  itemClass: string;
+  sliderClassName?: string;
+  slidesToSlide?: number;
+};
+
 const Slider = ({
   children,
-  responsive,
+  responsiveConfig,
   className = "",
   containerClass = "",
   styles = {},
   itemClass = "",
   sliderClassName = "",
   slidesToSlide = 1
-}) => {
+}: TSliderProps) => {
   return (
     <div style={styles}>
       <Carousel
@@ -61,7 +89,7 @@ const Slider = ({
         customButtonGroup={<ButtonGroup />}
         sliderClass={sliderClassName}
         itemClass={itemClass}
-        responsive={responsive}
+        responsive={responsiveConfig}
         removeArrowOnDeviceType={["tablet", "mobile"]}
         slidesToSlide={slidesToSlide}>
         {children}

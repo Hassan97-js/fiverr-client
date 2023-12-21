@@ -4,8 +4,8 @@ import AddGig from "./add-gig";
 import Gig from "./gig/gig";
 import Gigs from "./gigs/gigs";
 import Home from "./home";
-import Signin from "./sign-in";
-import Signup from "./sign-up";
+import SignIn from "./sign-in";
+import SignUp from "./sign-up";
 import Message from "./message";
 import Messages from "./messages";
 import MyGigs from "./my-gigs";
@@ -14,7 +14,6 @@ import Payment from "./payment";
 import Success from "./success";
 
 import {
-  rootLoader,
   fetchGigsLoader,
   fetchSingleGigLoader,
   fetchOrdersLoader,
@@ -23,7 +22,8 @@ import {
   paymentLoader,
   successLoader,
   fetchMyGigsLoader,
-  signInLoader
+  signInLoader,
+  addGigLoader
 } from "./loaders";
 
 import {
@@ -44,15 +44,14 @@ export {
   Gig,
   Gigs,
   Home,
-  Signin,
+  SignIn,
   Message,
   Messages,
   MyGigs,
   Orders,
-  Signup,
+  SignUp,
   Payment,
   Success,
-  rootLoader,
   signInLoader,
   fetchGigsLoader,
   fetchOrdersLoader,
@@ -62,6 +61,7 @@ export {
   fetchMyGigsLoader,
   paymentLoader,
   successLoader,
+  addGigLoader,
   deleteGigAction,
   signInAction,
   signUpAction,

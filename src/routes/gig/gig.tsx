@@ -16,11 +16,9 @@ import {
   AsyncError
 } from "../../components";
 
-import { uiConfig } from "../../data";
+import { responsiveConfig } from "../../data/client/ts/ui";
 
 import "./gig.css";
-
-const { responsive } = uiConfig;
 
 const AwaitedGig = () => {
   const { currentUser } = useOutletContext();

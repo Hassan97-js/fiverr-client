@@ -9,17 +9,15 @@ import {
   Button
 } from "../components";
 
-import { createCloudinary } from "../utils";
+// import { createCloudinary } from "../utils";
 
-const Signup = () => {
-  const {
-    cloudinaryConfig: { cloud }
-  } = createCloudinary();
+const SignUp = () => {
+  // const { getConfig } = createCloudinary();
 
-  const [uploadURL, setUploadURL] = useState("");
-  const [uploadError, setUploadError] = useState(null);
+  // const [uploadURL, setUploadURL] = useState("");
+  // const [uploadError, setUploadError] = useState(null);
 
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const fetcher = useFetcher();
 
@@ -31,19 +29,19 @@ const Signup = () => {
   useEffect(() => {
     if (!isBusy) {
       formRef.current?.reset();
-      setUploadURL("");
+      // setUploadURL("");
     }
   }, [isBusy]);
 
-  const handleUpload = ({ error, result }) => {
-    if (error) {
-      setUploadError(error);
+  // const handleUpload = ({ error, result }) => {
+  //   if (error) {
+  //     setUploadError(error);
 
-      return;
-    }
+  //     return;
+  //   }
 
-    setUploadURL(result?.info?.secure_url);
-  };
+  //   setUploadURL(result?.info?.secure_url);
+  // };
 
   return (
     <fetcher.Form
@@ -57,9 +55,9 @@ const Signup = () => {
           <span className="text-normal font-bold text-red-500">{actionError}</span>
         )}
 
-        {uploadError && (
+        {/* {uploadError && (
           <span className="text-normal font-bold text-red-500">{uploadError}</span>
-        )}
+        )} */}
 
         <div>
           <div className="flex flex-col gap-x-8 gap-y-6">
@@ -87,9 +85,9 @@ const Signup = () => {
             />
 
             <div className="flex-1">
-              <input type="hidden" name="image" value={uploadURL} required />
+              {/* <input type="hidden" name="image" value={uploadURL} required /> */}
 
-              <UploadWidget
+              {/* <UploadWidget
                 labelText="Profile picture"
                 placeholderText="Please upload a profile picture"
                 cloudName={cloud.cloud_name}
@@ -98,7 +96,7 @@ const Signup = () => {
                 onUpload={({ error, result }) => {
                   handleUpload({ error, result });
                 }}
-              />
+              /> */}
             </div>
 
             <CustomInput
@@ -149,4 +147,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;

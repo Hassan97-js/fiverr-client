@@ -11,7 +11,7 @@ import {
   removeData,
   clearStorage
 } from "./session-storage";
-import { createCloudinary, openUploadWidget } from "./cloudinary";
+import { createCloudinary } from "./cloudinary";
 import { checkIfAuthenticated } from "./check-auth";
 import { getCurrentUser } from "./current-user";
 
@@ -29,6 +29,5 @@ export {
   retrieveData,
   removeData,
   clearStorage,
-  createCloudinary,
-  openUploadWidget
+  createCloudinary
 };

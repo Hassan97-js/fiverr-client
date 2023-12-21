@@ -1,15 +1,16 @@
+import { type RouteObject } from "react-router-dom";
 import {
   AddGig,
   Error,
   Gig,
   Gigs,
   Home,
-  Signin,
+  SignIn,
   Message,
   Messages,
   MyGigs,
   Orders,
-  Signup,
+  SignUp,
   Payment,
   Success,
   Root,
@@ -29,8 +30,8 @@ import {
   successLoader,
   deleteGigAction,
   createGigAction,
-  rootLoader,
-  signInLoader
+  signInLoader,
+  addGigLoader
 } from "../../routes";
 
 const routerConfig = [
@@ -38,7 +39,6 @@ const routerConfig = [
     path: "/",
     element: <Root />,
     errorElement: <Error />,
-    loader: rootLoader,
     children: [
       {
         index: true,
@@ -47,14 +47,14 @@ const routerConfig = [
       },
       {
         path: "sign-in",
-        element: <Signin />,
+        element: <SignIn />,
         errorElement: <Error />,
         loader: signInLoader,
         action: signInAction
       },
       {
         path: "sign-up",
-        element: <Signup />,
+        element: <SignUp />,
         errorElement: <Error />,
         action: signUpAction
       },
@@ -103,6 +103,7 @@ const routerConfig = [
         path: "add",
         element: <AddGig />,
         errorElement: <Error />,
+        loader: addGigLoader,
         action: createGigAction
       },
       {
@@ -119,6 +120,6 @@ const routerConfig = [
       }
     ]
   }
-];
+] satisfies RouteObject[];
 
 export default routerConfig;

@@ -1,8 +1,16 @@
+import { AxiosError } from "axios";
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
 
-const Error = () => {
+const ErrorPage = () => {
   const error = useRouteError();
-  console.log(error?.message);
+
+  if (error instanceof Error) {
+    console.log(error?.message);
+  }
+
+  if (error instanceof String) {
+    console.log(error);
+  }
 
   let errorResponseContent = null;
 
@@ -11,7 +19,7 @@ const Error = () => {
   generated from a 4xx/5xx Response thrown from an 
   action/loader 
   */
-  if (isRouteErrorResponse) {
+  if (isRouteErrorResponse(error)) {
     errorResponseContent = (
       <div className="text-center">
         <h1 className="text-7xl mb-10">Oops!</h1>
@@ -24,7 +32,12 @@ const Error = () => {
         </h3>
 
         <p className="text-xl font-bold text-neutral-500">
-          <i>{error?.message}</i>
+          <i>
+            {(error instanceof Error || error instanceof AxiosError) &&
+              error.message}
+          </i>
+          <i>{error instanceof String && error}</i>
+          <i>{error instanceof Response && error.statusText}</i>
         </p>
       </div>
     );
@@ -41,7 +54,11 @@ const Error = () => {
             Sorry, an unexpected error has occurred.
           </p>
           <p className="text-xl font-bold text-neutral-500">
-            <i>{error.statusText || error.message}</i>
+            <i>
+              {(error instanceof Error || error instanceof AxiosError) &&
+                error.message}
+            </i>
+            <i>{error instanceof Response && error.statusText}</i>
           </p>
         </div>
       )}
@@ -51,4 +68,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default ErrorPage;

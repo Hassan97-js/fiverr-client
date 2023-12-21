@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { redirect, type ActionFunctionArgs } from "react-router-dom";
 import {
   checkIfAuthenticated,
   makeApiRequest,
@@ -6,10 +6,7 @@ import {
   storeData
 } from "../utils";
 
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
-export const deleteGigAction = async ({ request }) => {
+export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
   try {
     const isAuthenticated = await checkIfAuthenticated();
 
@@ -20,6 +17,12 @@ export const deleteGigAction = async ({ request }) => {
     }
 
     const currentToken = retrieveData("token");
+
+    if (!currentToken) {
+      throw Error(
+        `[deleteGigAction] Something went wrong when trying to retrieve token`
+      );
+    }
 
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
@@ -30,7 +33,7 @@ export const deleteGigAction = async ({ request }) => {
       method: "delete",
       url: `gigs/single/${gigId}`,
       headers: {
-        Authorization: `Bearer ${currentToken.accessToken}`
+        Authorization: `Bearer ${currentToken}`
       }
     });
 
@@ -40,14 +43,11 @@ export const deleteGigAction = async ({ request }) => {
 
     return null;
   } catch (error) {
-    throw Error(error);
+    return error;
   }
 };
 
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
-export const createGigAction = async ({ request }) => {
+export const createGigAction = async ({ request }: ActionFunctionArgs) => {
   try {
     const isAuthenticated = await checkIfAuthenticated();
 
@@ -59,13 +59,19 @@ export const createGigAction = async ({ request }) => {
 
     const currentToken = retrieveData("token");
 
+    if (!currentToken) {
+      throw Error(
+        `[createGigAction] Something went wrong when trying to retrieve token`
+      );
+    }
+
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
     if (!formEntries?.agreed) {
-      formEntries.agreed = false;
+      formEntries.agreed = "false";
     } else if (formEntries?.agreed === "on") {
-      formEntries.agreed = true;
+      formEntries.agreed = "true";
     }
 
     if (!formEntries.agreed) {
@@ -75,40 +81,39 @@ export const createGigAction = async ({ request }) => {
     // eslint-disable-next-line no-unused-vars
     const { agreed, features, images, ...otherEntries } = formEntries;
 
-    const featuresArray = features
-      .trim()
-      .split(",")
-      .map((feature) => feature.trim());
+    // const featuresArray = features
+    //   .trim()
+    //   .split(",")
+    //   .map((feature) => feature.trim());
 
-    const parsedImages = JSON.parse(images);
+    // const parsedImages = JSON.parse(images);
 
-    const data = { featuresArray, images: parsedImages, ...otherEntries };
+    // const data = { featuresArray, images: parsedImages, ...otherEntries };
 
-    const response = await makeApiRequest({
-      method: "post",
-      url: "gigs/single",
-      data,
-      headers: {
-        Authorization: `Bearer ${currentToken.accessToken}`
-      }
-    });
+    // const response = await makeApiRequest({
+    //   method: "post",
+    //   url: "gigs/single",
+    //   data,
+    //   headers: {
+    //     Authorization: `Bearer ${currentToken}`
+    //   }
+    // });
 
-    if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
-    }
+    // if (response.status > 399 && response.status < 600) {
+    //   throw Error(`Something went wrong: ${response.status}`);
+    // }
 
-    const gigId = response.data._id;
+    // const gigId = response.data._id;
 
-    return redirect(`/gig/${gigId}`);
+    // return redirect(`/gig/${gigId}`);
+
+    return null;
   } catch (error) {
-    throw Error(error);
+    return error;
   }
 };
 
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
-export const createConversationAction = async ({ request }) => {
+export const createConversationAction = async ({ request }: ActionFunctionArgs) => {
   try {
     const isAuthenticated = await checkIfAuthenticated();
 
@@ -120,19 +125,25 @@ export const createConversationAction = async ({ request }) => {
 
     const currentToken = retrieveData("token");
 
+    if (!currentToken) {
+      throw Error(
+        `[createConversationAction] Something went wrong when trying to retrieve token`
+      );
+    }
+
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
     const { sellerId, buyerId, isSeller: isCurrentSeller } = formEntries;
 
-    const fetchId = sellerId + buyerId;
+    const fetchId = String(sellerId) + String(buyerId);
     const isSeller = !!isCurrentSeller;
 
     const response = await makeApiRequest({
       method: "get",
       url: `conversations/single/${fetchId}`,
       headers: {
-        Authorization: `Bearer ${currentToken.accessToken}`
+        Authorization: `Bearer ${currentToken}`
       }
     });
 
@@ -144,7 +155,7 @@ export const createConversationAction = async ({ request }) => {
           messageToId: isSeller ? buyerId : sellerId
         },
         headers: {
-          Authorization: `Bearer ${currentToken.accessToken}`
+          Authorization: `Bearer ${currentToken}`
         }
       });
 
@@ -157,14 +168,14 @@ export const createConversationAction = async ({ request }) => {
 
     return redirect(`/message/${response.data.fetchId}`);
   } catch (error) {
-    throw Error(error);
+    return error;
   }
 };
 
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
-export const createMessageAction = async ({ request, params }) => {
+export const createMessageAction = async ({
+  request,
+  params
+}: ActionFunctionArgs) => {
   try {
     const isAuthenticated = await checkIfAuthenticated();
 
@@ -175,6 +186,12 @@ export const createMessageAction = async ({ request, params }) => {
     }
 
     const currentToken = retrieveData("token");
+
+    if (!currentToken) {
+      throw Error(
+        `[createMessageAction] Something went wrong when trying to retrieve token`
+      );
+    }
 
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
@@ -189,7 +206,7 @@ export const createMessageAction = async ({ request, params }) => {
       url: "messages/single",
       data,
       headers: {
-        Authorization: `Bearer ${currentToken.accessToken}`
+        Authorization: `Bearer ${currentToken}`
       }
     });
 
@@ -199,14 +216,11 @@ export const createMessageAction = async ({ request, params }) => {
 
     return null;
   } catch (error) {
-    throw Error(error);
+    return error;
   }
 };
 
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
-export const isMessageReadAction = async ({ request }) => {
+export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
   try {
     const isAuthenticated = await checkIfAuthenticated();
 
@@ -217,6 +231,12 @@ export const isMessageReadAction = async ({ request }) => {
     }
 
     const currentToken = retrieveData("token");
+
+    if (!currentToken) {
+      throw Error(
+        `[isMessageReadAction] Something went wrong when trying to retrieve token`
+      );
+    }
 
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
@@ -226,7 +246,7 @@ export const isMessageReadAction = async ({ request }) => {
       url: `conversations/single`,
       data,
       headers: {
-        Authorization: `Bearer ${currentToken.accessToken}`
+        Authorization: `Bearer ${currentToken}`
       }
     });
 
@@ -236,14 +256,11 @@ export const isMessageReadAction = async ({ request }) => {
 
     return null;
   } catch (error) {
-    throw Error(error);
+    return error;
   }
 };
 
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
-export const addReviewAction = async ({ request, params }) => {
+export const addReviewAction = async ({ request, params }: ActionFunctionArgs) => {
   try {
     const isAuthenticated = await checkIfAuthenticated();
 
@@ -255,12 +272,18 @@ export const addReviewAction = async ({ request, params }) => {
 
     const currentToken = retrieveData("token");
 
+    if (!currentToken) {
+      throw Error(
+        `[addReviewAction] Something went wrong when trying to retrieve token`
+      );
+    }
+
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
     const data = {
       description: formEntries.description,
-      starNumber: parseInt(formEntries.starNumber),
+      starNumber: formEntries.starNumber,
       gigId: params.id
     };
 
@@ -269,7 +292,7 @@ export const addReviewAction = async ({ request, params }) => {
       url: "reviews/single",
       data,
       headers: {
-        Authorization: `Bearer ${currentToken.accessToken}`
+        Authorization: `Bearer ${currentToken}`
       }
     });
 
@@ -279,14 +302,11 @@ export const addReviewAction = async ({ request, params }) => {
 
     return null;
   } catch (error) {
-    throw Error(error);
+    return error;
   }
 };
 
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
-export const signInAction = async ({ request }) => {
+export const signInAction = async ({ request }: ActionFunctionArgs) => {
   try {
     const searchParams = new URLSearchParams(new URL(request.url).searchParams);
 
@@ -304,15 +324,16 @@ export const signInAction = async ({ request }) => {
 
     const response = await makeApiRequest({
       method: "post",
-      url: "auth/signin",
+      url: "auth/sign-in",
       data
     });
 
     if (response.status > 399 && response.status < 600) {
-      return response.data;
+      throw response.data.message;
     }
 
-    storeData("token", response.data);
+    storeData("token", response.data.token);
+    storeData("user", response.data.user);
 
     return redirect(redirectTo ? redirectTo : "/");
   } catch (error) {
@@ -320,28 +341,25 @@ export const signInAction = async ({ request }) => {
   }
 };
 
-/**
- * @param {import("react-router-dom").ActionFunctionArgs} request
- */
-export const signUpAction = async ({ request }) => {
+export const signUpAction = async ({ request }: ActionFunctionArgs) => {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
     if (!data?.isSeller) {
-      data.isSeller = false;
+      data.isSeller = "false";
     } else if (data?.isSeller === "on") {
-      data.isSeller = true;
+      data.isSeller = "true";
     }
 
     const response = await makeApiRequest({
       method: "post",
-      url: "auth/signup",
+      url: "auth/sign-up",
       data
     });
 
     if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
+      throw response.data;
     }
 
     return redirect("/sign-in");
