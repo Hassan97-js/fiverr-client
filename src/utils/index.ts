@@ -1,5 +1,5 @@
 import { setIsActive } from "./is-active";
-import { formatCurrency } from "./format-currency.js";
+import { formatCurrency } from "./format-currency";
 import { getRatingAverage } from "./rating-average";
 import { makeApiRequest } from "./api-request";
 import { wait } from "./wait";
