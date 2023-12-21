@@ -10,13 +10,9 @@ import {
 
 export const rootLoader = async () => {
   try {
-    const currentUser = await getCurrentUser();
+    const data = await getCurrentUser();
 
-    if (!currentUser) {
-      throw Error("[rootLoader] Unauthorized");
-    }
-
-    return { currentUser };
+    return { user: data?.user };
   } catch (error) {
     throw error;
   }

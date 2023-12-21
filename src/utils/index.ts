@@ -10,7 +10,7 @@ import {
   retrieveData,
   removeData,
   clearStorage
-} from "./session-storage";
+} from "./local-storage";
 import { createCloudinary } from "./cloudinary";
 import { checkIfAuthenticated } from "./check-auth";
 import { getCurrentUser } from "./current-user";

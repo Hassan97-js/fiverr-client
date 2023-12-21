@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 
-export const useSessionStorage = (key, initialValue) => {
+export const useLocalStorage = (
+  key: string,
+  initialValue: string | (() => void)
+) => {
   const [storedValue, setStoredValue] = useState(() => {
     if (typeof window === "undefined") {
       return initialValue;
     }
 
     try {
-      const item = sessionStorage.getItem(key);
+      const item = localStorage.getItem(key);
 
       if (!item) {
         return initialValue;
@@ -25,7 +28,7 @@ export const useSessionStorage = (key, initialValue) => {
   });
 
   useEffect(() => {
-    sessionStorage.setItem(key, JSON.stringify(storedValue));
+    localStorage.setItem(key, JSON.stringify(storedValue));
   }, [key, storedValue]);
 
   return [storedValue, setStoredValue];

@@ -3,8 +3,13 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import { capitalize, removeData, setIsActive } from "../utils";
 import { useClickAway } from "../hooks";
+import type { TUser } from "../types/user";
 
-const Navbar = ({ currentUser }) => {
+type Props = {
+  currentUser?: TUser | null;
+};
+
+const Navbar = ({ currentUser }: Props) => {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const isOpen = useClickAway(dropdownRef);
@@ -15,7 +20,8 @@ const Navbar = ({ currentUser }) => {
 
       return navigate("/");
     } catch (error) {
-      throw Error(error);
+      // throw Error(error);
+      return null;
     }
   };
 

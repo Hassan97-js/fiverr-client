@@ -1,11 +1,11 @@
 import { makeApiRequest } from "./api-request";
-import { removeData, retrieveData } from "./session-storage";
+import { retrieveData } from "./local-storage";
 
 export const getCurrentUser = async () => {
   try {
-    const currentToken = retrieveData("token");
+    const token = retrieveData("token");
 
-    if (!currentToken) {
+    if (!token) {
       return null;
     }
 
@@ -13,15 +13,9 @@ export const getCurrentUser = async () => {
       method: "get",
       url: "user/current",
       headers: {
-        Authorization: `Bearer ${currentToken}`
+        Authorization: `Bearer ${token}`
       }
     });
-
-    if (response.status === 401) {
-      removeData("token");
-
-      return null;
-    }
 
     if (!response.data) {
       return null;

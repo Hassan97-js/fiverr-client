@@ -1,4 +1,4 @@
 import { useClickAway } from "./click-away";
-import { useSessionStorage } from "./session-storage";
+import { useLocalStorage } from "./local-storage";
 
-export { useClickAway, useSessionStorage };
+export { useClickAway, useLocalStorage };

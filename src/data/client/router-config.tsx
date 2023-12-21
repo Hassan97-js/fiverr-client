@@ -1,4 +1,5 @@
 import { type RouteObject } from "react-router-dom";
+
 import {
   AddGig,
   Error,
@@ -13,31 +14,39 @@ import {
   SignUp,
   Payment,
   Success,
-  Root,
+  Root
+} from "../../routes";
+
+import {
+  addGigLoader,
+  fetchConversationsLoader,
   fetchGigsLoader,
+  fetchMessagesLoader,
+  fetchMyGigsLoader,
   fetchOrdersLoader,
   fetchSingleGigLoader,
-  fetchConversationsLoader,
-  fetchMyGigsLoader,
-  fetchMessagesLoader,
   paymentLoader,
-  signInAction,
-  signUpAction,
-  addReviewAction,
-  isMessageReadAction,
-  createMessageAction,
-  createConversationAction,
-  successLoader,
-  deleteGigAction,
-  createGigAction,
+  rootLoader,
   signInLoader,
-  addGigLoader
-} from "../../routes";
+  successLoader
+} from "../../routes/loaders";
+
+import {
+  addReviewAction,
+  createConversationAction,
+  createGigAction,
+  createMessageAction,
+  deleteGigAction,
+  isMessageReadAction,
+  signInAction,
+  signUpAction
+} from "../../routes/actions";
 
 const routerConfig = [
   {
     path: "/",
     element: <Root />,
+    loader: rootLoader,
     errorElement: <Error />,
     children: [
       {
