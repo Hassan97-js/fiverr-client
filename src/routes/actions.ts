@@ -2,6 +2,7 @@ import { redirect, type ActionFunctionArgs } from "react-router-dom";
 import {
   checkIfAuthenticated,
   makeApiRequest,
+  removeData,
   retrieveData,
   storeData
 } from "../utils";
@@ -363,6 +364,33 @@ export const signUpAction = async ({ request }: ActionFunctionArgs) => {
     }
 
     return redirect("/sign-in");
+  } catch (error) {
+    return error;
+  }
+};
+
+export const signOutAction = async () => {
+  try {
+    const token = retrieveData("token") ?? "";
+    removeData("token");
+
+    if (!token) {
+      return;
+    }
+
+    const response = await makeApiRequest({
+      method: "post",
+      url: "auth/sign-out",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (response.status > 399 && response.status < 600) {
+      throw response.data.message;
+    }
+
+    return redirect("/");
   } catch (error) {
     return error;
   }

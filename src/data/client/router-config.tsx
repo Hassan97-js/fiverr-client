@@ -39,6 +39,7 @@ import {
   deleteGigAction,
   isMessageReadAction,
   signInAction,
+  signOutAction,
   signUpAction
 } from "../../routes/actions";
 
@@ -46,8 +47,9 @@ const routerConfig = [
   {
     path: "/",
     element: <Root />,
-    loader: rootLoader,
     errorElement: <Error />,
+    loader: rootLoader,
+    action: signOutAction,
     children: [
       {
         index: true,

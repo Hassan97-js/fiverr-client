@@ -1,15 +1,9 @@
 import { useRef } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, Form } from "react-router-dom";
 
 import { useClickAway } from "../hooks";
 
-import {
-  capitalize,
-  makeApiRequest,
-  removeData,
-  retrieveData,
-  setIsActive
-} from "../utils";
+import { capitalize, setIsActive } from "../utils";
 
 import type { TUser } from "../types/user";
 
@@ -18,29 +12,8 @@ type Props = {
 };
 
 const Navbar = ({ currentUser }: Props) => {
-  const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const isOpen = useClickAway(dropdownRef);
-
-  const handleSignOut = async () => {
-    try {
-      const token = retrieveData("token") ?? "";
-      removeData("token");
-
-      await makeApiRequest({
-        method: "post",
-        url: "auth/sign-out",
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      return navigate("/");
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
-  };
 
   return (
     <nav className="sticky top-0 z-10 transition-all bg-white drop-shadow-md px-8">
@@ -123,14 +96,11 @@ const Navbar = ({ currentUser }: Props) => {
                 Messages
               </Link>
 
-              <Link
-                className="link"
-                to="."
-                aria-label="Log out"
-                title="Log out"
-                onClick={handleSignOut}>
-                Sign out
-              </Link>
+              <Form method="post" action="/">
+                <button className="link" aria-label="Log out" title="Log out">
+                  Sign out
+                </button>
+              </Form>
             </div>
           </>
         )}
