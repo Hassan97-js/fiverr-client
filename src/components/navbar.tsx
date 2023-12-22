@@ -54,7 +54,7 @@ const Navbar = ({ currentUser }: Props) => {
               </figcaption>
               <img
                 className="w-10 h-10 flex-shrink-0 rounded-full object-cover object-center"
-                src={currentUser?.image || "https://faces3.b-cdn.net/Colombia.png"}
+                src={currentUser?.image || "/public/avatar1.jpg"}
                 alt="Profile picture"
               />
             </figure>

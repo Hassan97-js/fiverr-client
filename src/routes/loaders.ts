@@ -228,7 +228,6 @@ export const fetchMyGigsLoader = async ({ request }: LoaderFunctionArgs) => {
 export const fetchGigsLoader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
-  // console.log(Object.fromEntries(searchParams.entries()));
 
   const gigsPromise = makeApiRequest({
     method: "get",
