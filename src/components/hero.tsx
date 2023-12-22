@@ -18,21 +18,21 @@ const Hero = () => {
 
   return (
     <section className="flex justify-center bg-neutral-200/60">
-      <div className="section-container flex flex-col-reverse xl:flex-row items-center justify-center xl:gap-20 gap-24">
-        <div className="flex-auto flex flex-col gap-10">
-          <h1 className="capitalize leading-[1.1] max-w-[16ch] text-center xl:text-left mx-auto xl:mx-0">
-            Find the perfect <i className="text-green-600">freelance</i> services for
-            your business
-          </h1>
+      <div className="section-container flex flex-col items-center justify-center">
+        <h1 className="capitalize leading-[1.1] max-w-[16ch] text-center mx-auto xl:mx-0 mb-10">
+          Find the perfect <i className="text-green-600">freelance</i> services for
+          your business
+        </h1>
 
+        <div className="flex flex-col gap-8 xl:w-1/2 min-w-96">
           <Form
             method="GET"
             action="/gigs"
-            className="flex flex-col md:flex-row md:justify-between rounded-lg overflow-hidden"
+            className="flex flex-col items-start md:items-stretch md:gap-0 md:flex-row md:justify-between gap-5 md:rounded-lg rounded-md overflow-hidden"
             role="search">
             <div
               role="Search Input"
-              className="bg-white flex items-center flex-1 gap-2">
+              className="bg-white flex items-center flex-1 w-full gap-2 md:rounded-none  rounded-md overflow-hidden">
               <CustomIcon
                 colorOverride={true}
                 color="#a3a3a3"
@@ -50,7 +50,9 @@ const Hero = () => {
               />
             </div>
 
-            <Button type="submit" className="btn-sharp btn-primary md:w-36">
+            <Button
+              type="submit"
+              className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 md:rounded-none rounded-lg text-center text-base font-medium px-5 py-2.5 focus:outline-none transition md:w-36">
               Search
             </Button>
           </Form>
@@ -75,10 +77,6 @@ const Hero = () => {
               </button>
             </div>
           </div>
-        </div>
-
-        <div className="xl:block hidden max-w-2xl flex-auto self-end mx-auto">
-          <img className="w-full h-auto" src={heroManImage} alt="A Man Image" />
         </div>
       </div>
     </section>

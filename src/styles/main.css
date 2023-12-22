@@ -15,7 +15,7 @@
   }
 
   h1 {
-    @apply font-bold xl:text-6xl md:text-5xl sm:text-4xl text-3xl tracking-tight;
+    @apply font-bold xl:text-6xl sm:text-5xl text-4xl tracking-tight;
   }
 
   h2,

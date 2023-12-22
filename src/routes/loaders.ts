@@ -10,9 +10,9 @@ import {
 
 export const rootLoader = async () => {
   try {
-    const data = await getCurrentUser();
+    const user = await getCurrentUser();
 
-    return { user: data?.user };
+    return { user };
   } catch (error) {
     throw error;
   }
@@ -127,7 +127,7 @@ export const fetchMessagesLoader = async ({
   return defer({ messagesPromise });
 };
 
-export const addGigLoader = async ({ request, params }: LoaderFunctionArgs) => {
+export const addGigLoader = async ({ request }: LoaderFunctionArgs) => {
   try {
     const isAuthenticated = await checkIfAuthenticated();
 

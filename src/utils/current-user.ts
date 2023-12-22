@@ -1,6 +1,8 @@
 import { makeApiRequest } from "./api-request";
 import { retrieveData } from "./local-storage";
 
+import { fromApiUserSchema } from "../constants/user-validator";
+
 export const getCurrentUser = async () => {
   try {
     const token = retrieveData("token");
@@ -17,11 +19,13 @@ export const getCurrentUser = async () => {
       }
     });
 
-    if (!response.data) {
+    const validationResult = fromApiUserSchema.parse(response.data);
+
+    if (!validationResult.success) {
       return null;
     }
 
-    return response.data;
+    return validationResult.user;
   } catch (error) {
     console.log(error);
     throw new Error("Failed to get current user");
