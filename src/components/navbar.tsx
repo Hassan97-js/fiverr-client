@@ -37,6 +37,7 @@ const Navbar = ({ currentUser }: Props) => {
 
       return navigate("/");
     } catch (error) {
+      console.error(error);
       return error;
     }
   };
