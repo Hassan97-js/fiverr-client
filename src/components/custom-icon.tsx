@@ -1,18 +1,24 @@
-import { IconContext } from "react-icons";
+import { type CSSProperties } from "react";
+
+import { IconContext, type IconType } from "react-icons";
 import { RiErrorWarningLine } from "react-icons/ri";
 
+type Props = IconContext & {
+  Icon: IconType;
+  className?: string;
+  style?: CSSProperties;
+};
+
 const CustomIcon = ({
-  icon: IconComponent = RiErrorWarningLine,
-  size = "1em",
-  colorOverride = false,
-  color = !colorOverride ? "currentColor" : null,
-  className = "",
-  style = {},
-  ...rest
-}) => {
+  Icon: IconComponent = RiErrorWarningLine,
+  size,
+  color,
+  className,
+  style
+}: Props) => {
   return (
-    <IconContext.Provider value={{ size, color, className }}>
-      <IconComponent style={style} {...rest} />
+    <IconContext.Provider value={{ size, color, className, style }}>
+      <IconComponent />
     </IconContext.Provider>
   );
 };

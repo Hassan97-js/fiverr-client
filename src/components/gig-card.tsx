@@ -1,3 +1,4 @@
+import { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { RiHeartFill } from "react-icons/ri";
 
@@ -5,6 +6,19 @@ import CustomIcon from "./custom-icon";
 import Stars from "./stars";
 
 import { capitalize, formatCurrency, getRatingAverage } from "../utils";
+
+import type { TUser } from "../types/user";
+
+type Props = {
+  userInfo: TUser;
+  gigId: string;
+  coverImage: string;
+  category: string;
+  price: number;
+  description: string;
+  totalStars: number;
+  starNumber: number;
+};
 
 const GigCard = ({
   userInfo,
@@ -15,13 +29,13 @@ const GigCard = ({
   description,
   totalStars,
   starNumber
-}) => {
+}: Props) => {
   const styles = {
     backgroundImage: `url(${coverImage})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "top"
-  };
+  } satisfies CSSProperties;
 
   const { username, image } = userInfo;
 
@@ -41,7 +55,7 @@ const GigCard = ({
           <div className="flex items-center gap-3 mb-5">
             <img
               className="object-cover rounded-full w-8 h-8"
-              src={image || fallbackImage}
+              src={image ?? fallbackImage}
               alt="a freelancing client image"
             />
 
@@ -58,8 +72,8 @@ const GigCard = ({
 
         <div className="flex items-center justify-between pb-4 pt-4 mt-auto border-0 border-t-[0.5px] border-t-neutral-200">
           <CustomIcon
-            icon={RiHeartFill}
-            colorOverride={true}
+            Icon={RiHeartFill}
+            color=""
             className="text-red-500"
             size="1.2em"
             aria-label="A heart icon"

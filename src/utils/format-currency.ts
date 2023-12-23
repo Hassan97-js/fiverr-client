@@ -1,8 +1,4 @@
-/**
- * The number to be formatted
- * @param {Number} value
- */
-export const formatCurrency = (value) => {
+export const formatCurrency = (value: number) => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
