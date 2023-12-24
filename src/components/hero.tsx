@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 
 import Button from "./custom-button/button";
 import CustomIcon from "./custom-icon";
+import LayoutSection from "./layout/layout-section";
 
 const Hero = () => {
   const [searchDefault, setSearchDefault] = useState("");
@@ -13,9 +14,9 @@ const Hero = () => {
   };
 
   return (
-    <section className="py-32 px-6 bg-neutral-200/60">
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="capitalize leading-[1.1] max-w-[16ch] text-center mx-auto xl:mx-0 mb-10">
+    <section className="bg-neutral-200/60">
+      <LayoutSection className="flex flex-col items-center justify-center min-h-max py-32">
+        <h1 className="capitalize leading-[1.1] max-w-[16ch] text-center mx-auto xl:mx-0 mb-14">
           Find the perfect <i className="text-green-600">freelance</i> services for
           your business
         </h1>
@@ -73,7 +74,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      </div>
+      </LayoutSection>
     </section>
   );
 };

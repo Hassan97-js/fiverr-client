@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 
+import { Spinner, MessagesTable, AsyncError, LayoutSection } from "../components";
+
 import { useUserContext } from "../context";
-import { Spinner, MessagesTable, AsyncError } from "../components";
 
 const AwaitedConversations = () => {
   const conversationsResponse = useAsyncValue();
@@ -39,7 +40,7 @@ const Messages = () => {
   const { conversationsPromise } = useLoaderData();
 
   return (
-    <section className="section-container min-h-[37.5rem]">
+    <LayoutSection>
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={conversationsPromise}
@@ -49,7 +50,7 @@ const Messages = () => {
           <AwaitedConversations />
         </Await>
       </Suspense>
-    </section>
+    </LayoutSection>
   );
 };
 

@@ -1,8 +1,15 @@
 import { Suspense } from "react";
 import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 
+import {
+  AsyncError,
+  ChatInput,
+  ChatRoom,
+  LayoutSection,
+  Spinner
+} from "../components";
+
 import { useUserContext } from "../context";
-import { AsyncError, ChatInput, ChatRoom, Spinner } from "../components";
 
 const AwaitedMessages = () => {
   const messagesResponse = useAsyncValue();
@@ -22,15 +29,15 @@ const Message = () => {
   const { messagesPromise } = useLoaderData();
 
   return (
-    <section className="section-container min-h-[37.5rem]">
+    <LayoutSection>
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={messagesPromise}
-          errorElement={<AsyncError errorMessage="Failed to load the messages!" />}>
+          errorElement={<AsyncError errorMessage="Failed to load the messages" />}>
           <AwaitedMessages />
         </Await>
       </Suspense>
-    </section>
+    </LayoutSection>
   );
 };
 

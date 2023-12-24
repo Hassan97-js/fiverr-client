@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Await, Link, useAsyncValue, useLoaderData } from "react-router-dom";
 
-import { AsyncError, MyGigsTable, Spinner } from "../components";
+import { AsyncError, LayoutSection, MyGigsTable, Spinner } from "../components";
 
 const AwaitedMyGigs = () => {
   const myGigsResponse = useAsyncValue();
@@ -31,7 +31,7 @@ const MyGigs = () => {
   const { myGigsPromise } = useLoaderData();
 
   return (
-    <section className="section-container min-h-[37.5rem]">
+    <LayoutSection>
       <div className="flex items-center justify-end mb-10 max-w-6xl mx-auto">
         <Link to="/add" className="btn btn-primary text-sm">
           Add new gig
@@ -45,7 +45,7 @@ const MyGigs = () => {
           <AwaitedMyGigs />
         </Await>
       </Suspense>
-    </section>
+    </LayoutSection>
   );
 };
 

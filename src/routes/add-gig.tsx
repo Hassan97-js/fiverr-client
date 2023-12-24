@@ -5,6 +5,7 @@ import {
   AgreeCheckbox,
   Button,
   CustomInput,
+  LayoutSection,
   SelectInput,
   TextareaInput
 } from "../components";
@@ -78,136 +79,138 @@ const AddGig = () => {
   ];
 
   return (
-    <Form ref={formRef} method="POST" className="section-container">
-      <div className="flex flex-col gap-x-10 gap-y-7 mb-12">
-        {!!actionError && (
-          <span className="text-normal font-bold text-red-500">{actionError}</span>
-        )}
+    <LayoutSection>
+      <Form ref={formRef} method="POST">
+        <div className="flex flex-col gap-x-10 gap-y-7 mb-12">
+          {!!actionError && (
+            <span className="text-normal font-bold text-red-500">{actionError}</span>
+          )}
 
-        {(!!uploadErrors?.coverImageError || !!uploadErrors.imagesError) && (
-          <span className="text-normal font-bold text-red-500">
-            {uploadErrors.coverImageError || uploadErrors.imagesError}
-          </span>
-        )}
+          {(!!uploadErrors?.coverImageError || !!uploadErrors.imagesError) && (
+            <span className="text-normal font-bold text-red-500">
+              {uploadErrors.coverImageError || uploadErrors.imagesError}
+            </span>
+          )}
 
-        <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
-          <CustomInput
-            inputName="title"
-            labelText="Title"
-            inputId="title"
-            placeholderText="e.g. I will do something I am really good at"
-          />
+          <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
+            <CustomInput
+              inputName="title"
+              labelText="Title"
+              inputId="title"
+              placeholderText="e.g. I will do something I am really good at"
+            />
 
-          <CustomInput
-            inputName="shortTitle"
-            labelText="Service title"
-            inputId="service-title"
-            placeholderText="e.g. One-page web design"
-          />
-        </div>
+            <CustomInput
+              inputName="shortTitle"
+              labelText="Service title"
+              inputId="service-title"
+              placeholderText="e.g. One-page web design"
+            />
+          </div>
 
-        <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
-          <SelectInput
-            selectInputName="category"
-            inputId="category"
-            defaultValue="choose"
-            labelText="Category"
-            options={categoryOptions}
-          />
+          <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
+            <SelectInput
+              selectInputName="category"
+              inputId="category"
+              defaultValue="choose"
+              labelText="Category"
+              options={categoryOptions}
+            />
+
+            <TextareaInput
+              inputName="shortDescription"
+              inputId="shortDescription"
+              labelText="Short description"
+              placeholderText="Short description of you service"
+            />
+          </div>
+
+          <div>
+            <input
+              type="hidden"
+              name="coverImage"
+              value={uploadURLs.coverImage}
+              required
+            />
+            <UploadWidget
+              placeholderText="Please upload a single cover image"
+              labelText="Cover image"
+              cloudName={cloud.cloud_name}
+              uploadPreset={cloud.upload_preset}
+              imagePreviewURL={uploadURLs.coverImage}
+              onUpload={({ error, result }) => {
+                handleUpload({ error, result, isCoverImage: true });
+              }}
+            />
+          </div>
+
+          <div>
+            <input
+              type="hidden"
+              name="images"
+              value={JSON.stringify(uploadURLs.images)}
+              required
+            />
+            <UploadWidget
+              placeholderText="Please upload at least one gig image"
+              labelText="Gig images"
+              cloudName={cloud.cloud_name}
+              uploadPreset={cloud.upload_preset}
+              imagePreviewURL={uploadURLs.images}
+              onUpload={({ error, result }) => {
+                handleUpload({ error, result, isCoverImage: false });
+              }}
+            />
+          </div>
 
           <TextareaInput
-            inputName="shortDescription"
-            inputId="shortDescription"
-            labelText="Short description"
-            placeholderText="Short description of you service"
+            inputName="description"
+            inputId="description"
+            labelText="Description"
+            placeholderText="Brief description to introduce your services to customers"
           />
-        </div>
 
-        <div>
-          <input
-            type="hidden"
-            name="coverImage"
-            value={uploadURLs.coverImage}
-            required
-          />
-          <UploadWidget
-            placeholderText="Please upload a single cover image"
-            labelText="Cover image"
-            cloudName={cloud.cloud_name}
-            uploadPreset={cloud.upload_preset}
-            imagePreviewURL={uploadURLs.coverImage}
-            onUpload={({ error, result }) => {
-              handleUpload({ error, result, isCoverImage: true });
-            }}
-          />
-        </div>
+          <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
+            <CustomInput
+              inputName="revisionNumber"
+              inputId="revision-number"
+              labelText="Revision number"
+              placeholderText="e.g. 3"
+            />
 
-        <div>
-          <input
-            type="hidden"
-            name="images"
-            value={JSON.stringify(uploadURLs.images)}
-            required
-          />
-          <UploadWidget
-            placeholderText="Please upload at least one gig image"
-            labelText="Gig images"
-            cloudName={cloud.cloud_name}
-            uploadPreset={cloud.upload_preset}
-            imagePreviewURL={uploadURLs.images}
-            onUpload={({ error, result }) => {
-              handleUpload({ error, result, isCoverImage: false });
-            }}
-          />
-        </div>
+            <CustomInput
+              inputName="deliveryTime"
+              inputId="delivery-time"
+              labelText="Delivery time"
+              placeholderText="e.g. 5"
+            />
+          </div>
 
-        <TextareaInput
-          inputName="description"
-          inputId="description"
-          labelText="Description"
-          placeholderText="Brief description to introduce your services to customers"
-        />
-
-        <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
-          <CustomInput
-            inputName="revisionNumber"
-            inputId="revision-number"
-            labelText="Revision number"
-            placeholderText="e.g. 3"
-          />
+          <div className="flex flex-col gap-4">
+            <CustomInput
+              inputName="features"
+              inputId="features"
+              labelText="Features"
+              inputMaxLength={200}
+              placeholderText="e.g. page design, file uploading, setting up a domain, hosting"
+            />
+          </div>
 
           <CustomInput
-            inputName="deliveryTime"
-            inputId="delivery-time"
-            labelText="Delivery time"
-            placeholderText="e.g. 5"
+            inputName="price"
+            inputId="price"
+            labelText="Price"
+            placeholderText="e.g. $30"
           />
         </div>
 
-        <div className="flex flex-col gap-4">
-          <CustomInput
-            inputName="features"
-            inputId="features"
-            labelText="Features"
-            inputMaxLength={200}
-            placeholderText="e.g. page design, file uploading, setting up a domain, hosting"
-          />
-        </div>
+        <AgreeCheckbox inputId="agreed" />
 
-        <CustomInput
-          inputName="price"
-          inputId="price"
-          labelText="Price"
-          placeholderText="e.g. $30"
-        />
-      </div>
-
-      <AgreeCheckbox inputId="agreed" />
-
-      <Button type="submit" className="btn btn-primary">
-        Create
-      </Button>
-    </Form>
+        <Button type="submit" className="btn btn-primary">
+          Create
+        </Button>
+      </Form>
+    </LayoutSection>
   );
 };
 

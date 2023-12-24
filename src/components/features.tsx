@@ -1,5 +1,7 @@
 import { FaCheckCircle } from "react-icons/fa";
+
 import CustomIcon from "./custom-icon";
+import LayoutSection from "./layout/layout-section";
 
 import assetsData from "../assets";
 
@@ -7,7 +9,7 @@ const { featuresVideo } = assetsData.videos;
 
 const Features = () => {
   return (
-    <section className="section-container">
+    <LayoutSection>
       <div className="flex flex-col mx-auto px-6 xl:flex-row gap-28">
         <div className="flex-1">
           <video
@@ -80,7 +82,7 @@ const Features = () => {
           </div>
         </div>
       </div>
-    </section>
+    </LayoutSection>
   );
 };
 

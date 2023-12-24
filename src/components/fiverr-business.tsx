@@ -2,6 +2,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import Button from "./custom-button/button";
 import CustomIcon from "./custom-icon";
+import LayoutSection from "./layout/layout-section";
 
 import assetsData from "../assets";
 
@@ -9,8 +10,8 @@ const { fiverBusinessImage } = assetsData.images;
 
 const FiverrBusiness = () => {
   return (
-    <section className=" bg-indigo-950 text-white">
-      <div className="section-container flex flex-col xl:flex-row gap-28">
+    <div className=" bg-indigo-950 text-white">
+      <LayoutSection className="flex flex-col xl:flex-row gap-28">
         <div className="left flex flex-col gap-10 flex-1 text-base">
           <div>
             <h1>fiverr business</h1>
@@ -26,7 +27,7 @@ const FiverrBusiness = () => {
             <div className="flex items-center gap-3">
               <CustomIcon
                 className="shrink-0"
-                icon={FaCheckCircle}
+                Icon={FaCheckCircle}
                 aria-label="A check icon"
               />
               <li>50% Shorter time from hire to execution.</li>
@@ -35,7 +36,7 @@ const FiverrBusiness = () => {
             <div className="flex items-center gap-3">
               <CustomIcon
                 className="shrink-0"
-                icon={FaCheckCircle}
+                Icon={FaCheckCircle}
                 aria-label="A check icon"
               />
               <li>100% Of your freelancers get paid on time.</li>
@@ -44,7 +45,7 @@ const FiverrBusiness = () => {
             <div className="flex items-center gap-3">
               <CustomIcon
                 className="shrink-0"
-                icon={FaCheckCircle}
+                Icon={FaCheckCircle}
                 aria-label="A check icon"
               />
               <li>20+ Hours a month saved on global freelancer payments.</li>
@@ -62,8 +63,8 @@ const FiverrBusiness = () => {
             src={fiverBusinessImage}
           />
         </div>
-      </div>
-    </section>
+      </LayoutSection>
+    </div>
   );
 };
 

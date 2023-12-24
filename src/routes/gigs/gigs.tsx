@@ -1,16 +1,23 @@
 import { Suspense } from "react";
 import { Await, Form, useAsyncValue, useLoaderData } from "react-router-dom";
 
-import { Spinner, GigCard, CustomInput, Button, AsyncError } from "../../components";
+import {
+  Spinner,
+  GigCard,
+  CustomInput,
+  Button,
+  AsyncError,
+  LayoutSection
+} from "../../components";
 
 import {
   deferredApiGigSchema,
   fromApiGigSchema
 } from "../../constants/gig-validator";
 
-// import { handleError } from "../../utils/handle-error";
+import { handleError } from "../../utils/handle-error";
 
-import type { TDeferredGigPromise, TFromApiGig, TGig } from "../../types/gig";
+import type { TDeferredGigPromise, TFromApiGig } from "../../types/gig";
 import type {
   TLoaderApiResponsePromise,
   TResolvedAxiosResponse
@@ -32,7 +39,8 @@ const AwaitedPublicGigs = () => {
   } else {
     isZodError = true;
     console.log("Zod validation failed: ", isZodError);
-    console.log(gigsValidation.error.issues);
+
+    handleError(gigsValidation.error.issues);
   }
 
   if (isZodError) {
@@ -93,7 +101,7 @@ const Gigs = () => {
   }
 
   return (
-    <section className="section-container text-neutral-700 min-h-[37.5rem]">
+    <LayoutSection className="text-neutral-700">
       <h1 className="mb-4">AI Artists</h1>
       <p>
         Explore the boundaries of art and technology with Fiverr&apos;s AI artists
@@ -143,7 +151,7 @@ const Gigs = () => {
           <AwaitedPublicGigs />
         </Await>
       </Suspense>
-    </section>
+    </LayoutSection>
   );
 };
 

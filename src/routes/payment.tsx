@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
 
-import { AsyncError, CheckoutForm, Spinner } from "../components";
+import { AsyncError, CheckoutForm, LayoutSection, Spinner } from "../components";
 
 const AwaitedPayment = () => {
   const data = useOutletContext();
@@ -51,13 +51,13 @@ const Payment = () => {
   const { paymentPromise } = useLoaderData();
 
   return (
-    <section className="section-container min-h-[37.5rem]">
+    <LayoutSection>
       <Suspense fallback={<Spinner />}>
         <Await resolve={paymentPromise}>
           <AwaitedPayment />
         </Await>
       </Suspense>
-    </section>
+    </LayoutSection>
   );
 };
 

@@ -14,11 +14,12 @@ import assetsData from "../../assets";
 const { footerLogoSVG } = assetsData.svgs;
 
 import "./footer.css";
+import LayoutSection from "../layout/layout-section";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="section-container">
+      <LayoutSection>
         <nav className="grid footer--grid">
           <ul role="list">
             <h2>Categories</h2>
@@ -194,47 +195,42 @@ const Footer = () => {
 
           <div className="flex md:justify-center items-center gap-6 py-2">
             <CustomIcon
-              icon={RiFacebookCircleFill}
-              colorOverride={true}
+              Icon={RiFacebookCircleFill}
               className="text-neutral-500"
               size="2em"
               aria-label="A facebook logo"
             />
 
             <CustomIcon
-              icon={RiInstagramFill}
-              colorOverride={true}
+              Icon={RiInstagramFill}
               className="text-neutral-500"
               size="2em"
               aria-label="An instagram logo"
             />
 
             <CustomIcon
-              icon={RiPinterestFill}
-              colorOverride={true}
+              Icon={RiPinterestFill}
               className="text-neutral-500"
               size="2em"
               aria-label="A pinterest logo"
             />
 
             <CustomIcon
-              icon={RiLinkedinBoxFill}
-              colorOverride={true}
+              Icon={RiLinkedinBoxFill}
               className="text-neutral-500"
               size="2em"
               aria-label="A linkedIn logo"
             />
 
             <CustomIcon
-              icon={RiTwitterFill}
-              colorOverride={true}
+              Icon={RiTwitterFill}
               className="text-neutral-500"
               size="2em"
               aria-label="A twitter logo"
             />
           </div>
         </div>
-      </div>
+      </LayoutSection>
     </footer>
   );
 };

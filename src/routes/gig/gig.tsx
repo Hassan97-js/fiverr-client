@@ -12,7 +12,8 @@ import {
   Reviews,
   GigCTA,
   Spinner,
-  AsyncError
+  AsyncError,
+  LayoutSection
 } from "../../components";
 
 import { responsiveConfig } from "../../data/client/ts/ui";
@@ -108,7 +109,7 @@ const Gig = () => {
   const { gigsDataPromise } = useLoaderData();
 
   return (
-    <section className="gig-section min-h-[37.5rem] section-container relative text-neutral-700">
+    <LayoutSection className="relative text-neutral-700">
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={gigsDataPromise}
@@ -116,7 +117,7 @@ const Gig = () => {
           <AwaitedGig />
         </Await>
       </Suspense>
-    </section>
+    </LayoutSection>
   );
 };
 

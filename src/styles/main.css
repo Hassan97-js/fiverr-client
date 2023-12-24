@@ -96,13 +96,3 @@
     @apply border border-neutral-600 text-sm font-medium rounded-full py-1 px-3;
   }
 }
-
-@layer utilities {
-  .section-container {
-    @apply container py-24;
-  }
-
-  .hero-container {
-    @apply container py-32 xl:py-24;
-  }
-}

@@ -6,7 +6,8 @@ import {
   Features,
   FiverrBusiness,
   Slider as CategorySlider,
-  Slider as ProjectsSlider
+  Slider as ProjectsSlider,
+  LayoutSection
 } from "../components";
 
 import { categories, projects } from "../data";
@@ -19,7 +20,7 @@ const Home = () => (
     <TrustedBy />
 
     <div className="bg-neutral-50">
-      <div className="section-container">
+      <LayoutSection>
         <CategorySlider
           responsiveConfig={responsiveConfig}
           itemClass="m-5 shadow-md rounded-md overflow-hidden">
@@ -27,14 +28,14 @@ const Home = () => (
             return <CategorySliderItem key={category.id} item={category} />;
           })}
         </CategorySlider>
-      </div>
+      </LayoutSection>
     </div>
 
     <Features />
 
     <FiverrBusiness />
 
-    <div className="section-container">
+    <LayoutSection>
       <ProjectsSlider
         itemClass="m-5 shadow-md rounded-b-md"
         responsiveConfig={responsiveConfig}>
@@ -42,7 +43,7 @@ const Home = () => (
           return <ProjectSliderItem key={project.id} project={project} />;
         })}
       </ProjectsSlider>
-    </div>
+    </LayoutSection>
   </>
 );
 

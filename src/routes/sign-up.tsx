@@ -6,7 +6,8 @@ import {
   CustomInput,
   CustomToggle,
   TextareaInput,
-  Button
+  Button,
+  LayoutSection
 } from "../components";
 
 // import { createCloudinary } from "../utils";
@@ -44,50 +45,51 @@ const SignUp = () => {
   // };
 
   return (
-    <fetcher.Form
-      ref={formRef}
-      method="post"
-      className="section-container relative flex flex-col-reverse lg:flex-row justify-center gap-16">
-      <div className="flex flex-col gap-x-10 gap-y-9 w-full">
-        <h2>Sign up</h2>
+    <LayoutSection>
+      <fetcher.Form
+        ref={formRef}
+        method="post"
+        className="relative flex flex-col-reverse lg:flex-row justify-center gap-16">
+        <div className="flex flex-col gap-x-10 gap-y-9 w-full">
+          <h2>Sign up</h2>
 
-        {actionError && (
-          <span className="text-normal font-bold text-red-500">{actionError}</span>
-        )}
+          {actionError && (
+            <span className="text-normal font-bold text-red-500">{actionError}</span>
+          )}
 
-        {/* {uploadError && (
+          {/* {uploadError && (
           <span className="text-normal font-bold text-red-500">{uploadError}</span>
         )} */}
 
-        <div>
-          <div className="flex flex-col gap-x-8 gap-y-6">
-            <CustomInput
-              inputName="username"
-              labelText="Username"
-              inputId="username"
-              placeholderText="Enter your username"
-            />
+          <div>
+            <div className="flex flex-col gap-x-8 gap-y-6">
+              <CustomInput
+                inputName="username"
+                labelText="Username"
+                inputId="username"
+                placeholderText="Enter your username"
+              />
 
-            <CustomInput
-              inputName="email"
-              labelText="Email"
-              inputId="email"
-              placeholderText="Enter your email address"
-            />
+              <CustomInput
+                inputName="email"
+                labelText="Email"
+                inputId="email"
+                placeholderText="Enter your email address"
+              />
 
-            <CustomInput
-              inputName="password"
-              classNames="mb-3"
-              inputType="password"
-              labelText="Password"
-              inputId="password"
-              placeholderText="Enter your password"
-            />
+              <CustomInput
+                inputName="password"
+                classNames="mb-3"
+                inputType="password"
+                labelText="Password"
+                inputId="password"
+                placeholderText="Enter your password"
+              />
 
-            <div className="flex-1">
-              {/* <input type="hidden" name="image" value={uploadURL} required /> */}
+              <div className="flex-1">
+                {/* <input type="hidden" name="image" value={uploadURL} required /> */}
 
-              {/* <UploadWidget
+                {/* <UploadWidget
                 labelText="Profile picture"
                 placeholderText="Please upload a profile picture"
                 cloudName={cloud.cloud_name}
@@ -97,53 +99,54 @@ const SignUp = () => {
                   handleUpload({ error, result });
                 }}
               /> */}
+              </div>
+
+              <CustomInput
+                inputName="country"
+                classNames="mb-3"
+                labelText="Country"
+                inputId="country"
+                placeholderText="Enter your country name"
+              />
             </div>
+          </div>
 
-            <CustomInput
-              inputName="country"
-              classNames="mb-3"
-              labelText="Country"
-              inputId="country"
-              placeholderText="Enter your country name"
-            />
+          <div className="flex gap-4">
+            <Button type="submit" className="btn btn-primary self-start">
+              Sign up
+            </Button>
+
+            <Button type="reset" className="btn btn-primary-outline self-start">
+              Reset
+            </Button>
           </div>
         </div>
 
-        <div className="flex gap-4">
-          <Button type="submit" className="btn btn-primary self-start">
-            Sign up
-          </Button>
+        <div className="flex flex-col gap-x-10 gap-y-9 w-full">
+          <h2>Become a Seller</h2>
+          <div>
+            <div className="flex flex-col gap-x-8 gap-y-6 mt-8">
+              <CustomToggle inputName="isSeller" labelText="Activate account" />
 
-          <Button type="reset" className="btn btn-primary-outline self-start">
-            Reset
-          </Button>
-        </div>
-      </div>
+              <CustomInput
+                inputName="phone"
+                labelText="Phone Number"
+                inputId="phone"
+                placeholderText="Enter your phone number"
+                isRequired={false}
+              />
 
-      <div className="flex flex-col gap-x-10 gap-y-9 w-full">
-        <h2>Become a Seller</h2>
-        <div>
-          <div className="flex flex-col gap-x-8 gap-y-6 mt-8">
-            <CustomToggle inputName="isSeller" labelText="Activate account" />
-
-            <CustomInput
-              inputName="phone"
-              labelText="Phone Number"
-              inputId="phone"
-              placeholderText="Enter your phone number"
-              isRequired={false}
-            />
-
-            <TextareaInput
-              inputName="description"
-              inputId="description"
-              labelText="Description"
-              placeholderText="A short description of yourself"
-            />
+              <TextareaInput
+                inputName="description"
+                inputId="description"
+                labelText="Description"
+                placeholderText="A short description of yourself"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </fetcher.Form>
+      </fetcher.Form>
+    </LayoutSection>
   );
 };
 

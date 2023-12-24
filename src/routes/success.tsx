@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Alert, Spinner } from "../components";
+import { Alert, LayoutSection, Spinner } from "../components";
 
 const Success = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Success = () => {
   }, []);
 
   return (
-    <section className="section-container | flex flex-col items-center justify-center gap-10 | min-h-[37.5rem] | text-center">
+    <LayoutSection className="flex flex-col items-center justify-center gap-10 text-center">
       <div>
         <h1 className="mb-4 | text-green-700">Your Payment is Successful!</h1>
         <p className="text-lg | text-neutral-500 | max-w-[48ch] | mx-auto | mb-6">
@@ -36,7 +36,7 @@ const Success = () => {
       </Link> */}
 
       <Spinner withMarginTop={false} />
-    </section>
+    </LayoutSection>
   );
 };
 
