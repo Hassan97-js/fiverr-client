@@ -1,7 +1,7 @@
 import { makeApiRequest } from "./api-request";
 import { retrieveData } from "./local-storage";
 
-import { fromApiUserSchema } from "../constants/user-validator";
+import { FromApiUserSchema } from "../constants/user-validator";
 
 export const getCurrentUser = async () => {
   try {
@@ -19,7 +19,7 @@ export const getCurrentUser = async () => {
       }
     });
 
-    const validationResult = fromApiUserSchema.parse(response.data);
+    const validationResult = FromApiUserSchema.parse(response.data);
 
     if (!validationResult.success) {
       return null;

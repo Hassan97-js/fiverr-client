@@ -1,13 +1,14 @@
 import { AxiosResponse } from "axios/index";
 
-export type TLoaderApiResponseKeys = "gigsPromise";
+export type TApiResponseKeys = "gigsPromise" | "gigPromise";
 
-export type TLoaderApiResponsePromise<T> = {
-  [K in TLoaderApiResponseKeys]: Promise<T>;
+export type TApiResponsePromise<T> = {
+  [K in TApiResponseKeys]: Promise<T>;
 };
 
-export type TLoaderAxiosResponsePromise<T> = {
-  [K in TLoaderApiResponseKeys]: Promise<AxiosResponse<{}, T>>;
+export type TAxiosResponsePromise<T> = {
+  [K in TApiResponseKeys]: Promise<AxiosResponse<T, {}>>;
 };
 
-export type TResolvedAxiosResponse<T> = AxiosResponse<T, {}>;
+export type TAxiosResponse<T> = AxiosResponse<T, {}>;
+export type TAxiosResponses<T, D> = [AxiosResponse<T, {}>, AxiosResponse<D, {}>];

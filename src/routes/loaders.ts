@@ -241,10 +241,10 @@ export const fetchGigsLoader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const fetchSingleGigLoader = ({ params }: LoaderFunctionArgs) => {
-  const gigsDataPromise = Promise.all([
+  const gigPromise = Promise.all([
     makeApiRequest({ url: `gigs/single/${params.id}` }),
     makeApiRequest({ url: `reviews/${params.id}` })
   ]);
 
-  return defer({ gigsDataPromise });
+  return defer({ gigPromise });
 };

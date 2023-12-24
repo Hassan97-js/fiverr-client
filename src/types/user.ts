@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 import {
-  fromApiUserSchema,
-  loaderDataUserSchema,
-  userSchema
+  FromApiUserSchema,
+  ExternalUserSchema,
+  UserSchema
 } from "../constants/user-validator";
 
-export type TLoaderDataUser = z.infer<typeof loaderDataUserSchema>;
-export type TFromApiUser = z.infer<typeof fromApiUserSchema>;
-export type TUser = z.infer<typeof userSchema>;
+export type TExternalUser = z.infer<typeof ExternalUserSchema>;
+export type TFromApiUser = z.infer<typeof FromApiUserSchema>;
+export type TUser = z.infer<typeof UserSchema>;

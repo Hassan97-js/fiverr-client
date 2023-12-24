@@ -2,15 +2,15 @@ import { Outlet, ScrollRestoration, useLoaderData } from "react-router-dom";
 
 import { Navbar, Footer } from "../components";
 
-import { loaderDataUserSchema } from "../constants/user-validator";
-import type { TLoaderDataUser } from "../types/user";
+import { ExternalUserSchema  } from "../constants/user-validator";
+import type { TExternalUser } from "../types/user";
 
 const Root = () => {
   const data = useLoaderData();
 
-  let validUserData: null | TLoaderDataUser = null;
+  let validUserData: null | TExternalUser = null;
 
-  const validationResult = loaderDataUserSchema.safeParse(data);
+  const validationResult = ExternalUserSchema.safeParse(data);
 
   if (validationResult.success) {
     validUserData = validationResult.data;
@@ -18,10 +18,10 @@ const Root = () => {
 
   return (
     <>
-      <Navbar currentUser={validUserData?.user} />
+      <Navbar user={validUserData?.user} />
 
       <main>
-        <Outlet context={{ currentUser: validUserData?.user }} />
+        <Outlet context={{ user: validUserData?.user }} />
       </main>
 
       <Footer />

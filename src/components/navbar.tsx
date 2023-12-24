@@ -8,10 +8,10 @@ import { capitalize, setIsActive } from "../utils";
 import type { TUser } from "../types/user";
 
 type Props = {
-  currentUser?: TUser | null;
+  user?: TUser | null;
 };
 
-const Navbar = ({ currentUser }: Props) => {
+const Navbar = ({ user }: Props) => {
   const dropdownRef = useRef(null);
   const isOpen = useClickAway(dropdownRef);
 
@@ -26,7 +26,7 @@ const Navbar = ({ currentUser }: Props) => {
           <span className="text-green-400">.</span>
         </div>
 
-        {!currentUser ? (
+        {!user ? (
           <ul
             className="flex items-center gap-8 font-medium mt-6 sm:mt-0"
             role="list">
@@ -50,11 +50,11 @@ const Navbar = ({ currentUser }: Props) => {
           <>
             <figure className="flex items-center gap-3 m-0 cursor-pointer">
               <figcaption className="select-none font-medium">
-                {capitalize(currentUser?.username)}
+                {capitalize(user?.username)}
               </figcaption>
               <img
                 className="w-10 h-10 flex-shrink-0 rounded-full object-cover object-center"
-                src={currentUser?.image || "/public/avatar1.jpg"}
+                src={user?.image || "/public/avatar1.jpg"}
                 alt="Profile picture"
               />
             </figure>
@@ -64,7 +64,7 @@ const Navbar = ({ currentUser }: Props) => {
               className={`absolute top-24 right-0 z-[2000] flex flex-col gap-3 w-52 p-4 bg-white rounded-md border border-neutral-300 text-neutral-600 font-normal cursor-pointer transition-all ${
                 isOpen ? "visible opacity-100" : "invisible opacity-0"
               }`}>
-              {currentUser.isSeller && (
+              {user.isSeller && (
                 <>
                   <Link className="link" to="my-gigs" aria-label="Gigs" title="Gigs">
                     My Gigs

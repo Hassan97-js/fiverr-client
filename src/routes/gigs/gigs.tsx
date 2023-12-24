@@ -11,28 +11,25 @@ import {
 } from "../../components";
 
 import {
-  deferredApiGigSchema,
-  fromApiGigSchema
+  ExternalGigsSchema,
+  FromApiGigsSchema
 } from "../../constants/gig-validator";
 
 import { handleError } from "../../utils/handle-error";
 
-import type { TDeferredGigPromise, TFromApiGig } from "../../types/gig";
-import type {
-  TLoaderApiResponsePromise,
-  TResolvedAxiosResponse
-} from "../../types/api";
+import type { TExternalGigsPromise, TFromApiGigs } from "../../types/gig";
+import type { TApiResponsePromise, TAxiosResponse } from "../../types/api";
 
 import "./gigs.css";
 
 const AwaitedPublicGigs = () => {
-  const gigsResponse = useAsyncValue() as TResolvedAxiosResponse<TFromApiGig>;
+  const gigsResponse = useAsyncValue() as TAxiosResponse<TFromApiGigs>;
 
   let isZodError: boolean = false;
 
-  let validGigsData: null | TFromApiGig = null;
+  let validGigsData: null | TFromApiGigs = null;
 
-  const gigsValidation = fromApiGigSchema.safeParse(gigsResponse.data);
+  const gigsValidation = FromApiGigsSchema.safeParse(gigsResponse.data);
 
   if (gigsValidation.success) {
     validGigsData = gigsValidation.data;
@@ -90,11 +87,11 @@ const AwaitedPublicGigs = () => {
 };
 
 const Gigs = () => {
-  const data = useLoaderData() as TLoaderApiResponsePromise<unknown>;
+  const data = useLoaderData() as TApiResponsePromise<unknown>;
 
-  let gigsPromiseValidationResult: null | TDeferredGigPromise = null;
+  let gigsPromiseValidationResult: null | TExternalGigsPromise = null;
 
-  const validationResult = deferredApiGigSchema.safeParse(data);
+  const validationResult = ExternalGigsSchema.safeParse(data);
 
   if (validationResult.success) {
     gigsPromiseValidationResult = validationResult.data;
