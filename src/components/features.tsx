@@ -28,7 +28,7 @@ const Features = () => {
           <div className="flex flex-col gap-8">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <CustomIcon icon={FaCheckCircle} aria-label="A check logo" />
+                <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
                 <span className="text-lg text-neutral-700 font-medium">
                   Stick to your budget
                 </span>
@@ -41,7 +41,7 @@ const Features = () => {
 
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <CustomIcon icon={FaCheckCircle} aria-label="A check logo" />
+                <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
                 <span className="text-lg text-neutral-700 font-medium">
                   Get quality work done quickly
                 </span>
@@ -54,7 +54,7 @@ const Features = () => {
 
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <CustomIcon icon={FaCheckCircle} aria-label="A check logo" />
+                <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
                 <span className="text-lg text-neutral-700 font-medium">
                   Pay when you&apos;re happy
                 </span>
@@ -67,7 +67,7 @@ const Features = () => {
 
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <CustomIcon icon={FaCheckCircle} aria-label="A check logo" />
+                <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
                 <span className="text-lg text-neutral-700 font-medium">
                   Count on 24/7 support
                 </span>

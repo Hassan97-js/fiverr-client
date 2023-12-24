@@ -15,26 +15,26 @@ const TrustedBy = () => {
 
       <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
         <CustomIcon
-          icon={RiFacebookCircleFill}
+          Icon={RiFacebookCircleFill}
           size="3em"
           aria-label="A facebook logo"
         />
         <CustomIcon
-          icon={RiInstagramFill}
+          Icon={RiInstagramFill}
           size="3em"
           aria-label="A Instagram logo"
         />
         <CustomIcon
-          icon={RiLinkedinBoxFill}
+          Icon={RiLinkedinBoxFill}
           size="3em"
           aria-label="A LinkedIn logo"
         />
         <CustomIcon
-          icon={RiPinterestFill}
+          Icon={RiPinterestFill}
           size="3em"
           aria-label="A Pinterest logo"
         />
-        <CustomIcon icon={RiTwitterFill} size="3em" aria-label="A Twitter logo" />
+        <CustomIcon Icon={RiTwitterFill} size="3em" aria-label="A Twitter logo" />
       </div>
     </section>
   );

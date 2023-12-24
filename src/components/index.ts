@@ -1,5 +1,4 @@
 import Navbar from "./navbar";
-import Breadcrumb from "./breadcrumb";
 import Footer from "./footer/footer";
 import Hero from "./hero";
 import TrustedBy from "./trusted-by";
@@ -53,7 +52,6 @@ export {
   ArrowIcon,
   Button,
   Stars,
-  Breadcrumb,
   AboutSeller,
   Reviews,
   CustomIcon,

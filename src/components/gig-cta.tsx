@@ -30,12 +30,12 @@ const GigCTA = ({
 
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-3">
-          <CustomIcon icon={FaRegClock} aria-label="A clock icon" />
+          <CustomIcon Icon={FaRegClock} aria-label="A clock icon" />
           <span>{deliveryDays} Days Delivery</span>
         </div>
 
         <div className="flex items-center gap-3">
-          <CustomIcon icon={FaRecycle} aria-label="A recycle icon" />
+          <CustomIcon Icon={FaRecycle} aria-label="A recycle icon" />
           <span>{revisionsNumber} Revisions</span>
         </div>
       </div>
@@ -44,7 +44,7 @@ const GigCTA = ({
         {services.map((service) => {
           return (
             <div key={service} className="item flex items-center gap-3">
-              <CustomIcon icon={FaCheck} color="#16a34a" aria-label="A check icon" />
+              <CustomIcon Icon={FaCheck} color="#16a34a" aria-label="A check icon" />
               <span>{service}</span>
             </div>
           );

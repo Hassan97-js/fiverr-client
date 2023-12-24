@@ -43,11 +43,11 @@ const ButtonGroup = ({ next, previous, carouselState }: TButtonGroupProps) => {
       <CustomArrowButton
         className={carouselState?.currentSlide === 0 ? "disable" : ""}
         onClick={() => previous && previous()}>
-        <CustomIcon icon={FaArrowLeft} aria-label="An arrow icon" />
+        <CustomIcon Icon={FaArrowLeft} aria-label="An arrow icon" />
       </CustomArrowButton>
 
       <CustomArrowButton dir="right" onClick={() => next && next()}>
-        <CustomIcon icon={FaArrowRight} aria-label="An arrow icon" />
+        <CustomIcon Icon={FaArrowRight} aria-label="An arrow icon" />
       </CustomArrowButton>
     </>
   );

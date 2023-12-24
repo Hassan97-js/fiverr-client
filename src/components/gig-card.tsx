@@ -47,7 +47,7 @@ const GigCard = ({
   return (
     <Link
       to={`/gig/${gigId}`}
-      className="flex flex-col max-w-sm min-h-[450px] max-h-max shadow-md rounded-sm overflow-hidden">
+      className="flex flex-col max-w-sm min-h-[28.125rem] max-h-max shadow-md rounded-sm overflow-hidden">
       <div style={styles} className="h-48" role="image"></div>
 
       <div className="flex flex-col px-4 mt-5 flex-1">

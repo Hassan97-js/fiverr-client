@@ -8,7 +8,6 @@ import {
 
 import {
   AboutSeller,
-  Breadcrumb,
   Slider,
   Reviews,
   GigCTA,
@@ -110,8 +109,6 @@ const Gig = () => {
 
   return (
     <section className="gig-section min-h-[37.5rem] section-container relative text-neutral-700">
-      <Breadcrumb className="mb-20">FIVERR &gt; GRAPHICS & DESIGN &gt;</Breadcrumb>
-
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={gigsDataPromise}

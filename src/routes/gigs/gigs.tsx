@@ -1,22 +1,14 @@
 import { Suspense } from "react";
 import { Await, Form, useAsyncValue, useLoaderData } from "react-router-dom";
-import { ZodIssue } from "zod";
 
-import {
-  Spinner,
-  GigCard,
-  Breadcrumb,
-  CustomInput,
-  Button,
-  AsyncError
-} from "../../components";
+import { Spinner, GigCard, CustomInput, Button, AsyncError } from "../../components";
 
 import {
   deferredApiGigSchema,
   fromApiGigSchema
 } from "../../constants/gig-validator";
 
-import { handleError } from "../../utils/handle-error";
+// import { handleError } from "../../utils/handle-error";
 
 import type { TDeferredGigPromise, TFromApiGig, TGig } from "../../types/gig";
 import type {
@@ -29,11 +21,7 @@ import "./gigs.css";
 const AwaitedPublicGigs = () => {
   const gigsResponse = useAsyncValue() as TResolvedAxiosResponse<TFromApiGig>;
 
-  // Todo: Learn Zod (youtube) and learn
-  // Todo: Learn how to foramt format zod error messages
-
-  // let errorMessages: ZodIssue[] = [];
-  let zodErrorMessage: string = "";
+  let isZodError: boolean = false;
 
   let validGigsData: null | TFromApiGig = null;
 
@@ -42,14 +30,15 @@ const AwaitedPublicGigs = () => {
   if (gigsValidation.success) {
     validGigsData = gigsValidation.data;
   } else {
-    zodErrorMessage = "Zod validation failed";
-    console.log(gigsValidation.error.flatten(), zodErrorMessage);
+    isZodError = true;
+    console.log("Zod validation failed: ", isZodError);
+    console.log(gigsValidation.error.issues);
   }
 
-  if (zodErrorMessage) {
+  if (isZodError) {
     return (
       <p className="text-neutral-500 text-lg font-medium text-center mt-10">
-        Error loading the gigs
+        Could not load gigs
       </p>
     );
   }
@@ -95,18 +84,16 @@ const AwaitedPublicGigs = () => {
 const Gigs = () => {
   const data = useLoaderData() as TLoaderApiResponsePromise<unknown>;
 
-  const validationResult = deferredApiGigSchema.safeParse(data);
-
   let gigsPromiseValidationResult: null | TDeferredGigPromise = null;
+
+  const validationResult = deferredApiGigSchema.safeParse(data);
 
   if (validationResult.success) {
     gigsPromiseValidationResult = validationResult.data;
   }
 
   return (
-    <section className="gigs-section section-container text-neutral-700 min-h-[37.5rem]">
-      {/* <Breadcrumb>FIVERR &gt; GRAPHICS & DESIGN &gt;</Breadcrumb> */}
-
+    <section className="section-container text-neutral-700 min-h-[37.5rem]">
       <h1 className="mb-4">AI Artists</h1>
       <p>
         Explore the boundaries of art and technology with Fiverr&apos;s AI artists

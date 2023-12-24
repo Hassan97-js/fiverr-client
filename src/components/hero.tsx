@@ -5,10 +5,6 @@ import { FaSearch } from "react-icons/fa";
 import Button from "./custom-button/button";
 import CustomIcon from "./custom-icon";
 
-import assetsData from "../assets";
-
-const { heroManImage } = assetsData.images;
-
 const Hero = () => {
   const [searchDefault, setSearchDefault] = useState("");
 
@@ -17,27 +13,26 @@ const Hero = () => {
   };
 
   return (
-    <section className="flex justify-center bg-neutral-200/60">
-      <div className="section-container flex flex-col items-center justify-center">
+    <section className="py-32 px-6 bg-neutral-200/60">
+      <div className="flex flex-col items-center justify-center">
         <h1 className="capitalize leading-[1.1] max-w-[16ch] text-center mx-auto xl:mx-0 mb-10">
           Find the perfect <i className="text-green-600">freelance</i> services for
           your business
         </h1>
 
-        <div className="flex flex-col gap-8 xl:w-1/2 min-w-96">
+        <div className="flex flex-col gap-8 max-w-[43.75rem] flex-auto w-full">
           <Form
             method="GET"
             action="/gigs"
-            className="flex flex-col items-start md:items-stretch md:gap-0 md:flex-row md:justify-between gap-5 md:rounded-lg rounded-md overflow-hidden"
+            className="flex flex-col items-start md:items-stretch md:gap-0 md:flex-row md:justify-between gap-5 md:rounded-lg rounded-md overflow-hidden flex-1 w-full"
             role="search">
             <div
               role="Search Input"
-              className="bg-white flex items-center flex-1 w-full gap-2 md:rounded-none  rounded-md overflow-hidden">
+              className="bg-white flex items-center flex-1 w-full gap-2 md:rounded-none rounded-md overflow-hidden">
               <CustomIcon
-                colorOverride={true}
                 color="#a3a3a3"
                 className="w-4 h-4 m-3 text-neutral-300"
-                icon={FaSearch}
+                Icon={FaSearch}
                 aria-label="A search icon"
               />
 

@@ -82,7 +82,7 @@ const OrdersTable = ({
             <input type="hidden" name="isSeller" value={isSeller} />
 
             <Button type="submit">
-              <CustomIcon icon={FaEnvelope} aria-label="An Envelope icon" />
+              <CustomIcon Icon={FaEnvelope} aria-label="An Envelope icon" />
             </Button>
           </Form>
         </td>
