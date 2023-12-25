@@ -8,39 +8,32 @@ import {
   Button,
   AsyncError,
   LayoutSection
-} from "../../components";
+} from "../components";
 
 import {
-  ExternalGigsSchema,
+  ExternalGigsSchemaPromise,
   FromApiGigsSchema
-} from "../../constants/gig-validator";
+} from "../constants/gig-validator";
 
-import { handleError } from "../../utils/handle-error";
+import { handleError } from "../utils/handle-error";
 
-import type { TExternalGigsPromise, TFromApiGigs } from "../../types/gig";
-import type { TApiResponsePromise, TAxiosResponse } from "../../types/api";
-
-import "./gigs.css";
+import type { TExternalGigsPromise, TFromApiGigs } from "../types/gig.types";
+import type { TApiResponsePromise, TAxiosResponse } from "../types/api.types";
 
 const AwaitedPublicGigs = () => {
   const gigsResponse = useAsyncValue() as TAxiosResponse<TFromApiGigs>;
 
-  let isZodError: boolean = false;
+  let gigsData: null | TFromApiGigs = null;
 
-  let validGigsData: null | TFromApiGigs = null;
+  const gigsValidationResult = FromApiGigsSchema.safeParse(gigsResponse.data);
 
-  const gigsValidation = FromApiGigsSchema.safeParse(gigsResponse.data);
-
-  if (gigsValidation.success) {
-    validGigsData = gigsValidation.data;
+  if (gigsValidationResult.success) {
+    gigsData = gigsValidationResult.data;
   } else {
-    isZodError = true;
-    console.log("Zod validation failed: ", isZodError);
-
-    handleError(gigsValidation.error.issues);
+    handleError(gigsValidationResult.error.issues);
   }
 
-  if (isZodError) {
+  if (!gigsData) {
     return (
       <p className="text-neutral-500 text-lg font-medium text-center mt-10">
         Could not load gigs
@@ -48,7 +41,7 @@ const AwaitedPublicGigs = () => {
     );
   }
 
-  if (!validGigsData?.gigs.length) {
+  if (!gigsData?.gigs.length) {
     return (
       <p className="text-neutral-500 text-lg font-medium text-center mt-10">
         No gigs found
@@ -56,7 +49,7 @@ const AwaitedPublicGigs = () => {
     );
   }
 
-  const gigsElements = validGigsData.gigs.map((gig) => {
+  const gigsElements = gigsData.gigs.map((gig) => {
     const {
       _id: gigId,
       coverImage,
@@ -83,7 +76,9 @@ const AwaitedPublicGigs = () => {
     );
   });
 
-  return <div className="gigs grid gap-10">{gigsElements}</div>;
+  return (
+    <div className="grid grid-cols-min-max-16.25rem-1fr gap-10">{gigsElements}</div>
+  );
 };
 
 const Gigs = () => {
@@ -91,7 +86,7 @@ const Gigs = () => {
 
   let gigsPromiseValidationResult: null | TExternalGigsPromise = null;
 
-  const validationResult = ExternalGigsSchema.safeParse(data);
+  const validationResult = ExternalGigsSchemaPromise.safeParse(data);
 
   if (validationResult.success) {
     gigsPromiseValidationResult = validationResult.data;

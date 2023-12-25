@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios/index";
+import { AxiosResponse } from "axios";
 
 export type TApiResponseKeys = "gigsPromise" | "gigPromise";
 

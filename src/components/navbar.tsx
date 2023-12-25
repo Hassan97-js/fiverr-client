@@ -5,7 +5,7 @@ import { useClickAway } from "../hooks";
 
 import { capitalize, setIsActive } from "../utils";
 
-import type { TUser } from "../types/user";
+import type { TUser } from "../types/user.types";
 
 type Props = {
   user?: TUser | null;

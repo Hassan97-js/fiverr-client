@@ -2,10 +2,11 @@ import { useEffect, useRef } from "react";
 import { Form, useNavigation, useOutletContext } from "react-router-dom";
 
 import Review from "./single-review";
-
 import Button from "../custom-button/button";
 import CustomInput from "../form/custom-input";
 import SelectInput from "../form/select-input";
+
+import type { TReview } from "../../types/review.types";
 
 import { capitalize } from "../../utils";
 
@@ -58,7 +59,13 @@ const AddReview = () => {
   );
 };
 
-const Reviews = ({ reviews: reviewsArray, gigUserId }) => {
+type Props = {
+  reviews: TReview[] | null;
+  gigUserId: string | null;
+};
+
+// Todo: Continue with Reviews
+const Reviews = ({ reviews: reviewsArray, gigUserId }: Props) => {
   const { currentUser } = useOutletContext();
 
   const currentUserId = currentUser?.id;

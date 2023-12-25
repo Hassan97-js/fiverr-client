@@ -9,8 +9,14 @@ export const GigSchema = z
     userId: z.union([UserSchema, ObjectIdSchema]),
     category: z.string().trim().toLowerCase(),
     coverImage: z.string().trim().toLowerCase(),
-    createdAt: z.string().trim().toLowerCase(),
-    updatedAt: z.string().trim().toLowerCase(),
+    createdAt: z.coerce.date({
+      required_error: "Please select a date and time",
+      invalid_type_error: "That's not a date!"
+    }),
+    updatedAt: z.coerce.date({
+      required_error: "Please select a date and time",
+      invalid_type_error: "That's not a date!"
+    }),
     deliveryTime: z.number(),
     description: z.string().trim().toLowerCase(),
     features: z.array(z.string().trim().toLowerCase()),
@@ -41,13 +47,13 @@ export const FromApiGigSchema = z
   })
   .strict();
 
-export const ExternalGigsSchema = z
+export const ExternalGigsSchemaPromise = z
   .object({
     gigsPromise: z.promise(z.unknown())
   })
   .strict();
 
-export const ExternalGigSchema = z
+export const ExternalGigSchemaPromise = z
   .object({
     gigPromise: z.promise(z.unknown())
   })

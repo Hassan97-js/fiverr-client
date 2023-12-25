@@ -28,35 +28,3 @@ export const FromApiReviewSchema = z
     review: ReviewSchema
   })
   .strict();
-
-// export const ExternalGigsSchema = z
-//   .object({
-//     gigsPromise: z.promise(z.unknown())
-//   })
-//   .strict();
-
-// export const ExternalGigSchema = z
-//   .object({
-//     gigPromise: z.promise(z.unknown())
-//   })
-//   .strict();
-
-/* {
-  "success": true,
-  "reviews": [
-    {
-      "_id": "658838cfd38f919bced8ab52",
-      "gigId": "648613c63289c603d276d5f4",
-      "userId": {
-        "_id": "6507109b3d8ba35a119d9881",
-        "username": "john",
-        "email": "john@dev.com",
-        "country": "Germany",
-        "isSeller": false,
-        "image": "https://res.cloudinary.com/fiverr-assets-cloud/image/upload/v1695902651/fiverr-assets/glvddccmcir3wnjvdvbi.jpg"
-      },
-      "starNumber": 4,
-      "description": "This is my opinion (John)"
-    }
-  ]
-} */

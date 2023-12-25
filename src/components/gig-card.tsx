@@ -7,10 +7,10 @@ import Stars from "./stars";
 
 import { capitalize, formatCurrency, getRatingAverage } from "../utils";
 
-import type { TUser } from "../types/user";
+import type { TUser } from "../types/user.types";
 
 type Props = {
-  userInfo: TUser;
+  userInfo: TUser | string;
   gigId: string;
   coverImage: string;
   category: string;
@@ -37,7 +37,13 @@ const GigCard = ({
     backgroundPosition: "top"
   } satisfies CSSProperties;
 
-  const { username, image } = userInfo;
+  let userImage: string | undefined = "";
+  let userNameToDisplay = "";
+
+  if (typeof userInfo !== "string") {
+    userImage = userInfo?.image;
+    userNameToDisplay = userInfo.username;
+  }
 
   const formattedPrice = formatCurrency(price);
   const gigRating = getRatingAverage(totalStars, starNumber);
@@ -55,12 +61,12 @@ const GigCard = ({
           <div className="flex items-center gap-3 mb-5">
             <img
               className="object-cover rounded-full w-8 h-8"
-              src={image ?? fallbackImage}
+              src={userImage ?? fallbackImage}
               alt="a freelancing client image"
             />
 
             <strong className="font-semibold">
-              <span>{capitalize(username)}</span>
+              <span>{capitalize(userNameToDisplay)}</span>
               <p className="text-sm font-normal text-neutral-500">{category}</p>
             </strong>
           </div>

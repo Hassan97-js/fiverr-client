@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import {
-  ExternalGigSchema,
-  ExternalGigsSchema,
+  ExternalGigSchemaPromise,
+  ExternalGigsSchemaPromise,
   FromApiGigSchema,
   FromApiGigsSchema,
   GigSchema
@@ -11,5 +11,5 @@ import {
 export type TFromApiGigs = z.infer<typeof FromApiGigsSchema>;
 export type TFromApiGig = z.infer<typeof FromApiGigSchema>;
 export type TGig = z.infer<typeof GigSchema>;
-export type TExternalGigsPromise = z.infer<typeof ExternalGigsSchema>;
-export type TExternalGigPromise = z.infer<typeof ExternalGigSchema>;
+export type TExternalGigsPromise = z.infer<typeof ExternalGigsSchemaPromise>;
+export type TExternalGigPromise = z.infer<typeof ExternalGigSchemaPromise>;

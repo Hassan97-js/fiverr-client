@@ -29,6 +29,10 @@ const config: Config = {
       container: {
         center: true,
         padding: "1.5rem"
+      },
+      gridTemplateColumns: {
+        "2fr-1fr": "2fr 1fr",
+        "min-max-16.25rem-1fr": "repeat(auto-fit, minmax(16.25rem, 1fr))"
       }
     }
   },
