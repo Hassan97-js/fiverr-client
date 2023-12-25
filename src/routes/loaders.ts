@@ -199,7 +199,7 @@ export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {
   return defer({ ordersPromise });
 };
 
-export const fetchMyGigsLoader = async ({ request }: LoaderFunctionArgs) => {
+export const fetchPrivateGigsLoader = async ({ request }: LoaderFunctionArgs) => {
   const isAuthenticated = await checkIfAuthenticated();
 
   const redirectTo = new URL(request.url).pathname;
@@ -211,10 +211,10 @@ export const fetchMyGigsLoader = async ({ request }: LoaderFunctionArgs) => {
   const currentToken = retrieveData("token");
 
   if (!currentToken) {
-    throw Error("[fetchMyGigsLoader] Unauthorized");
+    throw Error("[fetchPrivateGigsLoader] Unauthorized");
   }
 
-  const myGigsPromise = makeApiRequest({
+  const privateGigsPromise = makeApiRequest({
     method: "get",
     url: "gigs/my",
     headers: {
@@ -222,7 +222,7 @@ export const fetchMyGigsLoader = async ({ request }: LoaderFunctionArgs) => {
     }
   });
 
-  return defer({ myGigsPromise });
+  return defer({ privateGigsPromise });
 };
 
 export const fetchGigsLoader = async ({ request }: LoaderFunctionArgs) => {

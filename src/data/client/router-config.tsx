@@ -9,7 +9,7 @@ import {
   SignIn,
   Message,
   Messages,
-  MyGigs,
+  PrivateGigs,
   Orders,
   SignUp,
   Payment,
@@ -22,7 +22,7 @@ import {
   fetchConversationsLoader,
   fetchGigsLoader,
   fetchMessagesLoader,
-  fetchMyGigsLoader,
+  fetchPrivateGigsLoader,
   fetchOrdersLoader,
   fetchSingleGigLoader,
   paymentLoader,
@@ -83,10 +83,10 @@ const routerConfig = [
         action: addReviewAction
       },
       {
-        path: "my-gigs",
-        element: <MyGigs />,
+        path: "private-gigs",
+        element: <PrivateGigs />,
         errorElement: <Error />,
-        loader: fetchMyGigsLoader,
+        loader: fetchPrivateGigsLoader,
         action: deleteGigAction
       },
       {

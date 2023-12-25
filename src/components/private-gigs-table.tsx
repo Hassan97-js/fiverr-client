@@ -8,7 +8,7 @@ import Table, { TableBody, TableHead } from "./table";
 
 import { formatCurrency } from "../utils";
 
-const MyGigsTable = ({ tableHeaders = [], tableData = [], clickable = false }) => {
+const PrivateGigsTable = ({ tableHeaders = [], tableData = [], clickable = false }) => {
   const [clickedGigId, setClickedGigId] = useState(null);
 
   const { state } = useNavigation();
@@ -91,4 +91,4 @@ const MyGigsTable = ({ tableHeaders = [], tableData = [], clickable = false }) =
   );
 };
 
-export default MyGigsTable;
+export default PrivateGigsTable;

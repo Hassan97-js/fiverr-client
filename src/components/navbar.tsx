@@ -1,7 +1,5 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { NavLink, Link, Form } from "react-router-dom";
-
-import { useClickAway } from "../hooks";
 
 import { capitalize, setIsActive } from "../utils";
 
@@ -12,8 +10,7 @@ type TProps = {
 };
 
 const Navbar = ({ user }: TProps) => {
-  const dropdownRef = useRef(null);
-  const isOpen = useClickAway(dropdownRef);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-10 transition-all bg-white drop-shadow-md px-8">
@@ -48,60 +45,68 @@ const Navbar = ({ user }: TProps) => {
           </ul>
         ) : (
           <>
-            <figure className="flex items-center gap-3 m-0 cursor-pointer">
-              <figcaption className="select-none font-medium">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex items-center gap-3 m-0 cursor-pointer user-menu-trigger">
+              <span className="select-none font-medium">
                 {capitalize(user?.username)}
-              </figcaption>
+              </span>
               <img
                 className="w-10 h-10 flex-shrink-0 rounded-full object-cover object-center"
                 src={user?.image || "/public/avatar1.jpg"}
                 alt="Profile picture"
               />
-            </figure>
+            </button>
 
-            <div
-              ref={dropdownRef}
-              className={`absolute top-24 right-0 z-[2000] flex flex-col gap-3 w-52 p-4 bg-white rounded-md border border-neutral-300 text-neutral-600 font-normal cursor-pointer transition-all ${
-                isOpen ? "visible opacity-100" : "invisible opacity-0"
-              }`}>
-              {user.isSeller && (
-                <>
-                  <Link className="link" to="my-gigs" aria-label="Gigs" title="Gigs">
-                    My Gigs
-                  </Link>
+            {isOpen && (
+              <div className="absolute top-24 right-0 z-[2000] flex flex-col gap-3 w-52 p-4 bg-white rounded-md border border-neutral-300 text-neutral-600 font-normal cursor-pointer transition">
+                {user.isSeller && (
+                  <>
+                    <Link
+                      className="link"
+                      to="private-gigs"
+                      aria-label="Gigs"
+                      title="Gigs">
+                      My Gigs
+                    </Link>
 
-                  <Link
-                    className="link"
-                    to="/add"
-                    aria-label="Add New Gig"
-                    title="Add New Gig">
-                    Add New Gig
-                  </Link>
-                </>
-              )}
+                    <Link
+                      className="link"
+                      to="/add"
+                      aria-label="Add New Gig"
+                      title="Add New Gig">
+                      Add New Gig
+                    </Link>
+                  </>
+                )}
 
-              <Link className="link" to="orders" aria-label="Orders" title="Orders">
-                Orders
-              </Link>
+                <Link
+                  className="link"
+                  to="orders"
+                  aria-label="Orders"
+                  title="Orders">
+                  Orders
+                </Link>
 
-              <Link className="link" to="gigs" aria-label="Gigs" title="Orders">
-                Gigs
-              </Link>
+                <Link className="link" to="gigs" aria-label="Gigs" title="Orders">
+                  Gigs
+                </Link>
 
-              <Link
-                className="link"
-                to="messages"
-                aria-label="Messages"
-                title="Messages">
-                Messages
-              </Link>
+                <Link
+                  className="link"
+                  to="messages"
+                  aria-label="Messages"
+                  title="Messages">
+                  Messages
+                </Link>
 
-              <Form method="post" action="/">
-                <button className="link" aria-label="Log out" title="Log out">
-                  Sign out
-                </button>
-              </Form>
-            </div>
+                <Form method="post" action="/">
+                  <button className="link" aria-label="Log out" title="Log out">
+                    Sign out
+                  </button>
+                </Form>
+              </div>
+            )}
           </>
         )}
       </div>

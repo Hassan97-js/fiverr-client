@@ -8,7 +8,7 @@ import SignIn from "./sign-in";
 import SignUp from "./sign-up";
 import Message from "./message";
 import Messages from "./messages";
-import MyGigs from "./my-gigs";
+import PrivateGigs from "./private-gigs";
 import Orders from "./orders";
 import Payment from "./payment";
 import Success from "./success";
@@ -23,7 +23,7 @@ export {
   SignIn,
   Message,
   Messages,
-  MyGigs,
+  PrivateGigs,
   Orders,
   SignUp,
   Payment,

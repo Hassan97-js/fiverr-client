@@ -21,7 +21,7 @@ import CustomIcon from "./custom-icon";
 import Table from "./table";
 import OrdersTable from "./orders-table";
 import MessagesTable from "./messages-table";
-import MyGigsTable from "./my-gigs-table";
+import PrivateGigsTable from "./private-gigs-table";
 import ChatInput from "./chat/chat-input";
 import ChatRoom from "./chat/chat-room";
 
@@ -61,7 +61,7 @@ export {
   Table,
   OrdersTable,
   MessagesTable,
-  MyGigsTable,
+  PrivateGigsTable,
   ChatInput,
   ChatRoom,
   CustomInput,
