@@ -2,11 +2,11 @@ import { Suspense } from "react";
 import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 
 import { Spinner, OrdersTable, AsyncError, LayoutSection } from "../components";
-import { useUserContext } from "../context";
+import { useUser } from "../hooks/use-user";
 
 const AwaitedOrders = () => {
   const ordersResponse = useAsyncValue();
-  const { currentUser } = useUserContext();
+  const user = useUser();
 
   const completedOrders = ordersResponse.data;
 

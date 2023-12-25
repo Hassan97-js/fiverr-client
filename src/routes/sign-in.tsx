@@ -28,20 +28,20 @@ const SignIn = () => {
           <div>
             <div className="flex flex-col gap-x-8 gap-y-6">
               <CustomInput
-                inputName="username"
+                name="username"
                 labelText="Username"
-                inputId="username"
-                placeholderText="Enter your username"
+                id="username"
+                placeholder="Enter your username"
                 autoFocus={true}
               />
 
               <CustomInput
-                classNames="mb-3"
-                inputName="password"
-                inputType="password"
+                className="mb-3"
+                name="password"
+                type="password"
                 labelText="Password"
-                inputId="password"
-                placeholderText="Enter your password"
+                id="password"
+                placeholder="Enter your password"
               />
             </div>
 

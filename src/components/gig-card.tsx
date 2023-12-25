@@ -9,7 +9,7 @@ import { capitalize, formatCurrency, getRatingAverage } from "../utils";
 
 import type { TUser } from "../types/user.types";
 
-type Props = {
+type TProps = {
   userInfo: TUser | string;
   gigId: string;
   coverImage: string;
@@ -29,7 +29,7 @@ const GigCard = ({
   description,
   totalStars,
   starNumber
-}: Props) => {
+}: TProps) => {
   const styles = {
     backgroundImage: `url(${coverImage})`,
     backgroundRepeat: "no-repeat",

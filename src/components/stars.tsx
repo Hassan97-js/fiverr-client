@@ -2,18 +2,18 @@ import { RiStarFill } from "react-icons/ri";
 
 import CustomIcon from "./custom-icon";
 
-type Props = {
-  starNumber: number;
+type TProps = {
+  numberOfStars?: number;
 };
 
-const Stars = ({ starNumber = 0 }: Props) => {
-  if (starNumber === 0) {
+const Stars = ({ numberOfStars = 0 }: TProps) => {
+  if (numberOfStars === 0 || numberOfStars > 5 || numberOfStars < 0) {
     return null;
   }
 
   return (
     <div className="flex items-center gap-1">
-      {Array(starNumber)
+      {Array(numberOfStars)
         .fill(0)
         .map((_item, i) => {
           return (

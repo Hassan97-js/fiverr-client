@@ -1,36 +1,49 @@
+import { type InputHTMLAttributes } from "react";
+
+import { cn } from "../../utils/cn";
+
+type TProps = InputHTMLAttributes<HTMLInputElement> & {
+  labelText?: string;
+  labelClassName?: string;
+};
+
 const CustomInput = ({
-  classNames = "",
-  inputType = "text",
-  inputName = "",
-  inputId = "",
-  inputMinLength = 1,
-  inputMaxLength = 30,
-  labelText = "",
-  lableClassNames = "text-neutral-900",
-  placeholderText = "",
-  onChangeHandler = () => {},
-  isRequired = true,
+  className,
+  type = "text",
+  name,
+  id,
+  minLength = 1,
+  maxLength = 30,
+  labelText,
+  labelClassName = "text-neutral-900",
+  placeholder,
+  onChange = () => {},
+  required = true,
+  autoComplete = "off",
   ...otherProps
-}) => {
+}: TProps) => {
   return (
     <div className="flex-1">
       <label
-        htmlFor={inputId}
-        className={`block mb-2 text-sm font-medium ${lableClassNames}`}>
+        htmlFor={id}
+        className={cn("block mb-2 text-sm font-medium", labelClassName)}>
         {labelText}
       </label>
 
       <input
-        type={inputType}
-        name={inputName}
-        id={inputId}
-        minLength={inputMinLength}
-        maxLength={inputMaxLength}
-        className={`bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 outline-none block w-full p-2.5 ${classNames}`}
-        placeholder={placeholderText}
-        autoComplete="on"
-        required={isRequired}
-        onChange={onChangeHandler}
+        type={type}
+        name={name}
+        id={id}
+        minLength={minLength}
+        maxLength={maxLength}
+        className={cn(
+          "bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 outline-none block w-full p-2.5",
+          className
+        )}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        required={required}
+        onChange={onChange}
         {...otherProps}
       />
     </div>

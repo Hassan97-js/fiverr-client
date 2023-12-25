@@ -9,11 +9,12 @@ import {
   Spinner
 } from "../components";
 
-import { useUserContext } from "../context";
+import { useUser } from "../hooks/use-user";
+
 
 const AwaitedMessages = () => {
   const messagesResponse = useAsyncValue();
-  const { currentUser } = useUserContext();
+  const user = useUser();
 
   const messages = messagesResponse.data;
 

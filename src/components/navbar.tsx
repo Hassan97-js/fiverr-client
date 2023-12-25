@@ -7,11 +7,11 @@ import { capitalize, setIsActive } from "../utils";
 
 import type { TUser } from "../types/user.types";
 
-type Props = {
+type TProps = {
   user?: TUser | null;
 };
 
-const Navbar = ({ user }: Props) => {
+const Navbar = ({ user }: TProps) => {
   const dropdownRef = useRef(null);
   const isOpen = useClickAway(dropdownRef);
 

@@ -64,26 +64,26 @@ const SignUp = () => {
           <div>
             <div className="flex flex-col gap-x-8 gap-y-6">
               <CustomInput
-                inputName="username"
+                name="username"
                 labelText="Username"
-                inputId="username"
-                placeholderText="Enter your username"
+                id="username"
+                placeholder="Enter your username"
               />
 
               <CustomInput
-                inputName="email"
+                name="email"
                 labelText="Email"
-                inputId="email"
-                placeholderText="Enter your email address"
+                id="email"
+                placeholder="Enter your email address"
               />
 
               <CustomInput
-                inputName="password"
-                classNames="mb-3"
-                inputType="password"
+                name="password"
+                className="mb-3"
+                type="password"
                 labelText="Password"
-                inputId="password"
-                placeholderText="Enter your password"
+                id="password"
+                placeholder="Enter your password"
               />
 
               <div className="flex-1">
@@ -102,11 +102,11 @@ const SignUp = () => {
               </div>
 
               <CustomInput
-                inputName="country"
-                classNames="mb-3"
+                name="country"
+                className="mb-3"
                 labelText="Country"
-                inputId="country"
-                placeholderText="Enter your country name"
+                id="country"
+                placeholder="Enter your country name"
               />
             </div>
           </div>
@@ -129,11 +129,11 @@ const SignUp = () => {
               <CustomToggle inputName="isSeller" labelText="Activate account" />
 
               <CustomInput
-                inputName="phone"
+                name="phone"
                 labelText="Phone Number"
-                inputId="phone"
-                placeholderText="Enter your phone number"
-                isRequired={false}
+                id="phone"
+                placeholder="Enter your phone number"
+                required={false}
               />
 
               <TextareaInput

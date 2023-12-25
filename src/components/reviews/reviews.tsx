@@ -6,13 +6,20 @@ import Button from "../custom-button/button";
 import CustomInput from "../form/custom-input";
 import SelectInput from "../form/select-input";
 
+import { capitalize } from "../../utils";
+
+import { useUser } from "../../hooks/use-user";
+
 import type { TReview } from "../../types/review.types";
 
-import { capitalize } from "../../utils";
+export type AddReviewOption = {
+  value: number;
+  label: string;
+};
 
 const AddReview = () => {
   const { state } = useNavigation();
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const isBusy = state === "submitting";
 
@@ -23,7 +30,7 @@ const AddReview = () => {
     { value: 3, label: "3" },
     { value: 4, label: "4" },
     { value: 5, label: "5" }
-  ];
+  ] satisfies AddReviewOption[];
 
   useEffect(() => {
     if (!isBusy) {
@@ -32,19 +39,16 @@ const AddReview = () => {
   }, [isBusy]);
 
   return (
-    <div className="add-review">
+    <div>
       <h3 className="mb-4">Add a review</h3>
-      <Form ref={formRef} method="post">
+      <Form ref={formRef} method="POST">
         <CustomInput
-          inputName="description"
-          inputId="add-review"
-          placeholderText="Write your opinion..."
+          name="description"
+          id="add-review"
+          placeholder="Write your opinion..."
         />
-        <SelectInput
-          selectInputName="starNumber"
-          defaultValue="choose"
-          options={options}
-        />
+
+        <SelectInput name="starNumber" defaultValue="choose" options={options} />
 
         <Button
           disabled={isBusy}
@@ -59,31 +63,36 @@ const AddReview = () => {
   );
 };
 
-type Props = {
+type TProps = {
   reviews: TReview[] | null;
   gigUserId: string | null;
 };
 
-// Todo: Continue with Reviews
-const Reviews = ({ reviews: reviewsArray, gigUserId }: Props) => {
-  const { currentUser } = useOutletContext();
+const Reviews = ({ reviews: reviewsArray, gigUserId }: TProps) => {
+  const user = useUser();
 
-  const currentUserId = currentUser?.id;
-  const isSeller = currentUser?.isSeller;
+  const currentUserId = user?._id;
+  const isSeller = user?.isSeller;
 
   return (
     <div className="reviews">
       <h2 className="mb-6">Reviews</h2>
 
-      {reviewsArray.length ? (
+      {!!reviewsArray?.length ? (
         <div className="items-center flex flex-wrap gap-10 mb-12">
           {reviewsArray.map(({ _id: id, description, userId: userInfo }) => {
-            const { username, country } = userInfo;
+            let userName = "";
+            let country = "";
+
+            if (typeof userInfo !== "string") {
+              userName = userInfo.username;
+              country = userInfo.country;
+            }
 
             return (
               <Review
                 key={id}
-                sellerName={capitalize(username)}
+                sellerName={capitalize(userName)}
                 sellerImage="https://images.pexels.com/photos/839586/pexels-photo-839586.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 countryImage="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1fa-1f1f8.png"
                 countryName={country}

@@ -3,19 +3,33 @@ import Stars from "./stars";
 
 import { capitalize } from "../utils";
 
+type TProps = {
+  currentUserId: string;
+  gigUserId: string | null;
+  sellerName: string | null;
+  sellerImage: string;
+  rating: number;
+  country: string | null;
+  memberDate: string;
+  responseTime: string;
+  lastDelivery: string;
+  languages: string;
+  aboutSeller: string;
+};
+
 const AboutSeller = ({
   currentUserId,
   gigUserId,
   sellerName,
   sellerImage,
   rating,
-  fromCountry,
+  country,
   memberDate,
   responseTime,
   lastDelivery,
   languages,
   aboutSeller
-}) => {
+}: TProps) => {
   return (
     <div className="text-neutral-700">
       <div>
@@ -30,9 +44,11 @@ const AboutSeller = ({
             />
 
             <div className="info flex flex-col gap-1">
-              <span className="font-medium mt-1">{capitalize(sellerName)}</span>
+              {sellerName && (
+                <span className="font-medium mt-1">{capitalize(sellerName)}</span>
+              )}
               <div className="stars">
-                <Stars>{rating}</Stars>
+                <Stars numberOfStars={rating} />
               </div>
             </div>
           </div>
@@ -49,7 +65,7 @@ const AboutSeller = ({
         <div className="grid md:grid-cols-2 gap-3 p-4">
           <div>
             <p>From</p>
-            <p className="font-medium">{fromCountry} </p>
+            <p className="font-medium">{country} </p>
           </div>
 
           <div>

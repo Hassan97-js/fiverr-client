@@ -14,61 +14,61 @@ import { UploadWidget } from "../components";
 import { createCloudinary } from "../utils";
 
 const AddGig = () => {
-  const {
-    cloudinaryConfig: { cloud }
-  } = createCloudinary();
+  // const {
+  //   cloudinaryConfig: { cloud }
+  // } = createCloudinary();
 
-  const [uploadURLs, setUploadURLs] = useState({
-    coverImage: "",
-    images: ""
-  });
+  // const [uploadURLs, setUploadURLs] = useState({
+  //   coverImage: "",
+  //   images: ""
+  // });
 
-  const [uploadErrors, setUploadErrors] = useState({
-    coverImageError: null,
-    imagesError: null
-  });
+  // const [uploadErrors, setUploadErrors] = useState({
+  //   coverImageError: null,
+  //   imagesError: null
+  // });
 
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const actionData = useActionData();
   const { state } = useNavigation();
 
   const isBusy = state === "submitting";
 
-  const axiosResponse = actionData?.data?.response;
-  const actionError = axiosResponse?.data?.message;
+  // const axiosResponse = actionData?.data?.response;
+  // const actionError = axiosResponse?.data?.message;
 
   useEffect(() => {
     if (!isBusy) {
       formRef.current?.reset();
-      setUploadURLs({
-        coverImage: "",
-        images: []
-      });
+      // setUploadURLs({
+      //   coverImage: "",
+      //   images: []
+      // });
     }
   }, [isBusy]);
 
-  const handleUpload = ({ error, result, isCoverImage }) => {
-    if (error) {
-      setUploadErrors((prevErrors) => {
-        return {
-          ...prevErrors,
-          [isCoverImage ? "coverImageError" : "imagesError"]: error
-        };
-      });
+  // const handleUpload = ({ error, result, isCoverImage }) => {
+  //   if (error) {
+  //     setUploadErrors((prevErrors) => {
+  //       return {
+  //         ...prevErrors,
+  //         [isCoverImage ? "coverImageError" : "imagesError"]: error
+  //       };
+  //     });
 
-      return;
-    }
+  //     return;
+  //   }
 
-    setUploadURLs((prevImages) => {
-      return {
-        ...prevImages,
-        [isCoverImage ? "coverImage" : "images"]: isCoverImage
-          ? result?.info?.secure_url
-          : [...prevImages.images, result?.info?.secure_url]
-      };
-    });
-  };
+  // setUploadURLs((prevImages) => {
+  //   return {
+  //     ...prevImages,
+  //     [isCoverImage ? "coverImage" : "images"]: isCoverImage
+  //       ? result?.info?.secure_url
+  //       : [...prevImages.images, result?.info?.secure_url]
+  //   };
+  // });
+  // };
 
   const categoryOptions = [
     { value: "choose", label: "Choose a category" },
@@ -82,7 +82,7 @@ const AddGig = () => {
     <LayoutSection>
       <Form ref={formRef} method="POST">
         <div className="flex flex-col gap-x-10 gap-y-7 mb-12">
-          {!!actionError && (
+          {/* {!!actionError && (
             <span className="text-normal font-bold text-red-500">{actionError}</span>
           )}
 
@@ -90,30 +90,30 @@ const AddGig = () => {
             <span className="text-normal font-bold text-red-500">
               {uploadErrors.coverImageError || uploadErrors.imagesError}
             </span>
-          )}
+          )} */}
 
           <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
             <CustomInput
-              inputName="title"
+              name="title"
               labelText="Title"
-              inputId="title"
-              placeholderText="e.g. I will do something I am really good at"
+              id="title"
+              placeholder="e.g. I will do something I am really good at"
             />
 
             <CustomInput
-              inputName="shortTitle"
+              name="shortTitle"
               labelText="Service title"
-              inputId="service-title"
-              placeholderText="e.g. One-page web design"
+              id="service-title"
+              placeholder="e.g. One-page web design"
             />
           </div>
 
           <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
             <SelectInput
-              selectInputName="category"
-              inputId="category"
+              name="category"
+              id="category"
               defaultValue="choose"
-              labelText="Category"
+              label="Category"
               options={categoryOptions}
             />
 
@@ -126,13 +126,13 @@ const AddGig = () => {
           </div>
 
           <div>
-            <input
+            {/* <input
               type="hidden"
               name="coverImage"
               value={uploadURLs.coverImage}
               required
-            />
-            <UploadWidget
+            /> */}
+            {/* <UploadWidget
               placeholderText="Please upload a single cover image"
               labelText="Cover image"
               cloudName={cloud.cloud_name}
@@ -141,17 +141,17 @@ const AddGig = () => {
               onUpload={({ error, result }) => {
                 handleUpload({ error, result, isCoverImage: true });
               }}
-            />
+            /> */}
           </div>
 
           <div>
-            <input
+            {/* <input
               type="hidden"
               name="images"
               value={JSON.stringify(uploadURLs.images)}
               required
-            />
-            <UploadWidget
+            /> */}
+            {/* <UploadWidget
               placeholderText="Please upload at least one gig image"
               labelText="Gig images"
               cloudName={cloud.cloud_name}
@@ -160,7 +160,7 @@ const AddGig = () => {
               onUpload={({ error, result }) => {
                 handleUpload({ error, result, isCoverImage: false });
               }}
-            />
+            /> */}
           </div>
 
           <TextareaInput
@@ -172,35 +172,35 @@ const AddGig = () => {
 
           <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
             <CustomInput
-              inputName="revisionNumber"
-              inputId="revision-number"
+              name="revisionNumber"
+              id="revision-number"
               labelText="Revision number"
-              placeholderText="e.g. 3"
+              placeholder="e.g. 3"
             />
 
             <CustomInput
-              inputName="deliveryTime"
-              inputId="delivery-time"
+              name="deliveryTime"
+              id="delivery-time"
               labelText="Delivery time"
-              placeholderText="e.g. 5"
+              placeholder="e.g. 5"
             />
           </div>
 
           <div className="flex flex-col gap-4">
             <CustomInput
-              inputName="features"
-              inputId="features"
+              name="features"
+              id="features"
               labelText="Features"
-              inputMaxLength={200}
-              placeholderText="e.g. page design, file uploading, setting up a domain, hosting"
+              maxLength={200}
+              placeholder="e.g. page design, file uploading, setting up a domain, hosting"
             />
           </div>
 
           <CustomInput
-            inputName="price"
-            inputId="price"
+            name="price"
+            id="price"
             labelText="Price"
-            placeholderText="e.g. $30"
+            placeholder="e.g. $30"
           />
         </div>
 

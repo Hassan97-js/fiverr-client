@@ -35,7 +35,7 @@ const AwaitedGig = () => {
   const {
     title,
     description,
-    starNumber,
+    totalStars,
     images,
     userId: userInfo,
     features: services,
@@ -64,7 +64,7 @@ const AwaitedGig = () => {
     <div className="block grid-cols-none gap-0 xl:grid xl:grid-cols-2fr-1fr xl:gap-14">
       <div className="flex flex-col gap-20">
         <div>
-          <h1 className="mb-14">{title}</h1>
+          <h1 className="capitalize mb-14">{title}</h1>
 
           <Slider
             itemClass="mr-10 rounded-lg overflow-hidden"
@@ -93,11 +93,11 @@ const AwaitedGig = () => {
           gigUserId={gigUserId}
           sellerName={userName}
           aboutSeller={`My name is ${userName}, I enjoy creating AI generated art in my spare time. I have a lot of experience using the AI program and that means I know what to prompt the AI with to get a great and incredibly detailed result.`}
-          fromCountry={country}
+          country={country}
           languages="English"
           lastDelivery="1 day"
           memberDate="Aug 2022"
-          rating={starNumber}
+          rating={totalStars}
           responseTime="4 hours"
           sellerImage={userImage || fallbackImage}
         />

@@ -3,7 +3,7 @@ import { type CSSProperties } from "react";
 import { IconContext, type IconType } from "react-icons";
 import { RiErrorWarningLine } from "react-icons/ri";
 
-type Props = IconContext & {
+type TProps = IconContext & {
   Icon: IconType;
   className?: string;
   style?: CSSProperties;
@@ -15,7 +15,7 @@ const CustomIcon = ({
   color,
   className,
   style
-}: Props) => {
+}: TProps) => {
   return (
     <IconContext.Provider value={{ size, color, className, style }}>
       <IconComponent />

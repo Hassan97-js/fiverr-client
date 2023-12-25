@@ -3,11 +3,11 @@ import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 
 import { Spinner, MessagesTable, AsyncError, LayoutSection } from "../components";
 
-import { useUserContext } from "../context";
+import { useUser } from "../hooks/use-user";
 
 const AwaitedConversations = () => {
   const conversationsResponse = useAsyncValue();
-  const { currentUser } = useUserContext();
+  const user = useUser();
 
   const conversations = conversationsResponse.data;
 

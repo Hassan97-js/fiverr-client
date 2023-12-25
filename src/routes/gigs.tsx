@@ -102,21 +102,21 @@ const Gigs = () => {
       <Form method="GET" className="flex flex-col items-start py-5 gap-5 mt-6 mb-24">
         <div className="flex flex-col items-start mb-5 gap-5">
           <CustomInput
-            inputId="min"
-            lableClassNames="text-neutral-600"
+            id="min"
+            labelClassName="text-neutral-600"
             labelText="Min price"
-            inputName="min"
-            placeholderText="min"
-            isRequired={false}
+            name="min"
+            placeholder="min"
+            required={false}
           />
 
           <CustomInput
-            inputId="max"
-            lableClassNames="text-neutral-600"
+            id="max"
+            labelClassName="text-neutral-600"
             labelText="Max price"
-            inputName="max"
-            placeholderText="max"
-            isRequired={false}
+            name="max"
+            placeholder="max"
+            required={false}
           />
         </div>
 

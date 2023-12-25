@@ -1,16 +1,13 @@
 import { Suspense } from "react";
-import {
-  Await,
-  useAsyncValue,
-  useLoaderData,
-  useOutletContext
-} from "react-router-dom";
+import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
 
 import { AsyncError, CheckoutForm, LayoutSection, Spinner } from "../components";
 
+import { useUser } from "../hooks/use-user";
+
 const AwaitedPayment = () => {
-  const data = useOutletContext();
+  const user = useUser();
   const [stripe, paymentIntent] = useAsyncValue();
 
   const currentUser = data?.currentUser;

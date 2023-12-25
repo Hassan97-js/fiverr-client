@@ -1,12 +1,12 @@
 import { type ReactNode } from "react";
 import { cn } from "../../utils/cn";
 
-type Props = {
+type TProps = {
   children: ReactNode;
   className?: string;
 };
 
-const LayoutSection = ({ children, className }: Props) => {
+const LayoutSection = ({ children, className }: TProps) => {
   return (
     <section className={cn("container py-20 min-h-[37.5rem]", className)}>
       {children}
