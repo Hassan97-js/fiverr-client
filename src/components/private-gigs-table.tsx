@@ -3,21 +3,35 @@ import { Form, useNavigation } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 
 import CustomIcon from "./custom-icon";
-import Button from "./custom-button/button";
+import Button from "./button";
 import Table, { TableBody, TableHead } from "./table";
+
+import { type TTableHeader } from "../routes/private-gigs";
 
 import { formatCurrency } from "../utils";
 
-const PrivateGigsTable = ({ tableHeaders = [], tableData = [], clickable = false }) => {
-  const [clickedGigId, setClickedGigId] = useState(null);
+import type { TGig } from "../types/gig.types";
+
+type TProps = {
+  tableHeaders: TTableHeader[];
+  tableData: TGig[];
+  clickable?: boolean;
+};
+
+const PrivateGigsTable = ({
+  tableHeaders = [],
+  tableData = [],
+  clickable = false
+}: TProps) => {
+  const [clickedGigId, setClickedGigId] = useState<string | null>(null);
 
   const { state } = useNavigation();
 
   const isBusy = state === "submitting";
 
-  const tableHeaderElements = tableHeaders.map((tableHeader, idx) => {
+  const tableHeaderElements = tableHeaders.map((tableHeader) => {
     return (
-      <th key={idx} scope="col" className="px-6 py-3">
+      <th key={tableHeader.text} scope="col" className="px-6 py-3">
         {tableHeader.text}
       </th>
     );
@@ -48,7 +62,7 @@ const PrivateGigsTable = ({ tableHeaders = [], tableData = [], clickable = false
 
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="capitalize px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
           {title}
         </td>
 
@@ -72,10 +86,10 @@ const PrivateGigsTable = ({ tableHeaders = [], tableData = [], clickable = false
             <input type="hidden" name="gigId" value={id} />
 
             <Button
-              onClickHandler={() => setClickedGigId(id)}
+              onClick={() => setClickedGigId(id)}
               disabled={isBusy}
               type="submit">
-              <CustomIcon color="#ef4444" icon={FaTrash} aria-label="A trash icon" />
+              <CustomIcon color="#ef4444" Icon={FaTrash} aria-label="A trash icon" />
             </Button>
           </Form>
         </td>

@@ -1,15 +1,9 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
-import {
-  checkIfAuthenticated,
-  makeApiRequest,
-  removeData,
-  retrieveData,
-  storeData
-} from "../utils";
+import { auth, makeApiRequest, removeData, retrieveData, storeData } from "../utils";
 
 export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
   try {
-    const isAuthenticated = await checkIfAuthenticated();
+    const isAuthenticated = await auth();
 
     const redirectTo = new URL(request.url).pathname;
 
@@ -50,7 +44,7 @@ export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
 
 export const createGigAction = async ({ request }: ActionFunctionArgs) => {
   try {
-    const isAuthenticated = await checkIfAuthenticated();
+    const isAuthenticated = await auth();
 
     const redirectTo = new URL(request.url).pathname;
 
@@ -116,7 +110,7 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
 
 export const createConversationAction = async ({ request }: ActionFunctionArgs) => {
   try {
-    const isAuthenticated = await checkIfAuthenticated();
+    const isAuthenticated = await auth();
 
     const redirectTo = new URL(request.url).pathname;
 
@@ -141,7 +135,6 @@ export const createConversationAction = async ({ request }: ActionFunctionArgs) 
     const isSeller = !!isCurrentSeller;
 
     const response = await makeApiRequest({
-      method: "get",
       url: `conversations/single/${fetchId}`,
       headers: {
         Authorization: `Bearer ${currentToken}`
@@ -178,7 +171,7 @@ export const createMessageAction = async ({
   params
 }: ActionFunctionArgs) => {
   try {
-    const isAuthenticated = await checkIfAuthenticated();
+    const isAuthenticated = await auth();
 
     const redirectTo = new URL(request.url).pathname;
 
@@ -223,7 +216,7 @@ export const createMessageAction = async ({
 
 export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
   try {
-    const isAuthenticated = await checkIfAuthenticated();
+    const isAuthenticated = await auth();
 
     const redirectTo = new URL(request.url).pathname;
 
@@ -263,7 +256,7 @@ export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
 
 export const addReviewAction = async ({ request, params }: ActionFunctionArgs) => {
   try {
-    const isAuthenticated = await checkIfAuthenticated();
+    const isAuthenticated = await auth();
 
     const redirectTo = new URL(request.url).pathname;
 
@@ -364,33 +357,6 @@ export const signUpAction = async ({ request }: ActionFunctionArgs) => {
     }
 
     return redirect("/sign-in");
-  } catch (error) {
-    return error;
-  }
-};
-
-export const signOutAction = async () => {
-  try {
-    const token = retrieveData("token") ?? "";
-    removeData("token");
-
-    if (!token) {
-      return;
-    }
-
-    const response = await makeApiRequest({
-      method: "post",
-      url: "auth/sign-out",
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    if (response.status > 399 && response.status < 600) {
-      throw response.data.message;
-    }
-
-    return redirect("/");
   } catch (error) {
     return error;
   }

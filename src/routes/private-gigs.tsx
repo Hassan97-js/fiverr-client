@@ -1,17 +1,34 @@
 import { Suspense } from "react";
-import { Await, Link, useAsyncValue, useLoaderData } from "react-router-dom";
+import { Await, Link, useLoaderData } from "react-router-dom";
 
 import { AsyncError, LayoutSection, PrivateGigsTable, Spinner } from "../components";
 
-const AwaitedPrivateGigs = () => {
-  const privateGigsResponse = useAsyncValue();
+import { usePrivateGigs } from "../hooks/use-private-gigs";
 
-  const privateGigs = privateGigsResponse.data;
+import { PrivateGigsPromiseSchema } from "../constants/gig-validator";
+
+import type { TPrivateGigsPromise } from "../types/gig.types";
+
+export type TTableHeader = {
+  id: number;
+  text: string;
+};
+
+const AwaitedPrivateGigs = () => {
+  const privateGigs = usePrivateGigs();
+
+  if (!privateGigs) {
+    return (
+      <p className="text-neutral-500 text-lg font-medium text-center mt-10">
+        Could not load gigs
+      </p>
+    );
+  }
 
   if (!privateGigs?.length) {
     return (
       <p className="text-neutral-500 text-lg font-medium text-center mt-10">
-        No ordered gigs yet
+        No gigs found
       </p>
     );
   }
@@ -22,7 +39,7 @@ const AwaitedPrivateGigs = () => {
     { id: 3, text: "Price" },
     { id: 4, text: "Sales" },
     { id: 5, text: "Delete" }
-  ];
+  ] satisfies TTableHeader[];
 
   return <PrivateGigsTable tableHeaders={tableHeaders} tableData={privateGigs} />;
 };
@@ -30,7 +47,13 @@ const AwaitedPrivateGigs = () => {
 const PrivateGigs = () => {
   const data = useLoaderData();
 
-  // Todo: Validate Private Gig data with Zod
+  let gigsPromiseData: null | TPrivateGigsPromise = null;
+
+  const validationResult = PrivateGigsPromiseSchema.safeParse(data);
+
+  if (validationResult.success) {
+    gigsPromiseData = validationResult.data;
+  }
 
   return (
     <LayoutSection>
@@ -42,7 +65,7 @@ const PrivateGigs = () => {
 
       <Suspense fallback={<Spinner />}>
         <Await
-          resolve={data.privateGigsPromise}
+          resolve={gigsPromiseData?.privateGigsPromise}
           errorElement={<AsyncError errorMessage="Failed to load your own gigs" />}>
           <AwaitedPrivateGigs />
         </Await>

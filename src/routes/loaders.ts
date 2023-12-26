@@ -2,9 +2,10 @@ import { type LoaderFunctionArgs, defer, redirect } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
 import {
-  checkIfAuthenticated,
+  auth,
   getCurrentUser,
   makeApiRequest,
+  removeData,
   retrieveData
 } from "../utils";
 
@@ -12,20 +13,25 @@ export const rootLoader = async () => {
   try {
     const user = await getCurrentUser();
 
+    if (!user) {
+      removeData("token");
+      removeData("user");
+    }
+
     return { user };
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
 export const signInLoader = async () => {
-  const isAuthenticated = await checkIfAuthenticated();
+  const currentToken = retrieveData("token");
 
-  return isAuthenticated && redirect("/");
+  return currentToken && redirect("/");
 };
 
 export const successLoader = async ({ request }: LoaderFunctionArgs) => {
-  const isAuthenticated = await checkIfAuthenticated();
+  const isAuthenticated = await auth();
 
   if (!isAuthenticated) {
     throw redirect("/sign-in?redirectTo=/gigs");
@@ -62,7 +68,7 @@ export const successLoader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const paymentLoader = async ({ params, request }: LoaderFunctionArgs) => {
-  const isAuthenticated = await checkIfAuthenticated();
+  const isAuthenticated = await auth();
 
   const redirectTo = new URL(request.url).pathname;
 
@@ -102,7 +108,7 @@ export const fetchMessagesLoader = async ({
   request,
   params
 }: LoaderFunctionArgs) => {
-  const isAuthenticated = await checkIfAuthenticated();
+  const isAuthenticated = await auth();
 
   const redirectTo = new URL(request.url).pathname;
 
@@ -117,7 +123,6 @@ export const fetchMessagesLoader = async ({
   }
 
   const messagesPromise = makeApiRequest({
-    method: "get",
     url: `messages/${params.id}`,
     headers: {
       Authorization: `Bearer ${currentToken}`
@@ -129,7 +134,7 @@ export const fetchMessagesLoader = async ({
 
 export const addGigLoader = async ({ request }: LoaderFunctionArgs) => {
   try {
-    const isAuthenticated = await checkIfAuthenticated();
+    const isAuthenticated = await auth();
 
     const redirectTo = new URL(request.url).pathname;
 
@@ -142,13 +147,15 @@ export const addGigLoader = async ({ request }: LoaderFunctionArgs) => {
     if (!currentToken) {
       throw Error("[addGigLoader] Unauthorized");
     }
+
+    return null;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
 export const fetchConversationsLoader = async ({ request }: LoaderFunctionArgs) => {
-  const isAuthenticated = await checkIfAuthenticated();
+  const isAuthenticated = await auth();
 
   const redirectTo = new URL(request.url).pathname;
 
@@ -163,7 +170,6 @@ export const fetchConversationsLoader = async ({ request }: LoaderFunctionArgs) 
   }
 
   const conversationsPromise = makeApiRequest({
-    method: "get",
     url: "conversations",
     headers: {
       Authorization: `Bearer ${currentToken}`
@@ -174,7 +180,7 @@ export const fetchConversationsLoader = async ({ request }: LoaderFunctionArgs) 
 };
 
 export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {
-  const isAuthenticated = await checkIfAuthenticated();
+  const isAuthenticated = await auth();
 
   const redirectTo = new URL(request.url).pathname;
 
@@ -189,7 +195,6 @@ export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const ordersPromise = makeApiRequest({
-    method: "get",
     url: "orders",
     headers: {
       Authorization: `Bearer ${currentToken}`
@@ -200,7 +205,7 @@ export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const fetchPrivateGigsLoader = async ({ request }: LoaderFunctionArgs) => {
-  const isAuthenticated = await checkIfAuthenticated();
+  const isAuthenticated = await auth();
 
   const redirectTo = new URL(request.url).pathname;
 
@@ -215,8 +220,7 @@ export const fetchPrivateGigsLoader = async ({ request }: LoaderFunctionArgs) =>
   }
 
   const privateGigsPromise = makeApiRequest({
-    method: "get",
-    url: "gigs/my",
+    url: "gigs/private",
     headers: {
       Authorization: `Bearer ${currentToken}`
     }
@@ -232,7 +236,6 @@ export const fetchGigsLoader = async ({ request }: LoaderFunctionArgs) => {
   // console.log(Object.fromEntries(searchParams.entries()));
 
   const gigsPromise = makeApiRequest({
-    method: "get",
     url: "gigs",
     params: searchParams
   });

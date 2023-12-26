@@ -1,15 +1,17 @@
 import { z } from "zod";
 
 import {
-  ExternalGigSchemaPromise,
-  ExternalGigsSchemaPromise,
+  GigPromiseSchema,
+  GigsPromiseSchema,
   FromApiGigSchema,
   FromApiGigsSchema,
-  GigSchema
+  GigSchema,
+  PrivateGigsPromiseSchema
 } from "../constants/gig-validator";
 
 export type TFromApiGigs = z.infer<typeof FromApiGigsSchema>;
 export type TFromApiGig = z.infer<typeof FromApiGigSchema>;
 export type TGig = z.infer<typeof GigSchema>;
-export type TExternalGigsPromise = z.infer<typeof ExternalGigsSchemaPromise>;
-export type TExternalGigPromise = z.infer<typeof ExternalGigSchemaPromise>;
+export type TGigsPromise = z.infer<typeof GigsPromiseSchema>;
+export type TPrivateGigsPromise = z.infer<typeof PrivateGigsPromiseSchema>;
+export type TGigPromise = z.infer<typeof GigPromiseSchema>;

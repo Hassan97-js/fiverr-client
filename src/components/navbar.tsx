@@ -1,16 +1,55 @@
 import { useState } from "react";
-import { NavLink, Link, Form } from "react-router-dom";
+import { NavLink, Link, useRevalidator } from "react-router-dom";
 
-import { capitalize, setIsActive } from "../utils";
+import Button from "./button";
+
+import {
+  capitalize,
+  makeApiRequest,
+  removeData,
+  retrieveData,
+  setIsActive
+} from "../utils";
 
 import type { TUser } from "../types/user.types";
+import { handleError } from "../utils/handle-error";
+import UserMenu from "./user-menu";
 
 type TProps = {
   user?: TUser | null;
 };
 
 const Navbar = ({ user }: TProps) => {
+  const revalidator = useRevalidator();
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleSignOut = async () => {
+    try {
+      const token = retrieveData("token") ?? "";
+
+      removeData("token");
+      removeData("user");
+
+      if (!token) {
+        return;
+      }
+
+      const response = await makeApiRequest({
+        method: "post",
+        url: "auth/sign-out",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      revalidator.revalidate();
+
+      setIsOpen(false);
+    } catch (error) {
+      handleError(error);
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-10 transition-all bg-white drop-shadow-md px-8">
@@ -23,6 +62,7 @@ const Navbar = ({ user }: TProps) => {
           <span className="text-green-400">.</span>
         </div>
 
+        {/* Todo: Extract ul to a separate component */}
         {!user ? (
           <ul
             className="flex items-center gap-8 font-medium mt-6 sm:mt-0"
@@ -44,70 +84,11 @@ const Navbar = ({ user }: TProps) => {
             </li>
           </ul>
         ) : (
-          <>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center gap-3 m-0 cursor-pointer user-menu-trigger">
-              <span className="select-none font-medium">
-                {capitalize(user?.username)}
-              </span>
-              <img
-                className="w-10 h-10 flex-shrink-0 rounded-full object-cover object-center"
-                src={user?.image || "/public/avatar1.jpg"}
-                alt="Profile picture"
-              />
-            </button>
-
-            {isOpen && (
-              <div className="absolute top-24 right-0 z-[2000] flex flex-col gap-3 w-52 p-4 bg-white rounded-md border border-neutral-300 text-neutral-600 font-normal cursor-pointer transition">
-                {user.isSeller && (
-                  <>
-                    <Link
-                      className="link"
-                      to="private-gigs"
-                      aria-label="Gigs"
-                      title="Gigs">
-                      My Gigs
-                    </Link>
-
-                    <Link
-                      className="link"
-                      to="/add"
-                      aria-label="Add New Gig"
-                      title="Add New Gig">
-                      Add New Gig
-                    </Link>
-                  </>
-                )}
-
-                <Link
-                  className="link"
-                  to="orders"
-                  aria-label="Orders"
-                  title="Orders">
-                  Orders
-                </Link>
-
-                <Link className="link" to="gigs" aria-label="Gigs" title="Orders">
-                  Gigs
-                </Link>
-
-                <Link
-                  className="link"
-                  to="messages"
-                  aria-label="Messages"
-                  title="Messages">
-                  Messages
-                </Link>
-
-                <Form method="post" action="/">
-                  <button className="link" aria-label="Log out" title="Log out">
-                    Sign out
-                  </button>
-                </Form>
-              </div>
-            )}
-          </>
+          <UserMenu
+            onSignOut={handleSignOut}
+            popoverClassName="flex justify-end items-center gap-3  user-menu-trigger"
+            user={user}
+          />
         )}
       </div>
     </nav>
@@ -115,3 +96,8 @@ const Navbar = ({ user }: TProps) => {
 };
 
 export default Navbar;
+
+/* 
+
+
+      {/* -------------------------- User Menu  -------------------------- */

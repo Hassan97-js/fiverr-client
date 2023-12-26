@@ -12,7 +12,6 @@ export const getCurrentUser = async () => {
     }
 
     const response = await makeApiRequest({
-      method: "get",
       url: "user/current",
       headers: {
         Authorization: `Bearer ${token}`
@@ -27,7 +26,7 @@ export const getCurrentUser = async () => {
 
     return validationResult.user;
   } catch (error) {
-    console.log(error);
-    throw new Error("Failed to get current user");
+    console.log("Failed to get current user");
+    return null;
   }
 };

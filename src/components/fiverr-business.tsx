@@ -1,6 +1,6 @@
 import { FaCheckCircle } from "react-icons/fa";
 
-import Button from "./custom-button/button";
+import Button from "./button";
 import CustomIcon from "./custom-icon";
 import LayoutSection from "./layout/layout-section";
 

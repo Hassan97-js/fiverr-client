@@ -1,4 +1,4 @@
-import Button from "../custom-button/button";
+import Button from "../button";
 
 const UploadButton = ({
   imagePreviewURL,

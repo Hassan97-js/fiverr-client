@@ -10,15 +10,12 @@ import {
   LayoutSection
 } from "../components";
 
-import {
-  ExternalGigsSchemaPromise,
-  FromApiGigsSchema
-} from "../constants/gig-validator";
+import { GigsPromiseSchema, FromApiGigsSchema } from "../constants/gig-validator";
 
 import { handleError } from "../utils/handle-error";
 
-import type { TExternalGigsPromise, TFromApiGigs } from "../types/gig.types";
-import type { TApiResponsePromise, TAxiosResponse } from "../types/api.types";
+import type { TGigsPromise, TFromApiGigs } from "../types/gig.types";
+import type { TAxiosResponse } from "../types/api.types";
 
 const AwaitedPublicGigs = () => {
   const gigsResponse = useAsyncValue() as TAxiosResponse<TFromApiGigs>;
@@ -82,14 +79,14 @@ const AwaitedPublicGigs = () => {
 };
 
 const Gigs = () => {
-  const data = useLoaderData() as TApiResponsePromise<unknown>;
+  const data = useLoaderData();
 
-  let gigsPromiseValidationResult: null | TExternalGigsPromise = null;
+  let gigsPromiseData: null | TGigsPromise = null;
 
-  const validationResult = ExternalGigsSchemaPromise.safeParse(data);
+  const validationResult = GigsPromiseSchema.safeParse(data);
 
   if (validationResult.success) {
-    gigsPromiseValidationResult = validationResult.data;
+    gigsPromiseData = validationResult.data;
   }
 
   return (
@@ -138,7 +135,7 @@ const Gigs = () => {
 
       <Suspense fallback={<Spinner />}>
         <Await
-          resolve={gigsPromiseValidationResult?.gigsPromise}
+          resolve={gigsPromiseData?.gigsPromise}
           errorElement={<AsyncError errorMessage="Failed to load the gigs" />}>
           <AwaitedPublicGigs />
         </Await>

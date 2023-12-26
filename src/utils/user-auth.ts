@@ -1,6 +1,6 @@
 import { getCurrentUser } from "./current-user";
 
-export const checkIfAuthenticated = async () => {
+export const auth = async () => {
   try {
     const currentUser = await getCurrentUser();
 

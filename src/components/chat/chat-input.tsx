@@ -1,5 +1,5 @@
 import { Form } from "react-router-dom";
-import Button from "../custom-button/button";
+import Button from "../button";
 
 const ChatInput = () => {
   return (

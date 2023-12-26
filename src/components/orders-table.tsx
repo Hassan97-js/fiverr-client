@@ -1,7 +1,7 @@
 import { Form } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 
-import Button from "./custom-button/button";
+import Button from "./button";
 import CustomIcon from "./custom-icon";
 import Table, { TableBody, TableHead } from "./table";
 

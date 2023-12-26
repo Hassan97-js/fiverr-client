@@ -1,7 +1,7 @@
 import { RiThumbUpLine, RiThumbDownLine } from "react-icons/ri";
 
 import Stars from "../stars";
-import Button from "../custom-button/button";
+import Button from "../button";
 import CustomIcon from "../custom-icon";
 
 const Review = ({

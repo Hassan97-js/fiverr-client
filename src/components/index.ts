@@ -1,5 +1,6 @@
 import LayoutSection from "./layout/layout-section";
 
+import UserMenu from "./user-menu";
 import Navbar from "./navbar";
 import Footer from "./footer/footer";
 import Hero from "./hero";
@@ -34,12 +35,13 @@ import AgreeCheckbox from "./form/agree-checkbox";
 import CustomToggle from "./form/custom-toggle";
 import Spinner from "./spinner";
 import Alert from "./alert";
-import Button from "./custom-button/button";
+import Button from "./button";
 import AsyncError from "./async-error";
 
 import UploadButton from "./form/upload-button";
 
 export {
+  UserMenu,
   LayoutSection,
   Navbar,
   Footer,

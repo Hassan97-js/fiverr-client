@@ -12,12 +12,12 @@ import {
   clearStorage
 } from "./local-storage";
 import { createCloudinary } from "./cloudinary";
-import { checkIfAuthenticated } from "./check-auth";
+import { auth } from "./user-auth";
 import { getCurrentUser } from "./current-user";
 
 export {
   getCurrentUser,
-  checkIfAuthenticated,
+  auth,
   getRatingAverage,
   setIsActive,
   formatCurrency,

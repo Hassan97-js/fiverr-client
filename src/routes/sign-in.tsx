@@ -21,42 +21,39 @@ const SignIn = () => {
 
   return (
     <LayoutSection>
-      <Form method="POST" className="flex flex-col justify-center items-center">
-        <div className="flex flex-col gap-x-10 gap-y-9 w-1/4 min-w-max">
+      <Form
+        method="POST"
+        className="flex flex-col justify-center items-center gap-5 max-w-[400px] mx-auto">
+        <div className="space-y-16 w-full">
           <h1 className="self-start">Sign in</h1>
 
-          <div>
-            <div className="flex flex-col gap-x-8 gap-y-6">
-              <CustomInput
-                name="username"
-                labelText="Username"
-                id="username"
-                placeholder="Enter your username"
-                autoFocus={true}
-              />
+          <div className="space-y-6">
+            <CustomInput
+              name="username"
+              labelText="Username"
+              id="username"
+              placeholder="Enter your username"
+              autoFocus={true}
+            />
 
-              <CustomInput
-                className="mb-3"
-                name="password"
-                type="password"
-                labelText="Password"
-                id="password"
-                placeholder="Enter your password"
-              />
-            </div>
-
-            {actionError && (
-              <span className="text-sm text-red-600">{actionError}</span>
-            )}
+            <CustomInput
+              className="mb-3"
+              name="password"
+              type="password"
+              labelText="Password"
+              id="password"
+              placeholder="Enter your password"
+            />
           </div>
 
-          <Button
-            disabled={isBusy}
-            type="submit"
-            className={`btn btn-primary self-start ${isBusy ? "bg-green-400" : ""}`}>
-            {isBusy ? "Signing in..." : "Sign in"}
-          </Button>
+          {actionError && (
+            <span className="text-sm text-red-600">{actionError}</span>
+          )}
         </div>
+
+        <Button disabled={isBusy} variant="primary" type="submit" className="w-full">
+          {isBusy ? "Signing in..." : "Sign in"}
+        </Button>
       </Form>
     </LayoutSection>
   );

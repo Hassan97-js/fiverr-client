@@ -1,6 +1,6 @@
 import { Form, Link, useNavigation } from "react-router-dom";
 
-import Button from "./custom-button/button";
+import Button from "./button";
 import Table, { TableBody, TableHead } from "./table";
 
 import { capitalize, formatDateToNow } from "../utils";

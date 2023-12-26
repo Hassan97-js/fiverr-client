@@ -9,12 +9,12 @@ import type { TFromApiGig, TGig } from "../types/gig.types";
 import type { TAxiosResponses } from "../types/api.types";
 import type { TFromApiReviews, TReview } from "../types/review.types";
 
-export type UseGigReturnType = {
+export type TUseGigReturn = {
   gig: TGig | null;
   reviews: TReview[] | null;
 };
 
-export const useGig = (): UseGigReturnType => {
+export const useGig = (): TUseGigReturn => {
   const data = useAsyncValue() as TAxiosResponses<TFromApiGig, TFromApiReviews>;
 
   const [gigResponse, reviewsResponse] = data;

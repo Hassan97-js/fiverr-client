@@ -47,13 +47,19 @@ export const FromApiGigSchema = z
   })
   .strict();
 
-export const ExternalGigsSchemaPromise = z
+export const GigsPromiseSchema = z
   .object({
     gigsPromise: z.promise(z.unknown())
   })
   .strict();
 
-export const ExternalGigSchemaPromise = z
+export const PrivateGigsPromiseSchema = z
+  .object({
+    privateGigsPromise: z.promise(z.unknown())
+  })
+  .strict();
+
+export const GigPromiseSchema = z
   .object({
     gigPromise: z.promise(z.unknown())
   })

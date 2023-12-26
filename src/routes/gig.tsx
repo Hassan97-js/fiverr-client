@@ -11,14 +11,14 @@ import {
   LayoutSection
 } from "../components";
 
-import { ExternalGigSchemaPromise } from "../constants/gig-validator";
+import { GigPromiseSchema } from "../constants/gig-validator";
 
 import { useUser } from "../hooks/use-user";
 import { useGig } from "../hooks/use-gig";
 
 import { responsiveConfig } from "../data/client/ts/ui";
 
-import type { TExternalGigPromise } from "../types/gig.types";
+import type { TGigPromise } from "../types/gig.types";
 
 const AwaitedGig = () => {
   const user = useUser();
@@ -123,9 +123,9 @@ const AwaitedGig = () => {
 const Gig = () => {
   const data = useLoaderData();
 
-  let validGigPromise: null | TExternalGigPromise = null;
+  let validGigPromise: null | TGigPromise = null;
 
-  const validatedGigPromise = ExternalGigSchemaPromise.safeParse(data);
+  const validatedGigPromise = GigPromiseSchema.safeParse(data);
 
   if (validatedGigPromise.success) {
     validGigPromise = validatedGigPromise.data;

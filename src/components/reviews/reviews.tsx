@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Form, useNavigation, useOutletContext } from "react-router-dom";
 
 import Review from "./single-review";
-import Button from "../custom-button/button";
+import Button from "../button";
 import CustomInput from "../form/custom-input";
 import SelectInput from "../form/select-input";
 
