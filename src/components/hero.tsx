@@ -9,10 +9,10 @@ import Heading1 from "./typography/heading-1";
 import CustomInput from "./form/custom-input";
 
 const Hero = () => {
-  const [searchDefault, setSearchDefault] = useState("");
+  const [searchText, setSearchText] = useState("");
 
   const handleClick = (content: string) => {
-    setSearchDefault(content);
+    setSearchText(content);
   };
 
   return (
@@ -40,7 +40,8 @@ const Hero = () => {
               />
 
               <CustomInput
-                defaultValue={searchDefault}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
                 className="bg-transparent  border-0 outline-none"
                 placeholder="Search for any service..."
                 name="search"
