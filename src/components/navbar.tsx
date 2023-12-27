@@ -17,7 +17,7 @@ const Navbar = ({ user }: TProps) => {
 
   const handleSignOut = async () => {
     try {
-      const token = retrieveData("token") ?? "";
+      const token = retrieveData("token");
 
       removeData("token");
       removeData("user");
