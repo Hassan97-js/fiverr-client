@@ -1,15 +1,9 @@
-import { useState } from "react";
-import { NavLink, Link, useRevalidator } from "react-router-dom";
+import { useRevalidator } from "react-router-dom";
 
-import Button from "./button";
+import Logo from "./logo";
+import NavLinks from "./nav-links";
 
-import {
-  capitalize,
-  makeApiRequest,
-  removeData,
-  retrieveData,
-  setIsActive
-} from "../utils";
+import { makeApiRequest, removeData, retrieveData } from "../utils";
 
 import type { TUser } from "../types/user.types";
 import { handleError } from "../utils/handle-error";
@@ -22,8 +16,6 @@ type TProps = {
 const Navbar = ({ user }: TProps) => {
   const revalidator = useRevalidator();
 
-  const [isOpen, setIsOpen] = useState(false);
-
   const handleSignOut = async () => {
     try {
       const token = retrieveData("token") ?? "";
@@ -35,7 +27,7 @@ const Navbar = ({ user }: TProps) => {
         return;
       }
 
-      const response = await makeApiRequest({
+      await makeApiRequest({
         method: "post",
         url: "auth/sign-out",
         headers: {
@@ -44,8 +36,6 @@ const Navbar = ({ user }: TProps) => {
       });
 
       revalidator.revalidate();
-
-      setIsOpen(false);
     } catch (error) {
       handleError(error);
     }
@@ -54,35 +44,10 @@ const Navbar = ({ user }: TProps) => {
   return (
     <nav className="sticky top-0 z-10 transition-all bg-white drop-shadow-md px-8">
       <div className="container relative flex flex-row items-center justify-between gap-10 w-full py-5">
-        <div className="font-bold text-3xl">
-          <Link to="." className="link" aria-label="Logo" title="Logo">
-            fiverr
-          </Link>
+        <Logo />
 
-          <span className="text-green-400">.</span>
-        </div>
-
-        {/* Todo: Extract ul to a separate component */}
         {!user ? (
-          <ul
-            className="flex items-center gap-8 font-medium mt-6 sm:mt-0"
-            role="list">
-            <li className="link">
-              <NavLink
-                to="/sign-in"
-                className={setIsActive}
-                aria-label="Sign in"
-                title="Sign in">
-                Sign in
-              </NavLink>
-            </li>
-
-            <li>
-              <Link to="/sign-up" className="btn btn-secondary">
-                Join
-              </Link>
-            </li>
-          </ul>
+          <NavLinks />
         ) : (
           <UserMenu
             onSignOut={handleSignOut}
@@ -96,8 +61,3 @@ const Navbar = ({ user }: TProps) => {
 };
 
 export default Navbar;
-
-/* 
-
-
-      {/* -------------------------- User Menu  -------------------------- */

@@ -1,6 +1,7 @@
 import LayoutSection from "./layout/layout-section";
 
 import UserMenu from "./user-menu";
+import Logo from "./logo";
 import Navbar from "./navbar";
 import Footer from "./footer/footer";
 import Hero from "./hero";
@@ -41,6 +42,7 @@ import AsyncError from "./async-error";
 import UploadButton from "./form/upload-button";
 
 export {
+  Logo,
   UserMenu,
   LayoutSection,
   Navbar,
