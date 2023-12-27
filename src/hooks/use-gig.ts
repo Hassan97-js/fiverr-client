@@ -3,7 +3,7 @@ import { useAsyncValue } from "react-router-dom";
 import { FromApiGigSchema } from "../constants/gig-validator";
 import { FromApiReviewsSchema } from "../constants/review-validator";
 
-import { handleError } from "../utils/handle-error";
+import { handleError } from "../utils";
 
 import type { TFromApiGig, TGig } from "../types/gig.types";
 import type { TAxiosResponses } from "../types/api.types";

@@ -2,12 +2,11 @@ import { useRevalidator } from "react-router-dom";
 
 import Logo from "./logo";
 import NavLinks from "./nav-links";
+import UserMenu from "./user-menu";
 
-import { makeApiRequest, removeData, retrieveData } from "../utils";
+import { handleError, makeApiRequest, removeData, retrieveData } from "../utils";
 
 import type { TUser } from "../types/user.types";
-import { handleError } from "../utils/handle-error";
-import UserMenu from "./user-menu";
 
 type TProps = {
   user?: TUser | null;

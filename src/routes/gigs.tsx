@@ -12,7 +12,7 @@ import {
 
 import { GigsPromiseSchema, FromApiGigsSchema } from "../constants/gig-validator";
 
-import { handleError } from "../utils/handle-error";
+import { handleError } from "../utils";
 
 import type { TGigsPromise, TFromApiGigs } from "../types/gig.types";
 import type { TAxiosResponse } from "../types/api.types";
