@@ -30,7 +30,7 @@ const AddGig = () => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const actionData = useActionData();
+  // const actionData = useActionData();
   const { state } = useNavigation();
 
   const isBusy = state === "submitting";
@@ -40,7 +40,7 @@ const AddGig = () => {
 
   useEffect(() => {
     if (!isBusy) {
-      formRef.current?.reset();
+      // formRef.current?.reset();
       // setUploadURLs({
       //   coverImage: "",
       //   images: []

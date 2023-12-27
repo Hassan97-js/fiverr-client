@@ -1,5 +1,10 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
+
+import { CreateGigSchema } from "../constants/form/create-gig-validator";
+
 import { auth, makeApiRequest, removeData, retrieveData, storeData } from "../utils";
+
+import type { TCreateGig } from "../types/form/create-gig.types";
 
 export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
   try {
@@ -60,21 +65,33 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
       );
     }
 
+    // const data: TCreateGig = {};
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
-    if (!formEntries?.agreed) {
-      formEntries.agreed = "false";
-    } else if (formEntries?.agreed === "on") {
-      formEntries.agreed = "true";
+    const validatedCreateGig = CreateGigSchema.safeParse(formEntries);
+
+    if (validatedCreateGig.success) {
+      console.log(validatedCreateGig.data);
+    } else {
+      console.log(validatedCreateGig.error.issues);
     }
 
-    if (!formEntries.agreed) {
-      throw Error("You have to agree to our terms and condtion");
-    }
+    // if (!formEntries?.agreed) {
+    //   formEntries.agreed = "false";
+    //   // data.agreed =
+    // } else if (formEntries?.agreed === "on") {
+    //   formEntries.agreed = "true";
+    // }
+
+    // if (!formEntries.agreed) {
+    //   throw Error("You have to agree to our terms and condtion");
+    // }
 
     // eslint-disable-next-line no-unused-vars
-    const { agreed, features, images, ...otherEntries } = formEntries;
+    // const { agreed, features, images, ...otherEntries } = formEntries;
+
+    // console.log(formEntries);
 
     // const featuresArray = features
     //   .trim()
