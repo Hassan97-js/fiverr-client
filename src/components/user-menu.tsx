@@ -57,7 +57,7 @@ const UserMenu = ({ user, popoverClassName, onSignOut }: TUserMenuProps) => {
   return (
     <div className={cn("w-full max-w-sm", popoverClassName)}>
       <Popover className="relative">
-        {({ open }) => (
+        {({ open, close }) => (
           <>
             <Popover.Button
               className={`
@@ -92,6 +92,7 @@ const UserMenu = ({ user, popoverClassName, onSignOut }: TUserMenuProps) => {
 
                       return (
                         <Link
+                          onClick={() => close()}
                           key={link.id}
                           to={link.to}
                           className="-mt-4 -mx-2  flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-green-500/50">

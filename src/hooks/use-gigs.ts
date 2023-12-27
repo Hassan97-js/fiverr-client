@@ -7,7 +7,7 @@ import { handleError } from "../utils";
 import type { TFromApiGigs, TGig } from "../types/gig.types";
 import type { TAxiosResponse } from "../types/api.types";
 
-export const usePrivateGigs = (): TGig[] | null => {
+export const useGigs = (): TGig[] | null => {
   const gigsResponse = useAsyncValue() as TAxiosResponse<TFromApiGigs>;
 
   let gigsData: TFromApiGigs | null = null;

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Form, useNavigation, useOutletContext } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 
 import Review from "./single-review";
 import Button from "../button";

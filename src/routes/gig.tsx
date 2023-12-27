@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Await, useLoaderData } from "react-router-dom";
+import { Await } from "react-router-dom";
 
 import {
   AboutSeller,
@@ -11,14 +11,9 @@ import {
   LayoutSection
 } from "../components";
 
-import { GigPromiseSchema } from "../constants/gig-validator";
-
-import { useUser } from "../hooks/use-user";
-import { useGig } from "../hooks/use-gig";
+import { useUser, useGig, useDeferredData } from "../hooks/";
 
 import { responsiveConfig } from "../data/client/ts/ui";
-
-import type { TGigPromise } from "../types/gig.types";
 
 const AwaitedGig = () => {
   const user = useUser();
@@ -121,21 +116,13 @@ const AwaitedGig = () => {
 };
 
 const Gig = () => {
-  const data = useLoaderData();
-
-  let validGigPromise: null | TGigPromise = null;
-
-  const validatedGigPromise = GigPromiseSchema.safeParse(data);
-
-  if (validatedGigPromise.success) {
-    validGigPromise = validatedGigPromise.data;
-  }
+  const gigPromiseData = useDeferredData({ promiseType: "gigPromise" });
 
   return (
     <LayoutSection className="relative text-neutral-700">
       <Suspense fallback={<Spinner />}>
         <Await
-          resolve={validGigPromise?.gigPromise}
+          resolve={gigPromiseData?.gigPromise}
           errorElement={<AsyncError errorMessage="Failed to load the gig" />}>
           <AwaitedGig />
         </Await>

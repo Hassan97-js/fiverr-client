@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Await, Form, useAsyncValue, useLoaderData } from "react-router-dom";
+import { Await, Form } from "react-router-dom";
 
 import {
   Spinner,
@@ -10,27 +10,12 @@ import {
   LayoutSection
 } from "../components";
 
-import { GigsPromiseSchema, FromApiGigsSchema } from "../constants/gig-validator";
-
-import { handleError } from "../utils";
-
-import type { TGigsPromise, TFromApiGigs } from "../types/gig.types";
-import type { TAxiosResponse } from "../types/api.types";
+import { useDeferredData, useGigs } from "../hooks";
 
 const AwaitedPublicGigs = () => {
-  const gigsResponse = useAsyncValue() as TAxiosResponse<TFromApiGigs>;
+  const gigs = useGigs();
 
-  let gigsData: null | TFromApiGigs = null;
-
-  const gigsValidationResult = FromApiGigsSchema.safeParse(gigsResponse.data);
-
-  if (gigsValidationResult.success) {
-    gigsData = gigsValidationResult.data;
-  } else {
-    handleError(gigsValidationResult.error.issues);
-  }
-
-  if (!gigsData) {
+  if (!gigs) {
     return (
       <p className="text-neutral-500 text-lg font-medium text-center mt-10">
         Could not load gigs
@@ -38,7 +23,7 @@ const AwaitedPublicGigs = () => {
     );
   }
 
-  if (!gigsData?.gigs.length) {
+  if (!gigs.length) {
     return (
       <p className="text-neutral-500 text-lg font-medium text-center mt-10">
         No gigs found
@@ -46,7 +31,7 @@ const AwaitedPublicGigs = () => {
     );
   }
 
-  const gigsElements = gigsData.gigs.map((gig) => {
+  const gigsElements = gigs.map((gig) => {
     const {
       _id: gigId,
       coverImage,
@@ -79,15 +64,7 @@ const AwaitedPublicGigs = () => {
 };
 
 const Gigs = () => {
-  const data = useLoaderData();
-
-  let gigsPromiseData: null | TGigsPromise = null;
-
-  const validationResult = GigsPromiseSchema.safeParse(data);
-
-  if (validationResult.success) {
-    gigsPromiseData = validationResult.data;
-  }
+  const gigsPromiseData = useDeferredData({ promiseType: "gigsPromise" });
 
   return (
     <LayoutSection className="text-neutral-700">

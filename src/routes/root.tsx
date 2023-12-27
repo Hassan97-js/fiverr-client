@@ -8,20 +8,20 @@ import type { TExternalUser } from "../types/user.types";
 const Root = () => {
   const data = useLoaderData();
 
-  let validUserData: null | TExternalUser = null;
+  let userData: null | TExternalUser = null;
 
   const validationResult = ExternalUserSchema.safeParse(data);
 
   if (validationResult.success) {
-    validUserData = validationResult.data;
+    userData = validationResult.data;
   }
 
   return (
     <>
-      <Navbar user={validUserData?.user} />
+      <Navbar user={userData?.user} />
 
       <main>
-        <Outlet context={{ user: validUserData?.user }} />
+        <Outlet context={{ user: userData?.user }} />
       </main>
 
       <Footer />

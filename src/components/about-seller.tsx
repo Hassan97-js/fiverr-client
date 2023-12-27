@@ -65,7 +65,7 @@ const AboutSeller = ({
         <div className="grid md:grid-cols-2 gap-3 p-4">
           <div>
             <p>From</p>
-            <p className="font-medium">{country} </p>
+            <p className="font-medium capitalize">{country} </p>
           </div>
 
           <div>
