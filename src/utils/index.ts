@@ -11,7 +11,10 @@ import { auth } from "./user-auth";
 import { getCurrentUser } from "./current-user";
 import { handleError } from "./handle-error";
 
+import { cn } from "./cn";
+
 export {
+  cn,
   handleError,
   getCurrentUser,
   auth,

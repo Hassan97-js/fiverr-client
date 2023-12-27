@@ -42,12 +42,12 @@ const Review = ({
       <form className="font-medium flex items-center gap-3 mt-auto">
         <span>Helpful?</span>
 
-        <Button type="submit" className="flex items-center gap-2">
+        <Button type="submit" className="gap-2">
           <CustomIcon Icon={RiThumbUpLine} aria-label="A thumb up icon" />
           <span>Yes</span>
         </Button>
 
-        <Button type="submit" className="flex items-center gap-2">
+        <Button type="submit" className="gap-2">
           <CustomIcon Icon={RiThumbDownLine} aria-label="A thumb down icon" />
           <span>No</span>
         </Button>

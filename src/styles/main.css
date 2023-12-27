@@ -13,46 +13,6 @@
   #root > *:nth-child(2) {
     @apply flex-1;
   }
-
-  h1 {
-    @apply font-bold xl:text-6xl sm:text-5xl text-4xl tracking-tight;
-  }
-
-  h2,
-  h3,
-  h4,
-  h5 {
-    @apply font-bold leading-tight tracking-tight;
-  }
-
-  h2 {
-    @apply text-3xl;
-  }
-
-  h3 {
-    @apply text-2xl;
-  }
-
-  h4 {
-    @apply text-xl;
-  }
-
-  h5 {
-    @apply text-lg;
-  }
-
-  small,
-  .text-small {
-    @apply text-sm;
-  }
-
-  input {
-    @apply border border-neutral-200 text-base text-neutral-700 outline-none rounded-md px-2 py-1;
-  }
-
-  button {
-    @apply inline-flex items-center justify-center border-none outline-none bg-transparent font-poppins text-inherit no-underline select-none transition touch-manipulation cursor-pointer;
-  }
 }
 
 @layer components {

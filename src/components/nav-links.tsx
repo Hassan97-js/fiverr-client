@@ -1,5 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 
+import Button from "./button";
+
 import { setIsActive } from "../utils";
 
 const NavLinks = () => {
@@ -17,7 +19,7 @@ const NavLinks = () => {
 
       <li>
         <Link to="/sign-up" className="btn btn-secondary">
-          Join
+          <Button variant="secondary">Join</Button>
         </Link>
       </li>
     </ul>

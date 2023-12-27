@@ -1,6 +1,8 @@
 import Button from "./button";
 import Stars from "./stars";
 
+import Heading2 from "./typography/heading-2";
+
 import { capitalize } from "../utils";
 
 type TProps = {
@@ -33,7 +35,7 @@ const AboutSeller = ({
   return (
     <div className="text-neutral-700">
       <div>
-        <h2 className="mb-6">About The Seller</h2>
+        <Heading2 className="mb-6">About The Seller</Heading2>
 
         <div className="user">
           <div className="flex items-center gap-4">
@@ -52,9 +54,8 @@ const AboutSeller = ({
               </div>
             </div>
           </div>
-
           {currentUserId !== gigUserId ? (
-            <Button className="btn btn-secondary mt-6 tracking-wide">
+            <Button variant="secondary" className="mt-6 tracking-wide">
               Contact me
             </Button>
           ) : null}

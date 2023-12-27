@@ -2,6 +2,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import CustomIcon from "./custom-icon";
 import LayoutSection from "./layout/layout-section";
+import Heading2 from "./typography/heading-2";
 
 import assetsData from "../assets";
 
@@ -25,8 +26,7 @@ const Features = () => {
         </div>
 
         <div className="flex flex-col gap-10 flex-1">
-          <h2>A whole world of freelance talent at your fingertips.</h2>
-
+          <Heading2>A whole world of freelance talent at your fingertips.</Heading2>
           <div className="flex flex-col gap-8">
             <div>
               <div className="flex items-center gap-2 mb-2">
@@ -40,7 +40,6 @@ const Features = () => {
                 project-based pricing.
               </p>
             </div>
-
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
@@ -53,7 +52,6 @@ const Features = () => {
                 long-lasting results.
               </p>
             </div>
-
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
@@ -66,7 +64,6 @@ const Features = () => {
                 approve.
               </p>
             </div>
-
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />

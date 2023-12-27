@@ -5,6 +5,8 @@ import { FaSearch } from "react-icons/fa";
 import Button from "./button";
 import CustomIcon from "./custom-icon";
 import LayoutSection from "./layout/layout-section";
+import Heading1 from "./typography/heading-1";
+import CustomInput from "./form/custom-input";
 
 const Hero = () => {
   const [searchDefault, setSearchDefault] = useState("");
@@ -16,10 +18,10 @@ const Hero = () => {
   return (
     <section className="bg-neutral-200/60">
       <LayoutSection className="flex flex-col items-center justify-center min-h-max py-32">
-        <h1 className="capitalize leading-[1.1] max-w-[16ch] text-center mx-auto xl:mx-0 mb-14">
+        <Heading1 className="capitalize leading-[1.1] max-w-[16ch] text-center mx-auto xl:mx-0 mb-14">
           Find the perfect <i className="text-green-600">freelance</i> services for
           your business
-        </h1>
+        </Heading1>
 
         <div className="flex flex-col gap-8 max-w-[43.75rem] flex-auto w-full">
           <Form
@@ -37,18 +39,18 @@ const Hero = () => {
                 aria-label="A search icon"
               />
 
-              <input
+              <CustomInput
                 defaultValue={searchDefault}
-                className="block w-full h-full border-0 outline-none"
-                type="text"
-                name="search"
+                className="bg-transparent  border-0 outline-none"
                 placeholder="Search for any service..."
+                name="search"
               />
             </div>
 
             <Button
               type="submit"
-              className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 md:rounded-none rounded-lg text-center text-base font-medium px-5 py-2.5 focus:outline-none transition md:w-36">
+              variant="primary"
+              className="md:rounded-none md:w-36">
               Search
             </Button>
           </Form>

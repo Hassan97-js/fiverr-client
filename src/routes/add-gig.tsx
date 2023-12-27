@@ -206,7 +206,7 @@ const AddGig = () => {
 
         <AgreeCheckbox inputId="agreed" />
 
-        <Button type="submit" className="btn btn-primary">
+        <Button type="submit" variant="primary">
           Create
         </Button>
       </Form>

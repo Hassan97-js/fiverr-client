@@ -1,6 +1,6 @@
 import { type ButtonHTMLAttributes, type ReactNode } from "react";
 
-import { cn } from "../utils/cn";
+import { cn } from "../utils";
 
 type ButtonVariants =
   | "default"
@@ -29,13 +29,13 @@ const Button = ({
   return (
     <button
       className={cn(
-        "text-center text-base font-medium rounded-lg px-[1.4em] py-[0.6em] focus:outline-none transition border-none hover:bg-none",
+        "inline-flex items-center justify-center select-none no-underline font-poppins text-inherit text-center text-base font-medium rounded-lg px-[1.4em] py-[0.6em] focus:outline-none transition hover:bg-none touch-manipulation cursor-pointer",
         size === "sm" && "text-sm",
         size === "xs" && "text-xs",
         shape === "sharp" && "rounded-none",
-        variant === "primary" &&
-          "bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 disabled:bg-green-400",
         {
+          "bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 disabled:bg-green-400":
+            variant === "primary",
           "text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 disabled:bg-green-400 disabled:text-green-400":
             variant === "primary-outline",
           "bg-neutral-700 text-white hover:bg-neutral-800 focus:ring-4 focus:ring-neutral-300 disabled:bg-neutral-400":

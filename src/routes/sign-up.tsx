@@ -7,7 +7,8 @@ import {
   CustomToggle,
   TextareaInput,
   Button,
-  LayoutSection
+  LayoutSection,
+  Heading2
 } from "../components";
 
 // import { createCloudinary } from "../utils";
@@ -51,7 +52,7 @@ const SignUp = () => {
         method="post"
         className="relative flex flex-col-reverse lg:flex-row justify-center gap-16">
         <div className="flex flex-col gap-x-10 gap-y-9 w-full">
-          <h2>Sign up</h2>
+          <Heading2 className="mb-4">Sign up</Heading2>
 
           {actionError && (
             <span className="text-normal font-bold text-red-500">{actionError}</span>
@@ -112,18 +113,19 @@ const SignUp = () => {
           </div>
 
           <div className="flex gap-4">
-            <Button type="submit" className="btn btn-primary self-start">
+            <Button type="submit" variant="primary" className="self-start">
               Sign up
             </Button>
 
-            <Button type="reset" className="btn btn-primary-outline self-start">
+            <Button type="reset" variant="primary-outline" className="self-start">
               Reset
             </Button>
           </div>
         </div>
 
         <div className="flex flex-col gap-x-10 gap-y-9 w-full">
-          <h2>Become a Seller</h2>
+          <Heading2>Become a Seller</Heading2>
+
           <div>
             <div className="flex flex-col gap-x-8 gap-y-6 mt-8">
               <CustomToggle inputName="isSeller" labelText="Activate account" />

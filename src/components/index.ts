@@ -41,7 +41,16 @@ import AsyncError from "./async-error";
 
 import UploadButton from "./form/upload-button";
 
+import Heading1 from "./typography/heading-1";
+import Heading2 from "./typography/heading-2";
+import Heading3 from "./typography/heading-3";
+import Heading4 from "./typography/heading-4";
+
 export {
+  Heading1,
+  Heading2,
+  Heading3,
+  Heading4,
   Logo,
   UserMenu,
   LayoutSection,

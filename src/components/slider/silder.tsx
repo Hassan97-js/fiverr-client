@@ -9,6 +9,7 @@ import {
 } from "react-multi-carousel/lib/types";
 
 import CustomIcon from "../custom-icon";
+import Button from "../button";
 
 type TCustomArrowButtonProps = ArrowProps & {
   children: React.ReactNode;
@@ -23,13 +24,13 @@ const CustomArrowButton = ({
   dir = "left"
 }: TCustomArrowButtonProps) => {
   return (
-    <button
+    <Button
       onClick={onClick}
       className={`absolute top-1/2 -translate-y-1/2 z-1 bg-white min-w-[4rem] min-h-[4rem] rounded-full outline-none ${
         dir === "left" ? "left-7" : "right-7"
       }`}>
       {children}
-    </button>
+    </Button>
   );
 };
 

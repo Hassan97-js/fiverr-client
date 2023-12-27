@@ -8,7 +8,9 @@ import {
   GigCTA,
   Spinner,
   AsyncError,
-  LayoutSection
+  LayoutSection,
+  Heading1,
+  Heading2
 } from "../components";
 
 import { useUser, useGig, useDeferredData } from "../hooks/";
@@ -59,7 +61,7 @@ const AwaitedGig = () => {
     <div className="block grid-cols-none gap-0 xl:grid xl:grid-cols-2fr-1fr xl:gap-14">
       <div className="flex flex-col gap-20">
         <div>
-          <h1 className="capitalize mb-14">{title}</h1>
+          <Heading1 className="capitalize mb-14">{title}</Heading1>
 
           <Slider
             itemClass="mr-10 rounded-lg overflow-hidden"
@@ -78,7 +80,7 @@ const AwaitedGig = () => {
           </Slider>
 
           <div>
-            <h2 className="mb-4">About This Gig</h2>
+            <Heading2 className="mb-4">About This Gig</Heading2>
             <p>{description}</p>
           </div>
         </div>

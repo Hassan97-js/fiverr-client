@@ -1,6 +1,8 @@
 import { AxiosError } from "axios";
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
 
+import { Heading1, Heading3 } from "../components";
+
 const ErrorPage = () => {
   const error = useRouteError();
 
@@ -8,7 +10,7 @@ const ErrorPage = () => {
     console.log(error?.message);
   }
 
-  if (error instanceof String) {
+  if (typeof error === "string") {
     console.log(error);
   }
 
@@ -22,21 +24,21 @@ const ErrorPage = () => {
   if (isRouteErrorResponse(error)) {
     errorResponseContent = (
       <div className="text-center">
-        <h1 className="text-7xl mb-10">Oops!</h1>
+        <Heading1 className="text-7xl mb-10">Oops!</Heading1>
         <p className="text-3xl font-normal text-neutral-500 mb-12">
           Sorry, an unexpected error has occurred.
         </p>
 
-        <h3 className="text-lg font-normal text-neutral-500 mb-12">
+        <Heading3 className="text-lg font-normal text-neutral-500 mb-12">
           {error?.status}
-        </h3>
+        </Heading3>
 
         <p className="text-xl font-bold text-neutral-500">
           <i>
             {(error instanceof Error || error instanceof AxiosError) &&
               error.message}
           </i>
-          <i>{error instanceof String && error}</i>
+          <i>{typeof error === "string" && error}</i>
           <i>{error instanceof Response && error.statusText}</i>
         </p>
       </div>
@@ -49,7 +51,7 @@ const ErrorPage = () => {
       id="error-page">
       {!errorResponseContent && (
         <div className="text-center">
-          <h1 className="text-7xl mb-7">Oops!</h1>
+          <Heading1 className="text-7xl mb-7">Oops!</Heading1>
           <p className="text-3xl font-normal text-neutral-500 mb-12">
             Sorry, an unexpected error has occurred.
           </p>

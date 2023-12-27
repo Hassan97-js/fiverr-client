@@ -4,7 +4,7 @@ import { Popover, Transition } from "@headlessui/react";
 
 import Button from "./button";
 
-import { cn } from "../utils/cn";
+import { cn } from "../utils";
 
 import type { TUser } from "../types/user.types";
 

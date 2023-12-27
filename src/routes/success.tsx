@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Alert, LayoutSection, Spinner } from "../components";
+import { Alert, Heading1, LayoutSection, Spinner } from "../components";
 
 const Success = () => {
   const navigate = useNavigate();
@@ -19,7 +19,9 @@ const Success = () => {
   return (
     <LayoutSection className="flex flex-col items-center justify-center gap-10 text-center">
       <div>
-        <h1 className="mb-4 | text-green-700">Your Payment is Successful!</h1>
+        <Heading1 className="mb-4 text-green-700">
+          Your Payment is Successful!
+        </Heading1>
         <p className="text-lg | text-neutral-500 | max-w-[48ch] | mx-auto | mb-6">
           Thank you for your payment. An automated payment receipt will be sent your
           registered email.

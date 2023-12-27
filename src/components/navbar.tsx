@@ -1,4 +1,4 @@
-import { useRevalidator } from "react-router-dom";
+import { useNavigate, useRevalidator } from "react-router-dom";
 
 import Logo from "./logo";
 import NavLinks from "./nav-links";
@@ -13,6 +13,7 @@ type TProps = {
 };
 
 const Navbar = ({ user }: TProps) => {
+  const navigate = useNavigate();
   const revalidator = useRevalidator();
 
   const handleSignOut = async () => {
@@ -35,6 +36,7 @@ const Navbar = ({ user }: TProps) => {
       });
 
       revalidator.revalidate();
+      navigate("/sign-in");
     } catch (error) {
       handleError(error);
     }

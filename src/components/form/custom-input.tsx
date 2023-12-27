@@ -1,14 +1,16 @@
 import { type InputHTMLAttributes } from "react";
 
-import { cn } from "../../utils/cn";
+import { cn } from "../../utils";
 
 type TProps = InputHTMLAttributes<HTMLInputElement> & {
   labelText?: string;
   labelClassName?: string;
+  containerClassName?: string;
 };
 
 const CustomInput = ({
   className,
+  containerClassName,
   type = "text",
   name,
   id,
@@ -23,12 +25,14 @@ const CustomInput = ({
   ...otherProps
 }: TProps) => {
   return (
-    <div className="flex-1">
-      <label
-        htmlFor={id}
-        className={cn("block mb-2 text-sm font-medium", labelClassName)}>
-        {labelText}
-      </label>
+    <div className={cn("flex-1", containerClassName)}>
+      {labelText?.length && (
+        <label
+          htmlFor={id}
+          className={cn("block mb-2 text-sm font-medium", labelClassName)}>
+          {labelText}
+        </label>
+      )}
 
       <input
         type={type}

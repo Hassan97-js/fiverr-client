@@ -32,7 +32,8 @@ const config: Config = {
       },
       gridTemplateColumns: {
         "2fr-1fr": "2fr 1fr",
-        "min-max-16.25rem-1fr": "repeat(auto-fit, minmax(16.25rem, 1fr))"
+        "min-max-16.25rem-1fr": "repeat(auto-fit, minmax(16.25rem, 1fr))",
+        "footer-auto-fit": "repeat(auto-fit, minmax(13.75rem, 1fr))"
       }
     }
   },

@@ -1,6 +1,6 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
-import { Button, CustomInput, LayoutSection } from "../components";
+import { Button, CustomInput, Heading1, LayoutSection } from "../components";
 
 const SignIn = () => {
   const navigation = useNavigation();
@@ -25,7 +25,7 @@ const SignIn = () => {
         method="POST"
         className="flex flex-col justify-center items-center gap-5 max-w-[400px] mx-auto">
         <div className="space-y-16 w-full">
-          <h1 className="self-start">Sign in</h1>
+          <Heading1 className="self-start">Sign in</Heading1>
 
           <div className="space-y-6">
             <CustomInput
@@ -35,7 +35,6 @@ const SignIn = () => {
               placeholder="Enter your username"
               autoFocus={true}
             />
-
             <CustomInput
               className="mb-3"
               name="password"

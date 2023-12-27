@@ -12,14 +12,12 @@ const ChatInput = () => {
         <textarea
           id="chat"
           name="text"
-          rows="3"
+          rows={3}
           className="block mx-4 p-2.5 w-full text-base text-neutral-900 bg-white rounded-lg border-[1.8px] border-neutral-300 focus:ring-green-500 focus:border-green-500 outline-none transition"
           placeholder="Your message..."
           autoFocus></textarea>
 
-        <Button
-          type="submit"
-          className="inline-flex justify-center p-2 text-green-600 rounded-full cursor-pointer hover:bg-green-100 transition">
+        <Button variant="primary" type="submit" className="rounded-full">
           <svg
             aria-hidden="true"
             className="w-6 h-6 rotate-90"

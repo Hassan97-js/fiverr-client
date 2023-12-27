@@ -78,9 +78,9 @@ const MessagesTable = ({
               <Button
                 type="submit"
                 disabled={isBusy}
-                className={`btn btn-primary text-xs tracking-wide ${
-                  isBusy ? "bg-green-400" : ""
-                }`}>
+                variant="primary"
+                size="sm"
+                className={`tracking-wide ${isBusy ? "bg-green-400" : ""}`}>
                 Mark as read
               </Button>
             </Form>

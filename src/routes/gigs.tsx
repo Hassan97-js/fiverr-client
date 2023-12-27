@@ -7,7 +7,8 @@ import {
   CustomInput,
   Button,
   AsyncError,
-  LayoutSection
+  LayoutSection,
+  Heading1
 } from "../components";
 
 import { useDeferredData, useGigs } from "../hooks";
@@ -68,7 +69,7 @@ const Gigs = () => {
 
   return (
     <LayoutSection className="text-neutral-700">
-      <h1 className="mb-4">AI Artists</h1>
+      <Heading1 className="mb-4">AI Artists</Heading1>
       <p>
         Explore the boundaries of art and technology with Fiverr&apos;s AI artists
       </p>
@@ -105,7 +106,11 @@ const Gigs = () => {
           </select>
         </div>
 
-        <Button type="submit" className="btn btn-secondary btn-xs tracking-wide">
+        <Button
+          type="submit"
+          variant="secondary"
+          size="sm"
+          className="tracking-wide">
           Apply
         </Button>
       </Form>

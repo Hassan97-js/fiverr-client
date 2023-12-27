@@ -9,22 +9,21 @@ import {
 } from "react-icons/ri";
 
 import CustomIcon from "../custom-icon";
+import Heading2 from "../typography/heading-2";
+import LayoutSection from "../layout/layout-section";
 
 import assetsData from "../../assets";
 const { footerLogoSVG } = assetsData.svgs;
 
-import "./footer.css";
-import LayoutSection from "../layout/layout-section";
-
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer>
       <LayoutSection>
-        <nav className="grid footer--grid">
+        <nav className="grid grid-cols-footer-auto-fit gap-x-[1.5em] gap-y-[2em]">
           <ul role="list">
-            <h2>Categories</h2>
+            <Heading2 className="mb-5">Categories</Heading2>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 max-w-[20ch]">
               <li>
                 <Link to=".">Graphics & Design</Link>
               </li>
@@ -62,8 +61,8 @@ const Footer = () => {
           </ul>
 
           <ul role="list" className="item">
-            <h2>About</h2>
-            <div className="flex flex-col gap-4">
+            <Heading2 className="mb-5">About</Heading2>
+            <div className="flex flex-col gap-4 max-w-[20ch]">
               <li>
                 <Link to=".">Press & News</Link>
               </li>
@@ -89,9 +88,8 @@ const Footer = () => {
           </ul>
 
           <ul role="list" className="item">
-            <h2>Support</h2>
-
-            <div className="flex flex-col gap-4">
+            <Heading2 className="mb-5">Support</Heading2>
+            <div className="flex flex-col gap-4 max-w-[20ch]">
               <li>
                 <Link to=".">Help & Support</Link>
               </li>
@@ -108,9 +106,8 @@ const Footer = () => {
           </ul>
 
           <ul role="list" className="item">
-            <h2>Community</h2>
-
-            <div className="flex flex-col gap-4">
+            <Heading2 className="mb-5">Community</Heading2>
+            <div className="flex flex-col gap-4 max-w-[20ch]">
               <li>
                 <Link to=".">Customer Success Stories</Link>
               </li>
@@ -148,9 +145,8 @@ const Footer = () => {
           </ul>
 
           <ul role="list" className="item">
-            <h2>More From Fiverr</h2>
-
-            <div className="flex flex-col gap-4">
+            <Heading2 className="mb-5">More From Fiverr</Heading2>
+            <div className="flex flex-col gap-4 max-w-[20ch]">
               <li>
                 <Link to=".">Liverr Business</Link>
               </li>
@@ -187,7 +183,7 @@ const Footer = () => {
 
         <hr className="block w-full my-8 bg-neutral-200" />
 
-        <div className="footer--bottom flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex flex-col md:flex-row gap-3">
             <img src={footerLogoSVG} alt="fiverr logo" width="70" />
             <p className="mt-3">&copy; Fiverr International Ltd. 2023</p>

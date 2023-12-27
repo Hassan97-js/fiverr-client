@@ -120,7 +120,8 @@ const CheckoutForm = () => {
         <Button
           type="submit"
           disabled={isLoading || !stripe || !elements}
-          className="btn btn-primary self-center">
+          variant="primary"
+          className="self-center">
           {isLoading ? <Spinner spinnerVariant="inline" /> : "Pay now"}
         </Button>
       ) : null}

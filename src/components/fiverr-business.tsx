@@ -3,6 +3,8 @@ import { FaCheckCircle } from "react-icons/fa";
 import Button from "./button";
 import CustomIcon from "./custom-icon";
 import LayoutSection from "./layout/layout-section";
+import Heading1 from "./typography/heading-1";
+import Heading3 from "./typography/heading-3";
 
 import assetsData from "../assets";
 
@@ -14,9 +16,10 @@ const FiverrBusiness = () => {
       <LayoutSection className="flex flex-col xl:flex-row gap-28">
         <div className="left flex flex-col gap-10 flex-1 text-base">
           <div>
-            <h1>fiverr business</h1>
-            <h3 className="mb-4">A business solution designed for teams</h3>
-
+            <Heading1>fiverr business</Heading1>
+            <Heading3 className="mb-4">
+              A business solution designed for teams
+            </Heading3>
             <p>
               Upgrade to a curated experience packed with tools and benefits,
               dedicated for business
@@ -52,7 +55,7 @@ const FiverrBusiness = () => {
             </div>
           </ul>
 
-          <Button className="btn btn-primary self-start">
+          <Button variant="primary" className="self-start">
             Explore Fiverr Business
           </Button>
         </div>

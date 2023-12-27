@@ -5,6 +5,8 @@ import Review from "./single-review";
 import Button from "../button";
 import CustomInput from "../form/custom-input";
 import SelectInput from "../form/select-input";
+import Heading2 from "../typography/heading-2";
+import Heading3 from "../typography/heading-3";
 
 import { capitalize } from "../../utils";
 
@@ -40,7 +42,7 @@ const AddReview = () => {
 
   return (
     <div>
-      <h3 className="mb-4">Add a review</h3>
+      <Heading3 className="mb-4">Add a review</Heading3>
       <Form ref={formRef} method="POST">
         <CustomInput
           name="description"
@@ -53,9 +55,8 @@ const AddReview = () => {
         <Button
           disabled={isBusy}
           type="submit"
-          className={`btn btn-primary self-start mt-8 ${
-            isBusy ? "bg-green-400" : ""
-          }`}>
+          variant="primary"
+          className={`self-start mt-8 ${isBusy ? "bg-green-400" : ""}`}>
           {isBusy ? "Adding..." : "Add"}
         </Button>
       </Form>
@@ -76,7 +77,7 @@ const Reviews = ({ reviews: reviewsArray, gigUserId }: TProps) => {
 
   return (
     <div className="reviews">
-      <h2 className="mb-6">Reviews</h2>
+      <Heading2 className="mb-6">Reviews</Heading2>
 
       {!!reviewsArray?.length ? (
         <div className="items-center flex flex-wrap gap-10 mb-12">
@@ -106,7 +107,6 @@ const Reviews = ({ reviews: reviewsArray, gigUserId }: TProps) => {
           No reviews yet
         </p>
       )}
-
       {currentUserId !== gigUserId && !isSeller ? <AddReview /> : null}
     </div>
   );

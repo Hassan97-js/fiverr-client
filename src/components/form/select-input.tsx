@@ -2,7 +2,7 @@ import { SelectHTMLAttributes } from "react";
 
 type Option = {
   label: string;
-  value: string;
+  value: string | number;
 };
 
 type TProps = SelectHTMLAttributes<HTMLSelectElement> & {
