@@ -1,38 +1,37 @@
 import { type InputHTMLAttributes } from "react";
 
+import FormError from "./form-error";
+
 import { cn } from "../../utils";
+import FormLabel from "./form-label";
 
 type TProps = InputHTMLAttributes<HTMLInputElement> & {
   labelText?: string;
   labelClassName?: string;
-  containerClassName?: string;
+  hasError?: boolean;
 };
 
 const CustomInput = ({
+  hasError = false,
   className,
-  containerClassName,
   type = "text",
   name,
   id,
   minLength = 1,
   maxLength = 30,
   labelText,
-  labelClassName = "text-neutral-900",
+  labelClassName = "text-neutral-800",
   placeholder,
-  onChange = () => {},
+  onChange,
+  onFocus,
+  onBlur,
   required = true,
   autoComplete = "off",
   ...otherProps
 }: TProps) => {
   return (
-    <div className={cn("flex-1", containerClassName)}>
-      {labelText?.length && (
-        <label
-          htmlFor={id}
-          className={cn("block mb-2 text-sm font-medium", labelClassName)}>
-          {labelText}
-        </label>
-      )}
+    <>
+      {labelText && <FormLabel>{labelText}</FormLabel>}
 
       <input
         type={type}
@@ -41,16 +40,20 @@ const CustomInput = ({
         minLength={minLength}
         maxLength={maxLength}
         className={cn(
-          "bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 outline-none block w-full p-2.5",
+          "valid:bg-neutral-50 focus:invalid:bg-red-50 border border-neutral-300 focus:invalid:border-red-500 text-sm focus:valid:border-green-500 focus:invalid:text-red-500 rounded-lg valid:focus:ring-green-500 focus:invalid:ring-red-500 outline-none block w-full p-2.5 appearance-none",
           className
         )}
         placeholder={placeholder}
         autoComplete={autoComplete}
         required={required}
         onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
         {...otherProps}
       />
-    </div>
+
+      <FormError hasError={hasError}>Error</FormError>
+    </>
   );
 };
 

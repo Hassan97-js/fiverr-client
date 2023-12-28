@@ -65,9 +65,10 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
       );
     }
 
-    // const data: TCreateGig = {};
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
+
+    console.log(formEntries);
 
     const validatedCreateGig = CreateGigSchema.safeParse(formEntries);
 
@@ -77,12 +78,12 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
       console.log(validatedCreateGig.error.issues);
     }
 
-    // if (!formEntries?.agreed) {
-    //   formEntries.agreed = "false";
-    //   // data.agreed =
-    // } else if (formEntries?.agreed === "on") {
-    //   formEntries.agreed = "true";
-    // }
+    if (!formEntries?.agreed) {
+      formEntries.agreed = "false";
+      // data.agreed =
+    } else if (formEntries?.agreed === "on") {
+      formEntries.agreed = "true";
+    }
 
     // if (!formEntries.agreed) {
     //   throw Error("You have to agree to our terms and condtion");

@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Todo: Continue with CreateGigSchema
 export const CreateGigSchema = z.object({
   agreed: z.coerce.boolean(),
   category: z.string().trim().toLowerCase().max(30, {

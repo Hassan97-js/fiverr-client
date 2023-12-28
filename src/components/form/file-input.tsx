@@ -6,9 +6,7 @@ const FileInput = ({
 }) => {
   return (
     <div>
-      <span className="block mb-2 text-sm font-medium text-neutral-900">
-        {titleText}
-      </span>
+      <span className="block mb-2 text-sm font-medium">{titleText}</span>
 
       <div className="flex items-center justify-center w-full">
         <label

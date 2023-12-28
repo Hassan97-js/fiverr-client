@@ -10,8 +10,8 @@ import {
   TextareaInput
 } from "../components";
 
-import { UploadWidget } from "../components";
-import { createCloudinary } from "../utils";
+// import { UploadWidget } from "../components";
+// import { createCloudinary } from "../utils";
 
 const AddGig = () => {
   // const {
@@ -38,15 +38,15 @@ const AddGig = () => {
   // const axiosResponse = actionData?.data?.response;
   // const actionError = axiosResponse?.data?.message;
 
-  useEffect(() => {
-    if (!isBusy) {
-      // formRef.current?.reset();
-      // setUploadURLs({
-      //   coverImage: "",
-      //   images: []
-      // });
-    }
-  }, [isBusy]);
+  // useEffect(() => {
+  //   if (!isBusy) {
+  //     formRef.current?.reset();
+  //     setUploadURLs({
+  //       coverImage: "",
+  //       images: []
+  //     });
+  //   }
+  // }, [isBusy]);
 
   // const handleUpload = ({ error, result, isCoverImage }) => {
   //   if (error) {
@@ -71,7 +71,7 @@ const AddGig = () => {
   // };
 
   const categoryOptions = [
-    { value: "choose", label: "Choose a category" },
+    { value: "", label: "Choose a category" },
     { value: "Graphic Design", label: "Graphic Design" },
     { value: "Web Development", label: "Web Development" },
     { value: "App Development", label: "App Development" },
@@ -81,7 +81,7 @@ const AddGig = () => {
   return (
     <LayoutSection>
       <Form ref={formRef} method="POST">
-        <div className="flex flex-col gap-x-10 gap-y-7 mb-12">
+        <div className="flex flex-col gap-x-10 gap-y-4 mb-12">
           {/* {!!actionError && (
             <span className="text-normal font-bold text-red-500">{actionError}</span>
           )}
@@ -92,47 +92,57 @@ const AddGig = () => {
             </span>
           )} */}
 
-          <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
-            <CustomInput
-              name="title"
-              labelText="Title"
-              id="title"
-              placeholder="e.g. I will do something I am really good at"
-            />
+          <div className="flex flex-col lg:flex-row lg:gap-24">
+            <div className="w-full flex-1">
+              <CustomInput
+                name="title"
+                labelText="Title"
+                id="title"
+                placeholder="e.g. I will do something I am really good at"
+              />
+            </div>
 
-            <CustomInput
-              name="shortTitle"
-              labelText="Service title"
-              id="service-title"
-              placeholder="e.g. One-page web design"
-            />
+            <div className="w-full flex-1">
+              <CustomInput
+                name="shortTitle"
+                labelText="Service title"
+                id="service-title"
+                placeholder="e.g. One-page web design"
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
-            <SelectInput
-              name="category"
-              id="category"
-              defaultValue="choose"
-              label="Category"
-              options={categoryOptions}
-            />
+          <div className="flex flex-col lg:flex-row lg:gap-24">
+            <div className="w-full flex-1">
+              <SelectInput
+                name="category"
+                id="category"
+                defaultValue=""
+                label="Category"
+                options={categoryOptions}
+              />
+            </div>
 
-            <TextareaInput
-              inputName="shortDescription"
-              inputId="shortDescription"
-              labelText="Short description"
-              placeholderText="Short description of you service"
-            />
+            <div className="w-full flex-1">
+              <TextareaInput
+                minLength={1}
+                maxLength={180}
+                name="shortDescription"
+                id="shortDescription"
+                label="Short description"
+                placeholder="Short description of you service"
+              />
+            </div>
           </div>
 
-          <div>
-            {/* <input
+          {/* <div>
+            <input
               type="hidden"
               name="coverImage"
               value={uploadURLs.coverImage}
               required
-            /> */}
-            {/* <UploadWidget
+            />
+            <UploadWidget
               placeholderText="Please upload a single cover image"
               labelText="Cover image"
               cloudName={cloud.cloud_name}
@@ -141,17 +151,17 @@ const AddGig = () => {
               onUpload={({ error, result }) => {
                 handleUpload({ error, result, isCoverImage: true });
               }}
-            /> */}
-          </div>
+            />
+          </div> */}
 
-          <div>
-            {/* <input
+          {/* <div>
+            <input
               type="hidden"
               name="images"
               value={JSON.stringify(uploadURLs.images)}
               required
-            /> */}
-            {/* <UploadWidget
+            /> 
+           <UploadWidget
               placeholderText="Please upload at least one gig image"
               labelText="Gig images"
               cloudName={cloud.cloud_name}
@@ -160,48 +170,71 @@ const AddGig = () => {
               onUpload={({ error, result }) => {
                 handleUpload({ error, result, isCoverImage: false });
               }}
-            /> */}
-          </div>
-
-          <TextareaInput
-            inputName="description"
-            inputId="description"
-            labelText="Description"
-            placeholderText="Brief description to introduce your services to customers"
-          />
-
-          <div className="flex flex-col md:flex-row gap-x-8 gap-y-6">
-            <CustomInput
-              name="revisionNumber"
-              id="revision-number"
-              labelText="Revision number"
-              placeholder="e.g. 3"
             />
+          </div> */}
 
-            <CustomInput
-              name="deliveryTime"
-              id="delivery-time"
-              labelText="Delivery time"
-              placeholder="e.g. 5"
+          <div className="w-full flex-1">
+            <TextareaInput
+              maxLength={240}
+              minLength={1}
+              name="description"
+              id="description"
+              label="Description"
+              placeholder="Brief description to introduce your services to customers"
             />
           </div>
 
-          <div className="flex flex-col gap-4">
-            <CustomInput
-              name="features"
-              id="features"
-              labelText="Features"
-              maxLength={200}
-              placeholder="e.g. page design, file uploading, setting up a domain, hosting"
-            />
+          <div className="flex flex-col lg:flex-row lg:gap-24">
+            <div className="w-full flex-1">
+              <CustomInput
+                min={1}
+                max={10}
+                type="number"
+                name="revisionNumber"
+                id="revision-number"
+                labelText="Revision number"
+                placeholder="e.g. 3"
+              />
+            </div>
+
+            <div className="w-full flex-1">
+              <CustomInput
+                min={1}
+                max={360}
+                type="number"
+                name="deliveryTime"
+                id="delivery-time"
+                labelText="Delivery time"
+                placeholder="e.g. 5"
+              />
+            </div>
           </div>
 
-          <CustomInput
-            name="price"
-            id="price"
-            labelText="Price"
-            placeholder="e.g. $30"
-          />
+          <div className="flex flex-col lg:flex-row lg:gap-24">
+            <div className="w-full flex-1">
+              <CustomInput
+                name="features"
+                id="features"
+                labelText="Features"
+                maxLength={80}
+                placeholder="e.g. page design, file uploading, setting up a domain, hosting"
+                pattern="^(\s*[a-zA-Z0-9]+\s*(,\s*[a-zA-Z0-9]+\s*)*){1,}((\s*[a-zA-Z0-9\s]+\s*,\s*)+(\s*[a-zA-Z0-9\s]+\s*)?)(\s*[a-zA-Z0-9]+\s*(,\s*[a-zA-Z0-9]+\s*)*)?$"
+                title="Please enter a valid comma-separated list"
+              />
+            </div>
+
+            <div className="w-full flex-1">
+              <CustomInput
+                min={1}
+                max={10000}
+                type="number"
+                name="price"
+                id="price"
+                labelText="Price"
+                placeholder="e.g. 30"
+              />
+            </div>
+          </div>
         </div>
 
         <AgreeCheckbox inputId="agreed" />

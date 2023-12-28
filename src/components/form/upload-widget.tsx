@@ -29,9 +29,7 @@ const UploadWidget = ({
 
   return (
     <>
-      <label className="block mb-2 text-sm font-medium text-neutral-900">
-        {labelText}
-      </label>
+      <label className="block mb-2 text-sm font-medium">{labelText}</label>
       <UploadButton
         placeholderText={placeholderText}
         imagePreviewURL={imagePreviewURL}

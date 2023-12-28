@@ -11,7 +11,7 @@ const AgreeCheckbox = ({ inputId }) => {
         />
       </div>
 
-      <label htmlFor={inputId} className="ml-2 text-sm font-medium text-neutral-900">
+      <label htmlFor={inputId} className="ml-2 text-sm font-medium">
         I agree with the&nbsp;
         <a href="#" className="text-green-600 hover:underline">
           terms and conditions

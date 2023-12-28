@@ -13,7 +13,7 @@ const ChatInput = () => {
           id="chat"
           name="text"
           rows={3}
-          className="block mx-4 p-2.5 w-full text-base text-neutral-900 bg-white rounded-lg border-[1.8px] border-neutral-300 focus:ring-green-500 focus:border-green-500 outline-none transition"
+          className="block mx-4 p-2.5 w-full text-base bg-white rounded-lg border-[1.8px] border-neutral-300 focus:ring-green-500 focus:border-green-500 outline-none transition"
           placeholder="Your message..."
           autoFocus></textarea>
 
