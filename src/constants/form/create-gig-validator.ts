@@ -13,7 +13,8 @@ export const CreateGigSchema = z.object({
     .string()
     .trim()
     .toLowerCase()
-    .regex(/^(\w+(\s*,\s*\w+)*)$/)
+    // match a string with list of items separated by commas.
+    .regex(/^\s*[a-zA-Z0-9\s]+\s*(,\s*[a-zA-Z0-9\s]+\s*)*(,\s*[a-zA-Z0-9]+\s*)?\s*$/)
     .max(80, {
       message:
         "Features should not be more than 80 characters and should be a string with words separated by a comma followed by a space"

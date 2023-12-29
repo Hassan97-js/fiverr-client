@@ -1,8 +1,6 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 
-import { CreateGigSchema } from "../constants/form/create-gig-validator";
-
-import { auth, makeApiRequest, removeData, retrieveData, storeData } from "../utils";
+import { auth, makeApiRequest, retrieveData, storeData } from "../utils";
 
 import type { TCreateGig } from "../types/form/create-gig.types";
 
@@ -59,6 +57,8 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
 
     const currentToken = retrieveData("token");
 
+    console.log({ currentToken });
+
     if (!currentToken) {
       throw Error(
         `[createGigAction] Something went wrong when trying to retrieve token`
@@ -66,61 +66,43 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
     }
 
     const formData = await request.formData();
-    const formEntries = Object.fromEntries(formData.entries());
-
-    console.log(formEntries);
-
-    const validatedCreateGig = CreateGigSchema.safeParse(formEntries);
-
-    if (validatedCreateGig.success) {
-      console.log(validatedCreateGig.data);
-    } else {
-      console.log(validatedCreateGig.error.issues);
-    }
-
-    if (!formEntries?.agreed) {
-      formEntries.agreed = "false";
-      // data.agreed =
-    } else if (formEntries?.agreed === "on") {
-      formEntries.agreed = "true";
-    }
-
-    // if (!formEntries.agreed) {
-    //   throw Error("You have to agree to our terms and condtion");
-    // }
+    const gig = Object.fromEntries(formData.entries()) as unknown as TCreateGig;
 
     // eslint-disable-next-line no-unused-vars
-    // const { agreed, features, images, ...otherEntries } = formEntries;
+    // const { agreed, features, images, ...otherEntries } = gig;
+    const { agreed, features, ...otherEntries } = gig;
 
-    // console.log(formEntries);
+    const featuresArray = features
+      .trim()
+      .toLowerCase()
+      .split(",")
+      .map((feature) => feature.trim());
 
-    // const featuresArray = features
-    //   .trim()
-    //   .split(",")
-    //   .map((feature) => feature.trim());
+    console.log(featuresArray);
 
     // const parsedImages = JSON.parse(images);
 
     // const data = { featuresArray, images: parsedImages, ...otherEntries };
+    const data = { featuresArray, ...otherEntries };
 
-    // const response = await makeApiRequest({
-    //   method: "post",
-    //   url: "gigs/single",
-    //   data,
-    //   headers: {
-    //     Authorization: `Bearer ${currentToken}`
-    //   }
-    // });
+    const response = await makeApiRequest({
+      method: "post",
+      url: "gigs/single",
+      data,
+      headers: {
+        Authorization: `Bearer ${currentToken}`
+      }
+    });
 
-    // if (response.status > 399 && response.status < 600) {
-    //   throw Error(`Something went wrong: ${response.status}`);
-    // }
+    if (!response.data?.success) {
+      return null;
+    }
 
-    // const gigId = response.data._id;
+    // Todo: Zod validate response.data
 
-    // return redirect(`/gig/${gigId}`);
+    const gigId = response.data.gig._id;
 
-    return null;
+    return redirect(`/gig/${gigId}`);
   } catch (error) {
     return error;
   }

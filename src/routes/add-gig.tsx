@@ -217,8 +217,9 @@ const AddGig = () => {
                 id="features"
                 labelText="Features"
                 maxLength={80}
-                placeholder="e.g. page design, file uploading, setting up a domain, hosting"
-                pattern="^(\s*[a-zA-Z0-9]+\s*(,\s*[a-zA-Z0-9]+\s*)*){1,}((\s*[a-zA-Z0-9\s]+\s*,\s*)+(\s*[a-zA-Z0-9\s]+\s*)?)(\s*[a-zA-Z0-9]+\s*(,\s*[a-zA-Z0-9]+\s*)*)?$"
+                placeholder="e.g. page design, or page design, file uploading, setting up a domain"
+                // match a string with list of items separated by commas.
+                pattern="^\s*[a-zA-Z0-9\s]+\s*(,\s*[a-zA-Z0-9\s]+\s*)*(,\s*[a-zA-Z0-9]+\s*)?\s*$"
                 title="Please enter a valid comma-separated list"
               />
             </div>
@@ -237,7 +238,7 @@ const AddGig = () => {
           </div>
         </div>
 
-        <AgreeCheckbox inputId="agreed" />
+        <AgreeCheckbox id="agreed" />
 
         <Button type="submit" variant="primary">
           Create

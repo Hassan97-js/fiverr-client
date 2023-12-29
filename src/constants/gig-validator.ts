@@ -8,7 +8,7 @@ export const GigSchema = z
     _id: ObjectIdSchema,
     userId: z.union([UserSchema, ObjectIdSchema]),
     category: z.string().trim().toLowerCase(),
-    coverImage: z.string().trim().toLowerCase(),
+    coverImage: z.string().trim().toLowerCase().optional(),
     createdAt: z.coerce.date({
       required_error: "Please select a date and time",
       invalid_type_error: "That's not a date!"

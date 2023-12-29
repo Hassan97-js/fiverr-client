@@ -63,21 +63,23 @@ const AwaitedGig = () => {
         <div>
           <Heading1 className="capitalize mb-14">{title}</Heading1>
 
-          <Slider
-            itemClass="mr-10 rounded-lg overflow-hidden"
-            containerClass="max-w-3xl rounded-md mb-10"
-            responsiveConfig={responsiveConfig}>
-            {images.map((image) => {
-              return (
-                <img
-                  className="w-full h-full object-cover"
-                  key={image}
-                  src={image}
-                  alt=""
-                />
-              );
-            })}
-          </Slider>
+          {!!images && (
+            <Slider
+              itemClass="mr-10 rounded-lg overflow-hidden"
+              containerClass="max-w-3xl rounded-md mb-10"
+              responsiveConfig={responsiveConfig}>
+              {images.map((image) => {
+                return (
+                  <img
+                    className="w-full h-full object-cover"
+                    key={image}
+                    src={image}
+                    alt=""
+                  />
+                );
+              })}
+            </Slider>
+          )}
 
           <div>
             <Heading2 className="mb-4">About This Gig</Heading2>
