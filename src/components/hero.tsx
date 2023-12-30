@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { Form } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
 
 import Button from "./button";
-import CustomIcon from "./custom-icon";
 import LayoutSection from "./layout/layout-section";
 import Heading1 from "./typography/heading-1";
-import CustomInput from "./form/custom-input";
+import SearchInput from "./form/search-input";
 
 const Hero = () => {
   const [searchText, setSearchText] = useState("");
@@ -29,24 +27,12 @@ const Hero = () => {
             action="/gigs"
             className="flex flex-col items-start md:items-stretch md:gap-0 md:flex-row md:justify-between gap-5 md:rounded-lg rounded-md overflow-hidden flex-1 w-full"
             role="search">
-            <div
-              role="Search Input"
-              className="bg-white flex items-center flex-1 w-full gap-2 md:rounded-none rounded-md overflow-hidden">
-              <CustomIcon
-                color="#a3a3a3"
-                className="w-4 h-4 m-3 text-neutral-300"
-                Icon={FaSearch}
-                aria-label="A search icon"
-              />
-
-              <CustomInput
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                className="bg-transparent  border-0 outline-none"
-                placeholder="Search for any service..."
-                name="search"
-              />
-            </div>
+            <SearchInput
+              name="search"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Search for any service..."
+            />
 
             <Button
               type="submit"
