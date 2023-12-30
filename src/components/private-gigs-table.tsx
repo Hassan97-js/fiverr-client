@@ -10,7 +10,7 @@ import { type TTableHeader } from "../routes/private-gigs";
 
 import { formatCurrency } from "../utils";
 
-import type { TGig } from "../types/gig.types";
+import { type TGig } from "../constants/gig-validator";
 
 type TProps = {
   tableHeaders: TTableHeader[];

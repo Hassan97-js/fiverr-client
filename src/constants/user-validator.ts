@@ -25,3 +25,7 @@ export const FromApiUserSchema = z
     user: UserSchema
   })
   .strict();
+
+export type TExternalUser = z.infer<typeof ExternalUserSchema>;
+export type TFromApiUser = z.infer<typeof FromApiUserSchema>;
+export type TUser = z.infer<typeof UserSchema>;

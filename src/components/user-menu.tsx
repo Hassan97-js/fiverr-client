@@ -6,7 +6,7 @@ import Button from "./button";
 
 import { cn } from "../utils";
 
-import type { TUser } from "../types/user.types";
+import { type TUser } from "../constants/user-validator";
 
 const userMenuLinks = [
   {

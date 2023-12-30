@@ -28,3 +28,7 @@ export const FromApiReviewSchema = z
     review: ReviewSchema
   })
   .strict();
+
+export type TFromApiReviews = z.infer<typeof FromApiReviewsSchema>;
+export type TFromApiReview = z.infer<typeof FromApiReviewSchema>;
+export type TReview = z.infer<typeof ReviewSchema>;

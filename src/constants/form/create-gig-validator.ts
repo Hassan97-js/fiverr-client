@@ -31,3 +31,5 @@ export const CreateGigSchema = z.object({
     message: "Title should not be more than 25 characters"
   })
 });
+
+export type TCreateGig = z.infer<typeof CreateGigSchema>;

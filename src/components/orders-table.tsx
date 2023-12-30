@@ -1,11 +1,23 @@
 import { Form } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 
+import { type TTableHeaders } from "../routes/orders";
+
 import Button from "./button";
 import CustomIcon from "./custom-icon";
 import Table, { TableBody, TableHead } from "./table";
 
+import { type TOrder } from "../constants/order-validator";
+
 import { capitalize, formatCurrency } from "../utils";
+
+type TProps = {
+  tableHeaders: TTableHeaders;
+  tableData: TOrder[];
+  striped?: boolean;
+  isSeller?: boolean;
+  clickable?: boolean;
+};
 
 const OrdersTable = ({
   tableHeaders = [],
@@ -13,7 +25,7 @@ const OrdersTable = ({
   striped = true,
   isSeller = false,
   clickable = false
-}) => {
+}: TProps) => {
   const tableHeaderElements = tableHeaders.map((tableHeader, idx) => {
     return (
       <th key={idx} scope="col" className="px-6 py-3">
@@ -30,7 +42,30 @@ const OrdersTable = ({
       gigId: gigInfo
     } = item;
 
-    const { coverImage: image, title, price } = gigInfo;
+    let image: null | string | undefined = null;
+    let title: null | string = null;
+    let price: null | number = null;
+
+    if (typeof gigInfo !== "string") {
+      image = gigInfo.coverImage;
+      title = gigInfo.title;
+      price = gigInfo.price;
+    }
+
+    let buyerUserName: null | string = null;
+    let buyerId: null | string = null;
+    let sellerUserName: null | string = null;
+    let sellerId: null | string = null;
+
+    if (typeof buyerInfo !== "string") {
+      buyerUserName = buyerInfo.username;
+      buyerId = buyerInfo._id;
+    }
+
+    if (typeof sellerInfo !== "string") {
+      sellerUserName = sellerInfo.username;
+      sellerId = sellerInfo._id;
+    }
 
     return (
       <tr
@@ -67,9 +102,8 @@ const OrdersTable = ({
         <td
           scope="row"
           className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
-          {buyerInfo.username || sellerInfo.username
-            ? capitalize(isSeller ? buyerInfo.username : sellerInfo.username)
-            : "-"}
+          {buyerUserName && isSeller ? capitalize(buyerUserName) : "-"}
+          {sellerUserName && !isSeller ? capitalize(sellerUserName) : "-"}
         </td>
 
         <td
@@ -77,9 +111,9 @@ const OrdersTable = ({
           scope="row"
           className="px-6 py-4 font-medium text-neutral-500">
           <Form method="POST">
-            <input type="hidden" name="sellerId" value={sellerInfo._id} />
-            <input type="hidden" name="buyerId" value={buyerInfo._id} />
-            <input type="hidden" name="isSeller" value={isSeller} />
+            <input type="hidden" name="sellerId" value={sellerId || ""} />
+            <input type="hidden" name="buyerId" value={buyerId || ""} />
+            <input type="hidden" name="isSeller" value={String(isSeller)} />
 
             <Button type="submit">
               <CustomIcon Icon={FaEnvelope} aria-label="An Envelope icon" />

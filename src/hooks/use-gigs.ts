@@ -1,10 +1,9 @@
 import { useAsyncValue } from "react-router-dom";
 
-import { FromApiGigsSchema } from "../constants/gig-validator";
+import { FromApiGigsSchema, type TFromApiGigs, type TGig } from "../constants/gig-validator";
 
 import { handleError } from "../utils";
 
-import type { TFromApiGigs, TGig } from "../types/gig.types";
 import type { TAxiosResponse } from "../types/api.types";
 
 export const useGigs = (): TGig[] | null => {

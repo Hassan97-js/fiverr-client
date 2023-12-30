@@ -1,13 +1,20 @@
 import { useAsyncValue } from "react-router-dom";
 
-import { FromApiGigSchema } from "../constants/gig-validator";
-import { FromApiReviewsSchema } from "../constants/review-validator";
+import {
+  FromApiGigSchema,
+  type TFromApiGig,
+  type TGig
+} from "../constants/gig-validator";
+
+import {
+  FromApiReviewsSchema,
+  type TReview,
+  type TFromApiReviews
+} from "../constants/review-validator";
 
 import { handleError } from "../utils";
 
-import type { TFromApiGig, TGig } from "../types/gig.types";
 import type { TAxiosResponses } from "../types/api.types";
-import type { TFromApiReviews, TReview } from "../types/review.types";
 
 export type TUseGigReturn = {
   gig: TGig | null;

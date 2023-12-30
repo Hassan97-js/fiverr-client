@@ -7,12 +7,12 @@ import Stars from "./stars";
 
 import { capitalize, formatCurrency, getRatingAverage } from "../utils";
 
-import type { TUser } from "../types/user.types";
+import { type TUser } from "../constants/user-validator";
 
 type TProps = {
   userInfo: TUser | string;
   gigId: string;
-  coverImage: string;
+  coverImage?: string;
   category: string;
   price: number;
   description: string;
@@ -74,7 +74,7 @@ const GigCard = ({
 
         <p className="mb-5 truncate">{description}</p>
 
-        <Stars starNumber={gigRating} />
+        <Stars numberOfStars={gigRating} />
 
         <div className="flex items-center justify-between pb-4 pt-4 mt-auto border-0 border-t-[0.5px] border-t-neutral-200">
           <CustomIcon

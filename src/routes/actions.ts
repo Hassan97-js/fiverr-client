@@ -9,7 +9,7 @@ import {
   storeData
 } from "../utils";
 
-import type { TCreateGig } from "../types/form/create-gig.types";
+import { type TCreateGig } from "../constants/form/create-gig-validator";
 
 export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
   try {

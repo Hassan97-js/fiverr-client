@@ -12,7 +12,7 @@ import { capitalize } from "../../utils";
 
 import { useUser } from "../../hooks/use-user";
 
-import type { TReview } from "../../types/review.types";
+import { type TReview } from "../../constants/review-validator";
 
 export type AddReviewOption = {
   value: number;
