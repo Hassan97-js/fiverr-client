@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
+
+import { ActionErrorSchema } from "../constants/router-validator";
 
 import {
   AgreeCheckbox,
   Button,
   CustomInput,
+  FormError,
   LayoutSection,
   SelectInput,
   TextareaInput
@@ -30,23 +33,34 @@ const AddGig = () => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  // const actionData = useActionData();
+  const actionData = useActionData();
+
   const { state } = useNavigation();
 
   const isBusy = state === "submitting";
 
-  // const axiosResponse = actionData?.data?.response;
-  // const actionError = axiosResponse?.data?.message;
+  const actionDataValidationResult = ActionErrorSchema.safeParse(actionData);
 
-  // useEffect(() => {
-  //   if (!isBusy) {
-  //     formRef.current?.reset();
-  //     setUploadURLs({
-  //       coverImage: "",
-  //       images: []
-  //     });
-  //   }
-  // }, [isBusy]);
+  let hasActionError = false;
+  let actionErrorMessage: string | null = null;
+
+  if (actionDataValidationResult.success) {
+    hasActionError = true;
+    actionErrorMessage = actionDataValidationResult.data.message;
+  }
+
+  console.log({ hasActionError, actionErrorMessage });
+
+  useEffect(() => {
+    if (!isBusy && !hasActionError) {
+      formRef.current?.reset();
+
+      // setUploadURLs({
+      //   coverImage: "",
+      //   images: []
+      // });
+    }
+  }, [isBusy]);
 
   // const handleUpload = ({ error, result, isCoverImage }) => {
   //   if (error) {
@@ -80,8 +94,16 @@ const AddGig = () => {
 
   return (
     <LayoutSection>
+      <FormError
+        className="text-lg font-semibold m-0 p-0 mb-8"
+        hasError={hasActionError}>
+        {hasActionError && actionErrorMessage
+          ? actionErrorMessage
+          : "Something went wrong! Please try again later"}
+      </FormError>
+
       <Form ref={formRef} method="POST">
-        <div className="flex flex-col gap-x-10 gap-y-4 mb-12">
+        <div className="flex flex-col gap-x-10 gap-y-10 mb-12">
           {/* {!!actionError && (
             <span className="text-normal font-bold text-red-500">{actionError}</span>
           )}

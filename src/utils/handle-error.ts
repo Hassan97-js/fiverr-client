@@ -14,17 +14,29 @@ const logError = (error: AxiosError | z.ZodError | Error | string) => {
 };
 
 export const handleError = (error: unknown) => {
-  if (isKnownError(error)) {
-    logError(error);
-    return error;
+  if (error instanceof z.ZodError) {
+    logError(error.message);
+    return {
+      message: `${error.issues[0].path[0]} ${error.issues[0].message}`,
+      hasError: true
+    };
+  }
+
+  if (error instanceof AxiosError || error instanceof Error) {
+    logError(error.message);
+    return {
+      message: error.message,
+      hasError: true
+    };
   }
 
   if (typeof error === "string") {
     logError(error);
-    return error;
+    return {
+      message: error,
+      hasError: true
+    };
   }
 
-  console.error("Unexpected error:", error);
-
-  return error;
+  console.error("Unexpected error");
 };

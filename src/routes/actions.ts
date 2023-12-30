@@ -1,6 +1,13 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 
-import { auth, makeApiRequest, retrieveData, storeData } from "../utils";
+import { GigSchema } from "../constants/gig-validator";
+import {
+  auth,
+  handleError,
+  makeApiRequest,
+  retrieveData,
+  storeData
+} from "../utils";
 
 import type { TCreateGig } from "../types/form/create-gig.types";
 
@@ -57,8 +64,6 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
 
     const currentToken = retrieveData("token");
 
-    console.log({ currentToken });
-
     if (!currentToken) {
       throw Error(
         `[createGigAction] Something went wrong when trying to retrieve token`
@@ -70,6 +75,7 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
 
     // eslint-disable-next-line no-unused-vars
     // const { agreed, features, images, ...otherEntries } = gig;
+
     const { agreed, features, ...otherEntries } = gig;
 
     const featuresArray = features
@@ -78,11 +84,9 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
       .split(",")
       .map((feature) => feature.trim());
 
-    console.log(featuresArray);
-
     // const parsedImages = JSON.parse(images);
-
     // const data = { featuresArray, images: parsedImages, ...otherEntries };
+
     const data = { featuresArray, ...otherEntries };
 
     const response = await makeApiRequest({
@@ -94,17 +98,11 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
       }
     });
 
-    if (!response.data?.success) {
-      return null;
-    }
+    const gigValidationResult = GigSchema.parse(response.data.gig);
 
-    // Todo: Zod validate response.data
-
-    const gigId = response.data.gig._id;
-
-    return redirect(`/gig/${gigId}`);
+    return redirect(`/gig/${gigValidationResult._id}`);
   } catch (error) {
-    return error;
+    return handleError(error);
   }
 };
 

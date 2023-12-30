@@ -8,7 +8,7 @@ type TProps = HtmlHTMLAttributes<HTMLSpanElement> & {
 };
 
 const FormError = ({ className, hasError, children }: TProps) => {
-  return (
+  return hasError ? (
     <span
       className={cn(
         "block text-normal ml-1 mt-2 font-medium text-red-500/90 opacity-0",
@@ -20,7 +20,7 @@ const FormError = ({ className, hasError, children }: TProps) => {
       aria-live="polite">
       {children}
     </span>
-  );
+  ) : null;
 };
 
 export default FormError;

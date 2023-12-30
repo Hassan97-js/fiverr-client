@@ -1,7 +1,13 @@
 import { Suspense } from "react";
 import { Await, Link } from "react-router-dom";
 
-import { AsyncError, LayoutSection, PrivateGigsTable, Spinner } from "../components";
+import {
+  AsyncError,
+  Button,
+  LayoutSection,
+  PrivateGigsTable,
+  Spinner
+} from "../components";
 
 import { useDeferredData, useGigs } from "../hooks";
 
@@ -46,8 +52,10 @@ const PrivateGigs = () => {
   return (
     <LayoutSection>
       <div className="flex items-center justify-end mb-10 max-w-6xl mx-auto">
-        <Link to="/add" className="btn btn-primary text-sm">
-          Add new gig
+        <Link to="/add">
+          <Button variant="primary" size="sm">
+            Add new gig
+          </Button>
         </Link>
       </div>
 
