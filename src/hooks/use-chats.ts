@@ -20,7 +20,7 @@ export const useChats = (): TChat[] | null => {
   if (validationResult.success) {
     chatsData = validationResult.data;
   } else {
-    handleError(validationResult.error.issues);
+    handleError(validationResult.error);
     return null;
   }
 

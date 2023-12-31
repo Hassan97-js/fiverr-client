@@ -37,13 +37,13 @@ export const useGig = (): TUseGigReturn => {
   if (gigValidationResult.success) {
     gig = gigValidationResult.data.gig;
   } else {
-    handleError(gigValidationResult.error.issues);
+    handleError(gigValidationResult.error);
   }
 
   if (reviewValidationResult.success) {
     reviews = reviewValidationResult.data.reviews;
   } else {
-    handleError(reviewValidationResult.error.issues);
+    handleError(reviewValidationResult.error);
   }
 
   return { gig, reviews };

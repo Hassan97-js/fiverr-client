@@ -14,7 +14,7 @@ export const useUser = () => {
   if (userValidationResult.success) {
     user = userValidationResult.data.user;
   } else {
-    handleError(userValidationResult.error.issues);
+    handleError(userValidationResult.error);
     return null;
   }
 

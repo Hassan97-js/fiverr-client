@@ -38,5 +38,5 @@ export const handleError = (error: unknown) => {
     };
   }
 
-  console.error("Unexpected error");
+  console.error("Unexpected error", error);
 };

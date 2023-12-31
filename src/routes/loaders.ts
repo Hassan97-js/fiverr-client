@@ -119,17 +119,17 @@ export const fetchChatMessagesLoader = async ({
   const currentToken = retrieveData("token");
 
   if (!currentToken) {
-    throw Error("[fetchMessagesLoader] Unauthorized");
+    throw Error("[fetchChatMessagesLoader] Unauthorized");
   }
 
-  const messagesPromise = makeApiRequest({
+  const chatMessagesPromise = makeApiRequest({
     url: `chat-messages/${params.id}`,
     headers: {
       Authorization: `Bearer ${currentToken}`
     }
   });
 
-  return defer({ messagesPromise });
+  return defer({ chatMessagesPromise });
 };
 
 export const addGigLoader = async ({ request }: LoaderFunctionArgs) => {

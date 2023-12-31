@@ -20,7 +20,7 @@ export const useOrders = (): TOrder[] | null => {
   if (validationResult.success) {
     ordersData = validationResult.data;
   } else {
-    handleError(validationResult.error.issues);
+    handleError(validationResult.error);
     return null;
   }
 

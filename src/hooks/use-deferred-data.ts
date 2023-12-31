@@ -6,14 +6,19 @@ import {
   PrivateGigsPromiseSchema
 } from "../constants/gig-validator";
 import { OrdersPromiseSchema } from "../constants/order-validator";
-import { ChatsPromiseSchema } from "../constants/chat-validator";
+import {
+  ChatMessagesPromiseSchema,
+  ChatsPromiseSchema
+} from "../constants/chat-validator";
+import { handleError } from "../utils";
 
 type TPromiseTypes =
   | "gigsPromise"
   | "gigPromise"
   | "privateGigsPromise"
   | "ordersPromise"
-  | "chatsPromise";
+  | "chatsPromise"
+  | "chatMessagesPromise";
 
 type TDeferredDataReturnValue = {
   [key in TPromiseTypes]?: Promise<unknown> | null;
@@ -29,13 +34,14 @@ export const useDeferredData = ({ promiseType }: TProps): TUseDeferredDataReturn
   const data = useLoaderData();
 
   if (promiseType === "gigPromise") {
-    const validatedGigPromise = GigPromiseSchema.safeParse(data);
+    const validationResult = GigPromiseSchema.safeParse(data);
 
-    if (validatedGigPromise.success) {
-      return validatedGigPromise.data;
+    if (validationResult.success) {
+      return validationResult.data;
+    } else {
+      handleError(validationResult.error);
+      return null;
     }
-
-    return null;
   }
 
   if (promiseType === "gigsPromise") {
@@ -43,9 +49,10 @@ export const useDeferredData = ({ promiseType }: TProps): TUseDeferredDataReturn
 
     if (validationResult.success) {
       return validationResult.data;
+    } else {
+      handleError(validationResult.error);
+      return null;
     }
-
-    return null;
   }
 
   if (promiseType === "privateGigsPromise") {
@@ -53,9 +60,10 @@ export const useDeferredData = ({ promiseType }: TProps): TUseDeferredDataReturn
 
     if (validationResult.success) {
       return validationResult.data;
+    } else {
+      handleError(validationResult.error);
+      return null;
     }
-
-    return null;
   }
 
   if (promiseType === "ordersPromise") {
@@ -63,9 +71,10 @@ export const useDeferredData = ({ promiseType }: TProps): TUseDeferredDataReturn
 
     if (validationResult.success) {
       return validationResult.data;
+    } else {
+      handleError(validationResult.error);
+      return null;
     }
-
-    return null;
   }
 
   if (promiseType === "chatsPromise") {
@@ -73,9 +82,21 @@ export const useDeferredData = ({ promiseType }: TProps): TUseDeferredDataReturn
 
     if (validationResult.success) {
       return validationResult.data;
+    } else {
+      handleError(validationResult.error);
+      return null;
     }
+  }
 
-    return null;
+  if (promiseType === "chatMessagesPromise") {
+    const validationResult = ChatMessagesPromiseSchema.safeParse(data);
+
+    if (validationResult.success) {
+      return validationResult.data;
+    } else {
+      handleError(validationResult.error);
+      return null;
+    }
   }
 
   return null;

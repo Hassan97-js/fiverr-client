@@ -9,31 +9,33 @@ import {
   Spinner
 } from "../components";
 
-import { useUser } from "../hooks/use-user";
+import { useDeferredData, useUser } from "../hooks";
 
 const AwaitedChatMessages = () => {
-  const messagesResponse = useAsyncValue();
-  const user = useUser();
+  // const messagesResponse = useAsyncValue();
+  // const user = useUser();
 
-  const messages = messagesResponse.data;
+  // const messages = messagesResponse.data;
 
   return (
-    <>
-      <ChatRoom userId={currentUser?.id} messages={messages} />
-      <ChatInput />
-    </>
+    // <>
+    //   <ChatRoom userId={currentUser?.id} messages={messages} />
+    //   <ChatInput />
+    // </>
+    null
   );
 };
 
 const ChatMessages = () => {
-  // data.chatMessagesPromise
-  const data = useLoaderData();
+  const chatMessagesPromiseData = useDeferredData({
+    promiseType: "chatMessagesPromise"
+  });
 
   return (
     <LayoutSection>
       <Suspense fallback={<Spinner />}>
         <Await
-          resolve={null}
+          resolve={chatMessagesPromiseData?.chatMessagesPromise}
           errorElement={<AsyncError errorMessage="Failed to load the messages" />}>
           <AwaitedChatMessages />
         </Await>

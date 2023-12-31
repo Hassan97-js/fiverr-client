@@ -16,7 +16,7 @@ export const useGigs = (): TGig[] | null => {
   if (validationResult.success) {
     gigsData = validationResult.data;
   } else {
-    handleError(validationResult.error.issues);
+    handleError(validationResult.error);
     return null;
   }
 
