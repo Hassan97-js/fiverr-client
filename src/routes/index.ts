@@ -6,8 +6,8 @@ import Gigs from "./gigs";
 import Home from "./home";
 import SignIn from "./sign-in";
 import SignUp from "./sign-up";
-import Message from "./message";
-import Messages from "./messages";
+import ChatMessages from "./chat-messages";
+import Chats from "./chats";
 import PrivateGigs from "./private-gigs";
 import Orders from "./orders";
 import Payment from "./payment";
@@ -21,8 +21,8 @@ export {
   Gigs,
   Home,
   SignIn,
-  Message,
-  Messages,
+  ChatMessages,
+  Chats,
   PrivateGigs,
   Orders,
   SignUp,

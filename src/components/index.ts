@@ -25,7 +25,7 @@ import Stars from "./stars";
 import CustomIcon from "./custom-icon";
 import Table from "./table";
 import OrdersTable from "./orders-table";
-import MessagesTable from "./messages-table";
+import ChatsTable from "./chats-table";
 import PrivateGigsTable from "./private-gigs-table";
 import ChatInput from "./chat/chat-input";
 import ChatRoom from "./chat/chat-room";
@@ -78,7 +78,7 @@ export {
   CustomIcon,
   Table,
   OrdersTable,
-  MessagesTable,
+  ChatsTable,
   PrivateGigsTable,
   ChatInput,
   ChatRoom,

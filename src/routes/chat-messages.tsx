@@ -11,8 +11,7 @@ import {
 
 import { useUser } from "../hooks/use-user";
 
-
-const AwaitedMessages = () => {
+const AwaitedChatMessages = () => {
   const messagesResponse = useAsyncValue();
   const user = useUser();
 
@@ -26,20 +25,21 @@ const AwaitedMessages = () => {
   );
 };
 
-const Message = () => {
-  const { messagesPromise } = useLoaderData();
+const ChatMessages = () => {
+  // data.chatMessagesPromise
+  const data = useLoaderData();
 
   return (
     <LayoutSection>
       <Suspense fallback={<Spinner />}>
         <Await
-          resolve={messagesPromise}
+          resolve={null}
           errorElement={<AsyncError errorMessage="Failed to load the messages" />}>
-          <AwaitedMessages />
+          <AwaitedChatMessages />
         </Await>
       </Suspense>
     </LayoutSection>
   );
 };
 
-export default Message;
+export default ChatMessages;

@@ -5,7 +5,7 @@ import Table, { TableBody, TableHead } from "./table";
 
 import { capitalize, formatDateToNow } from "../utils";
 
-const MessagesTable = ({
+const ChatsTable = ({
   tableHeaders = [],
   tableData = [],
   isSeller,
@@ -48,7 +48,7 @@ const MessagesTable = ({
           role="button"
           scope="row"
           className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
-          <Link to={`/message/${fetchId}`}>
+          <Link to={`/chat-messages/${fetchId}`}>
             {isSeller && buyerInfo?.username
               ? capitalize(buyerInfo.username)
               : !isSeller && sellerInfo?.username
@@ -61,7 +61,7 @@ const MessagesTable = ({
           role="button"
           scope="row"
           className="px-6 py-4 font-medium text-gray-500 truncate">
-          <Link to={`/message/${fetchId}`}>{lastMessage ? lastMessage : "-"}</Link>
+          <Link to={`/chat-messages/${fetchId}`}>{lastMessage ? lastMessage : "-"}</Link>
         </td>
 
         <td
@@ -100,4 +100,4 @@ const MessagesTable = ({
   );
 };
 
-export default MessagesTable;
+export default ChatsTable;

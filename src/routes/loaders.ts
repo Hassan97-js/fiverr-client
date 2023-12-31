@@ -104,7 +104,7 @@ export const paymentLoader = async ({ params, request }: LoaderFunctionArgs) => 
   return defer({ paymentPromise });
 };
 
-export const fetchMessagesLoader = async ({
+export const fetchChatMessagesLoader = async ({
   request,
   params
 }: LoaderFunctionArgs) => {
@@ -123,7 +123,7 @@ export const fetchMessagesLoader = async ({
   }
 
   const messagesPromise = makeApiRequest({
-    url: `messages/${params.id}`,
+    url: `chat-messages/${params.id}`,
     headers: {
       Authorization: `Bearer ${currentToken}`
     }
@@ -154,7 +154,7 @@ export const addGigLoader = async ({ request }: LoaderFunctionArgs) => {
   }
 };
 
-export const fetchConversationsLoader = async ({ request }: LoaderFunctionArgs) => {
+export const fetchChatsLoader = async ({ request }: LoaderFunctionArgs) => {
   const isAuthenticated = await auth();
 
   const redirectTo = new URL(request.url).pathname;
@@ -166,17 +166,17 @@ export const fetchConversationsLoader = async ({ request }: LoaderFunctionArgs) 
   const currentToken = retrieveData("token");
 
   if (!currentToken) {
-    throw Error("[fetchConversationsLoader] Unauthorized");
+    throw Error("[fetchChatsLoader] Unauthorized");
   }
 
-  const conversationsPromise = makeApiRequest({
-    url: "conversations",
+  const chatsPromise = makeApiRequest({
+    url: "chats",
     headers: {
       Authorization: `Bearer ${currentToken}`
     }
   });
 
-  return defer({ conversationsPromise });
+  return defer({ chatsPromise });
 };
 
 export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {

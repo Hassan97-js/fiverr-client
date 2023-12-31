@@ -42,7 +42,7 @@ const userMenuLinks = [
   {
     id: 6,
     to: "messages",
-    text: "Messages",
+    text: "Chats",
     sellerOnly: false
   }
 ];

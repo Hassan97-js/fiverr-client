@@ -106,7 +106,7 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
   }
 };
 
-export const createConversationAction = async ({ request }: ActionFunctionArgs) => {
+export const createChatAction = async ({ request }: ActionFunctionArgs) => {
   try {
     const isAuthenticated = await auth();
 
@@ -120,7 +120,7 @@ export const createConversationAction = async ({ request }: ActionFunctionArgs) 
 
     if (!currentToken) {
       throw Error(
-        `[createConversationAction] Something went wrong when trying to retrieve token`
+        `[createChatAction] Something went wrong when trying to retrieve token`
       );
     }
 
@@ -133,7 +133,7 @@ export const createConversationAction = async ({ request }: ActionFunctionArgs) 
     const isSeller = !!isCurrentSeller;
 
     const response = await makeApiRequest({
-      url: `conversations/single/${fetchId}`,
+      url: `chats/single/${fetchId}`,
       headers: {
         Authorization: `Bearer ${currentToken}`
       }
@@ -142,7 +142,7 @@ export const createConversationAction = async ({ request }: ActionFunctionArgs) 
     if (response.status === 404) {
       const response = await makeApiRequest({
         method: "post",
-        url: `conversations/single`,
+        url: `chats/single`,
         data: {
           messageToId: isSeller ? buyerId : sellerId
         },
@@ -151,20 +151,20 @@ export const createConversationAction = async ({ request }: ActionFunctionArgs) 
         }
       });
 
-      return redirect(`/message/${response.data.fetchId}`);
+      return redirect(`/chat-messages/${response.data.fetchId}`);
     }
 
     if (response.status > 399 && response.status < 600) {
       throw Error(`Something went wrong: ${response.status}`);
     }
 
-    return redirect(`/message/${response.data.fetchId}`);
+    return redirect(`/chat-messages/${response.data.fetchId}`);
   } catch (error) {
     return error;
   }
 };
 
-export const createMessageAction = async ({
+export const createChatMessageAction = async ({
   request,
   params
 }: ActionFunctionArgs) => {
@@ -181,7 +181,7 @@ export const createMessageAction = async ({
 
     if (!currentToken) {
       throw Error(
-        `[createMessageAction] Something went wrong when trying to retrieve token`
+        `[createChatMessageAction] Something went wrong when trying to retrieve token`
       );
     }
 
@@ -189,13 +189,13 @@ export const createMessageAction = async ({
     const formEntries = Object.fromEntries(formData.entries());
 
     const data = {
-      conversationId: params.id,
+      chatId: params.id,
       text: formEntries.text
     };
 
     const response = await makeApiRequest({
       method: "post",
-      url: "messages/single",
+      url: "chat-messages/single",
       data,
       headers: {
         Authorization: `Bearer ${currentToken}`
@@ -235,7 +235,7 @@ export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
 
     const response = await makeApiRequest({
       method: "put",
-      url: `conversations/single`,
+      url: `chats/single`,
       data,
       headers: {
         Authorization: `Bearer ${currentToken}`

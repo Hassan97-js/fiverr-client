@@ -7,8 +7,8 @@ import {
   Gigs,
   Home,
   SignIn,
-  Message,
-  Messages,
+  ChatMessages,
+  Chats,
   PrivateGigs,
   Orders,
   SignUp,
@@ -19,9 +19,9 @@ import {
 
 import {
   addGigLoader,
-  fetchConversationsLoader,
+  fetchChatsLoader,
   fetchGigsLoader,
-  fetchMessagesLoader,
+  fetchChatMessagesLoader,
   fetchPrivateGigsLoader,
   fetchOrdersLoader,
   fetchSingleGigLoader,
@@ -33,9 +33,9 @@ import {
 
 import {
   addReviewAction,
-  createConversationAction,
+  createChatAction,
   createGigAction,
-  createMessageAction,
+  createChatMessageAction,
   deleteGigAction,
   isMessageReadAction,
   signInAction,
@@ -92,21 +92,21 @@ const routerConfig = [
         element: <Orders />,
         errorElement: <Error />,
         loader: fetchOrdersLoader,
-        action: createConversationAction
+        action: createChatAction
       },
       {
-        path: "messages",
-        element: <Messages />,
+        path: "chats",
+        element: <Chats />,
         errorElement: <Error />,
-        loader: fetchConversationsLoader,
+        loader: fetchChatsLoader,
         action: isMessageReadAction
       },
       {
-        path: "message/:id",
-        element: <Message />,
+        path: "chat-messages/:id",
+        element: <ChatMessages />,
         errorElement: <Error />,
-        loader: fetchMessagesLoader,
-        action: createMessageAction
+        loader: fetchChatMessagesLoader,
+        action: createChatMessageAction
       },
       {
         path: "add",
