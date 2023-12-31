@@ -12,7 +12,7 @@ export const OrderSchema = z
     buyerId: z.union([UserSchema, ObjectIdSchema]),
     isCompleted: z.boolean().optional(),
     // Todo: Maybe validate the payment_intent string
-    payment_intent: z.string()
+    payment_intent: z.string().trim().toLowerCase()
   })
   .strict();
 

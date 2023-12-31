@@ -3,14 +3,24 @@ import { Form, Link, useNavigation } from "react-router-dom";
 import Button from "./button";
 import Table, { TableBody, TableHead } from "./table";
 
+import { type TChatsTableHeaders } from "../routes/chats";
+
+import { type TChat } from "../constants/chat-validator";
 import { capitalize, formatDateToNow } from "../utils";
 
+type TProps = {
+  tableHeaders: TChatsTableHeaders;
+  tableData: TChat[];
+  isSeller?: boolean;
+  clickable?: boolean;
+};
+
 const ChatsTable = ({
-  tableHeaders = [],
-  tableData = [],
+  tableHeaders,
+  tableData,
   isSeller,
   clickable = false
-}) => {
+}: TProps) => {
   const { state } = useNavigation();
 
   const isBusy = state === "submitting";
@@ -38,6 +48,17 @@ const ChatsTable = ({
     const isNotReadBySeller = isSeller && !readBySeller;
     const isNotReadByBuyer = !isSeller && !readByBuyer;
 
+    let sellerUserName: null | string = null;
+    let buyerUserName: null | string = null;
+
+    if (typeof sellerInfo !== "string") {
+      sellerUserName = sellerInfo.username;
+    }
+
+    if (typeof buyerInfo !== "string") {
+      buyerUserName = buyerInfo.username;
+    }
+
     return (
       <tr
         key={id}
@@ -49,10 +70,10 @@ const ChatsTable = ({
           scope="row"
           className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
           <Link to={`/chat-messages/${fetchId}`}>
-            {isSeller && buyerInfo?.username
-              ? capitalize(buyerInfo.username)
-              : !isSeller && sellerInfo?.username
-              ? capitalize(sellerInfo?.username)
+            {isSeller && buyerUserName
+              ? capitalize(buyerUserName)
+              : !isSeller && sellerUserName
+              ? capitalize(sellerUserName)
               : "-"}
           </Link>
         </td>
@@ -61,7 +82,9 @@ const ChatsTable = ({
           role="button"
           scope="row"
           className="px-6 py-4 font-medium text-gray-500 truncate">
-          <Link to={`/chat-messages/${fetchId}`}>{lastMessage ? lastMessage : "-"}</Link>
+          <Link to={`/chat-messages/${fetchId}`}>
+            {lastMessage ? lastMessage : "-"}
+          </Link>
         </td>
 
         <td

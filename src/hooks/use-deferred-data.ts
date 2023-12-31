@@ -6,12 +6,14 @@ import {
   PrivateGigsPromiseSchema
 } from "../constants/gig-validator";
 import { OrdersPromiseSchema } from "../constants/order-validator";
+import { ChatsPromiseSchema } from "../constants/chat-validator";
 
 type TPromiseTypes =
   | "gigsPromise"
   | "gigPromise"
   | "privateGigsPromise"
-  | "ordersPromise";
+  | "ordersPromise"
+  | "chatsPromise";
 
 type TDeferredDataReturnValue = {
   [key in TPromiseTypes]?: Promise<unknown> | null;
@@ -58,6 +60,16 @@ export const useDeferredData = ({ promiseType }: TProps): TUseDeferredDataReturn
 
   if (promiseType === "ordersPromise") {
     const validationResult = OrdersPromiseSchema.safeParse(data);
+
+    if (validationResult.success) {
+      return validationResult.data;
+    }
+
+    return null;
+  }
+
+  if (promiseType === "chatsPromise") {
+    const validationResult = ChatsPromiseSchema.safeParse(data);
 
     if (validationResult.success) {
       return validationResult.data;

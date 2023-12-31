@@ -41,7 +41,7 @@ const userMenuLinks = [
   },
   {
     id: 6,
-    to: "messages",
+    to: "chats",
     text: "Chats",
     sellerOnly: false
   }

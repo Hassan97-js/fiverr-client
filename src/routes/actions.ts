@@ -242,7 +242,7 @@ export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
       }
     });
 
-    if (response.status > 399 && response.status < 600) {
+    if (!response.data.success) {
       throw Error(`Something went wrong: ${response.status}`);
     }
 
