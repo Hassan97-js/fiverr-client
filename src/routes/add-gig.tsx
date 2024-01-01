@@ -49,8 +49,6 @@ const AddGig = () => {
     actionErrorMessage = actionDataValidationResult.data.message;
   }
 
-  console.log({ hasActionError, actionErrorMessage });
-
   useEffect(() => {
     if (!isBusy && !hasActionError) {
       formRef.current?.reset();

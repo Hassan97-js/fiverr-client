@@ -10,19 +10,17 @@ import {
 } from "../components";
 
 import { useDeferredData, useUser } from "../hooks";
+import { useChatMessages } from "../hooks/use-chat-messages";
 
 const AwaitedChatMessages = () => {
-  // const messagesResponse = useAsyncValue();
-  // const user = useUser();
-
-  // const messages = messagesResponse.data;
+  const chatMessages = useChatMessages();
+  const user = useUser();
 
   return (
-    // <>
-    //   <ChatRoom userId={currentUser?.id} messages={messages} />
-    //   <ChatInput />
-    // </>
-    null
+    <>
+      <ChatRoom userId={user?.id} messages={chatMessages} />
+      <ChatInput />
+    </>
   );
 };
 
