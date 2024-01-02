@@ -1,6 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, type RelativeRoutingType } from "react-router-dom";
 
 import Alert from "./alert";
+
+type TProps = {
+  parentClasses?: string;
+  alertVariant?: string;
+  alertClasses?: string;
+  errorMessageClasses?: string;
+  errorMessage?: string;
+  linkPath?: string;
+  linkText?: string;
+  linkClasses?: string;
+  relative?: RelativeRoutingType;
+};
 
 const AsyncError = ({
   parentClasses = "flex flex-col justify-center items-center gap-10 mt-20",
@@ -12,7 +24,7 @@ const AsyncError = ({
   linkText = "Back to Home",
   linkClasses = "btn btn-primary",
   relative = "route"
-}) => {
+}: TProps) => {
   return (
     <div className={parentClasses}>
       <Alert parentClasses={alertClasses} alertVariant={alertVariant}>

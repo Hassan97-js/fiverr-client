@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 import { AsyncError, CheckoutForm, LayoutSection, Spinner } from "../components";
 
-import { useUser } from "../hooks/use-user";
+import { useUser } from "../hooks";
 
 const AwaitedPayment = () => {
   const user = useUser();
