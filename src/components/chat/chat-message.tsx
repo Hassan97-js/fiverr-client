@@ -1,6 +1,13 @@
 import { capitalize } from "../../utils";
 
-const ChatMessage = ({ isSender, senderUsername, text, userImage }) => {
+type TProps = {
+  isSender: boolean;
+  senderUsername: string | null;
+  text: string;
+  userImage?: string | null;
+};
+
+const ChatMessage = ({ isSender, senderUsername, text, userImage }: TProps) => {
   return (
     <div
       className={`flex gap-4 | max-w-lg | py-3 px-5 mb-6 ${
@@ -10,12 +17,14 @@ const ChatMessage = ({ isSender, senderUsername, text, userImage }) => {
       } `}>
       <img
         className="w-7 h-7 object-cover object-center rounded-full"
-        src={userImage}
+        src={userImage || ""}
         alt=""
       />
 
       <div>
-        <span className="block font-medium mb-1">{capitalize(senderUsername)}</span>
+        <span className="block font-medium mb-1">
+          {capitalize(senderUsername || "Unknown")}
+        </span>
         <p>{text}</p>
       </div>
     </div>

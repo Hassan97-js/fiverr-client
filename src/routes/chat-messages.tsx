@@ -18,8 +18,8 @@ const AwaitedChatMessages = () => {
 
   return (
     <>
-      <ChatRoom userId={user?.id} messages={chatMessages} />
-      <ChatInput />
+      <ChatRoom userId={user?._id} messages={chatMessages} />
+      <ChatInput userName={user?.username} />
     </>
   );
 };
@@ -30,7 +30,7 @@ const ChatMessages = () => {
   });
 
   return (
-    <LayoutSection>
+    <LayoutSection className="min-h-[75rem] flex flex-col py-0 pt-6">
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={chatMessagesPromiseData?.chatMessagesPromise}

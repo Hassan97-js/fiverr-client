@@ -107,6 +107,6 @@ export type TChatsPromise = z.infer<typeof ChatsPromiseSchema>;
 
 export type TFromApiChatMessages = z.infer<typeof FromApiChatMessagesSchema>;
 export type TFromApiChatMessage = z.infer<typeof FromApiChatMessageSchema>;
-export type TChatMessage = z.infer<typeof ChatSchema>;
+export type TChatMessage = z.infer<typeof ChatMessageSchema>;
 export type TChatMessagesPromise = z.infer<typeof ChatMessagesPromiseSchema>;
 export type TChatMessagePromise = z.infer<typeof ChatMessagePromiseSchema>;

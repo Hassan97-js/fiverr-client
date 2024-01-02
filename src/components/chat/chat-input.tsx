@@ -1,11 +1,16 @@
 import { Form } from "react-router-dom";
 import Button from "../button";
+import { capitalize } from "../../utils";
 
-const ChatInput = () => {
+type TProps = {
+  userName?: string;
+};
+
+const ChatInput = ({ userName }: TProps) => {
   return (
     <Form method="POST">
       <label htmlFor="chat" className="sr-only">
-        Your message
+        Message {userName}
       </label>
 
       <div className="flex items-center px-4 py-6 rounded-br-lg rounded-bl-lg bg-neutral-50/80">
@@ -14,7 +19,7 @@ const ChatInput = () => {
           name="text"
           rows={3}
           className="block mx-4 p-2.5 w-full text-base bg-white rounded-lg border-[1.8px] border-neutral-300 focus:ring-green-500 focus:border-green-500 outline-none transition"
-          placeholder="Your message..."
+          placeholder={`Message ${capitalize(userName || "")}`}
           autoFocus></textarea>
 
         <Button variant="primary" type="submit" className="rounded-full">

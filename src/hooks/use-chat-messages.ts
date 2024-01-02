@@ -11,21 +11,18 @@ import { handleError } from "../utils";
 import type { TAxiosResponse } from "../types/api.types";
 
 export const useChatMessages = () => {
-  const chatMessagesResponse =
-    useAsyncValue() as TAxiosResponse<TFromApiChatMessages>;
+  const response = useAsyncValue() as TAxiosResponse<TFromApiChatMessages>;
 
-  let chatMessagesData: TFromApiChatMessages | null = null;
+  let messagesData: TFromApiChatMessages | null = null;
 
-  const validationResult = FromApiChatMessagesSchema.safeParse(
-    chatMessagesResponse.data
-  );
+  const result = FromApiChatMessagesSchema.safeParse(response.data);
 
-  if (validationResult.success) {
-    chatMessagesData = validationResult.data;
+  if (result.success) {
+    messagesData = result.data;
   } else {
-    handleError(validationResult.error);
+    handleError(result.error);
     return null;
   }
 
-  return chatMessagesData?.chatMessages;
+  return messagesData?.chatMessages;
 };
