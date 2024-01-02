@@ -12,3 +12,4 @@ export type TAxiosResponsePromise<T> = {
 
 export type TAxiosResponse<T> = AxiosResponse<T, {}>;
 export type TAxiosResponses<T, D> = [AxiosResponse<T, {}>, AxiosResponse<D, {}>];
+export type TApiResponses<T, D> = [T, AxiosResponse<D, {}>];

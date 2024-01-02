@@ -82,10 +82,8 @@ export const paymentLoader = async ({ params, request }: LoaderFunctionArgs) => 
     throw Error("[paymentLoader] Unauthorized");
   }
 
-  // Todo: Property 'env' does not exist on type 'ImportMeta'
   const loadStripePromise = loadStripe(
-    // import.meta.env.VITE_STRIPE_TEST_PUBLISHABLE_KEY
-    "pk_live_51NLn9mHL68wNsu66XDIsdmrz3EUmqbqryCnNNuCXGQQ7CxhT7s3FyrCqqkAkO7ywDbZmp4x4oLdtW1Mt7xmEioXH00GKhXxDdR"
+    import.meta.env.VITE_STRIPE_TEST_PUBLISHABLE_KEY
   );
 
   const paymentIntentPromise = makeApiRequest({

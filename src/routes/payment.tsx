@@ -1,18 +1,23 @@
 import { Suspense } from "react";
-import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
+import { StripeElementsOptions, type Stripe, Appearance } from "@stripe/stripe-js";
+import { Await, useAsyncValue } from "react-router-dom";
 
 import { AsyncError, CheckoutForm, LayoutSection, Spinner } from "../components";
 
-import { useUser } from "../hooks";
+import { useDeferredData, useUser } from "../hooks";
+
+import { type TApiResponses } from "../types/api.types";
+import { type StripeSecrectResponse } from "../types/stripe.types";
 
 const AwaitedPayment = () => {
+  const [stripe, paymentIntentResponse] = useAsyncValue() as TApiResponses<
+    Stripe,
+    StripeSecrectResponse
+  >;
   const user = useUser();
-  const [stripe, paymentIntent] = useAsyncValue();
 
-  const currentUser = data?.currentUser;
-
-  if (currentUser?.isSeller) {
+  if (user?.isSeller) {
     return (
       <AsyncError
         linkText="Go back"
@@ -22,9 +27,9 @@ const AwaitedPayment = () => {
     );
   }
 
-  const clientSecret = paymentIntent.data.clientSecret;
+  const clientSecret = paymentIntentResponse.data.clientSecret;
 
-  const appearance = {
+  const appearance: Appearance = {
     theme: "stripe",
     variables: {
       colorPrimary: "#16a34a",
@@ -32,7 +37,7 @@ const AwaitedPayment = () => {
     }
   };
 
-  const options = {
+  const options: StripeElementsOptions = {
     clientSecret,
     appearance
   };
@@ -45,12 +50,12 @@ const AwaitedPayment = () => {
 };
 
 const Payment = () => {
-  const { paymentPromise } = useLoaderData();
+  const paymentPromiseData = useDeferredData({ promiseType: "paymentPromise" });
 
   return (
     <LayoutSection>
       <Suspense fallback={<Spinner />}>
-        <Await resolve={paymentPromise}>
+        <Await resolve={paymentPromiseData?.paymentPromise}>
           <AwaitedPayment />
         </Await>
       </Suspense>

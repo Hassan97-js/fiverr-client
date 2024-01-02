@@ -11,6 +11,7 @@ import {
   ChatsPromiseSchema
 } from "../constants/chat-validator";
 import { handleError } from "../utils";
+import { PaymentPromiseSchema } from "../constants/payment-validator";
 
 type TPromiseTypes =
   | "gigsPromise"
@@ -18,7 +19,8 @@ type TPromiseTypes =
   | "privateGigsPromise"
   | "ordersPromise"
   | "chatsPromise"
-  | "chatMessagesPromise";
+  | "chatMessagesPromise"
+  | "paymentPromise";
 
 type TDeferredDataReturnValue = {
   [key in TPromiseTypes]?: Promise<unknown> | null;
@@ -34,67 +36,78 @@ export const useDeferredData = ({ promiseType }: TProps): TUseDeferredDataReturn
   const data = useLoaderData();
 
   if (promiseType === "gigPromise") {
-    const validationResult = GigPromiseSchema.safeParse(data);
+    const result = GigPromiseSchema.safeParse(data);
 
-    if (validationResult.success) {
-      return validationResult.data;
+    if (result.success) {
+      return result.data;
     } else {
-      handleError(validationResult.error);
+      handleError(result.error);
       return null;
     }
   }
 
   if (promiseType === "gigsPromise") {
-    const validationResult = GigsPromiseSchema.safeParse(data);
+    const result = GigsPromiseSchema.safeParse(data);
 
-    if (validationResult.success) {
-      return validationResult.data;
+    if (result.success) {
+      return result.data;
     } else {
-      handleError(validationResult.error);
+      handleError(result.error);
       return null;
     }
   }
 
   if (promiseType === "privateGigsPromise") {
-    const validationResult = PrivateGigsPromiseSchema.safeParse(data);
+    const result = PrivateGigsPromiseSchema.safeParse(data);
 
-    if (validationResult.success) {
-      return validationResult.data;
+    if (result.success) {
+      return result.data;
     } else {
-      handleError(validationResult.error);
+      handleError(result.error);
       return null;
     }
   }
 
   if (promiseType === "ordersPromise") {
-    const validationResult = OrdersPromiseSchema.safeParse(data);
+    const result = OrdersPromiseSchema.safeParse(data);
 
-    if (validationResult.success) {
-      return validationResult.data;
+    if (result.success) {
+      return result.data;
     } else {
-      handleError(validationResult.error);
+      handleError(result.error);
       return null;
     }
   }
 
   if (promiseType === "chatsPromise") {
-    const validationResult = ChatsPromiseSchema.safeParse(data);
+    const result = ChatsPromiseSchema.safeParse(data);
 
-    if (validationResult.success) {
-      return validationResult.data;
+    if (result.success) {
+      return result.data;
     } else {
-      handleError(validationResult.error);
+      handleError(result.error);
       return null;
     }
   }
 
   if (promiseType === "chatMessagesPromise") {
-    const validationResult = ChatMessagesPromiseSchema.safeParse(data);
+    const result = ChatMessagesPromiseSchema.safeParse(data);
 
-    if (validationResult.success) {
-      return validationResult.data;
+    if (result.success) {
+      return result.data;
     } else {
-      handleError(validationResult.error);
+      handleError(result.error);
+      return null;
+    }
+  }
+
+  if (promiseType === "paymentPromise") {
+    const result = PaymentPromiseSchema.safeParse(data);
+
+    if (result.success) {
+      return result.data;
+    } else {
+      handleError(result.error);
       return null;
     }
   }
