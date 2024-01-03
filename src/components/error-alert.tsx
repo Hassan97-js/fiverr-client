@@ -1,10 +1,12 @@
 import { Link, type RelativeRoutingType } from "react-router-dom";
 
 import Alert from "./alert";
+import Button from "./button";
+
+import { cn } from "../utils";
 
 type TProps = {
   parentClasses?: string;
-  alertVariant?: string;
   alertClasses?: string;
   errorMessageClasses?: string;
   errorMessage?: string;
@@ -14,29 +16,31 @@ type TProps = {
   relative?: RelativeRoutingType;
 };
 
-const AsyncError = ({
-  parentClasses = "flex flex-col justify-center items-center gap-10 mt-20",
-  alertVariant = "danger",
-  alertClasses = "",
-  errorMessageClasses = "mb-1",
+const ErrorAlert = ({
+  parentClasses,
+  alertClasses,
+  errorMessageClasses,
   errorMessage = "An error has occurred!",
   linkPath = "/",
   linkText = "Back to Home",
-  linkClasses = "btn btn-primary",
+  linkClasses,
   relative = "route"
 }: TProps) => {
   return (
-    <div className={parentClasses}>
-      <Alert parentClasses={alertClasses} alertVariant={alertVariant}>
+    <div
+      className={cn(
+        "flex flex-col justify-center items-center gap-10 mt-20",
+        parentClasses
+      )}>
+      <Alert parentClassName={alertClasses}>
         <p className={errorMessageClasses}>{errorMessage}</p>
-        {/* <p>If the problem persists, please contact us</p> */}
       </Alert>
 
       <Link relative={relative} className={linkClasses} to={linkPath}>
-        {linkText}
+        <Button variant="primary">{linkText}</Button>
       </Link>
     </div>
   );
 };
 
-export default AsyncError;
+export default ErrorAlert;

@@ -40,7 +40,7 @@ import CustomToggle from "./form/custom-toggle";
 import Spinner from "./spinner";
 import Alert from "./alert";
 import Button from "./button";
-import AsyncError from "./async-error";
+import ErrorAlert from "./error-alert";
 
 import UploadButton from "./form/upload-button";
 
@@ -89,7 +89,7 @@ export {
   FileInput,
   Spinner,
   Alert,
-  AsyncError,
+  ErrorAlert,
   AgreeCheckbox,
   UploadButton,
   CheckoutForm,

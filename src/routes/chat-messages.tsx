@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Await, useAsyncValue, useLoaderData } from "react-router-dom";
 
 import {
-  AsyncError,
+  ErrorAlert,
   ChatInput,
   ChatRoom,
   LayoutSection,
@@ -34,7 +34,7 @@ const ChatMessages = () => {
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={chatMessagesPromiseData?.chatMessagesPromise}
-          errorElement={<AsyncError errorMessage="Failed to load the messages" />}>
+          errorElement={<ErrorAlert errorMessage="Failed to load the messages" />}>
           <AwaitedChatMessages />
         </Await>
       </Suspense>

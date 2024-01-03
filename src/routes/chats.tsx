@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Await } from "react-router-dom";
 
-import { Spinner, ChatsTable, AsyncError, LayoutSection } from "../components";
+import { Spinner, ChatsTable, ErrorAlert, LayoutSection } from "../components";
 
 import { useChats, useDeferredData, useUser } from "../hooks";
 
@@ -47,7 +47,7 @@ const Chats = () => {
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={chatsPromiseData?.chatsPromise}
-          errorElement={<AsyncError errorMessage="Failed to load the chats!" />}>
+          errorElement={<ErrorAlert errorMessage="Failed to load the chats!" />}>
           <AwaitedChats />
         </Await>
       </Suspense>

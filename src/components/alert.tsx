@@ -1,18 +1,25 @@
-const Alert = ({ children, alertVariant, classes = "", parentClasses = "" }) => {
-  const variants = {
-    danger: "text-red-800 border border-red-300 rounded-lg bg-red-50",
-    info: "rounded-lg bg-neutral-50"
-  };
+import { type ReactNode } from "react";
 
+import { cn } from "../utils";
+
+type TProps = {
+  children: ReactNode;
+  className?: string;
+  parentClassName?: string;
+  iconClassName?: string;
+};
+
+const Alert = ({ children, className, parentClassName, iconClassName }: TProps) => {
   return (
     <div
-      className={`flex items-center gap-2 | p-4 | ${
-        variants[alertVariant] ?? variants["danger"]
-      } ${parentClasses}`}
+      className={cn(
+        "flex items-center p-4 text-red-800 border border-red-300 rounded-lg bg-red-50",
+        parentClassName
+      )}
       role="alert">
       <svg
         aria-hidden="true"
-        className="flex-shrink-0 inline w-5 h-5 mr-3"
+        className={cn("flex-shrink-0 inline w-5 h-5 mr-3", iconClassName)}
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +29,7 @@ const Alert = ({ children, alertVariant, classes = "", parentClasses = "" }) => 
           clipRule="evenodd"></path>
       </svg>
 
-      <div className={`font-medium text-left ${classes}`}>{children}</div>
+      <div className={cn("font-medium text-left", className)}>{children}</div>
     </div>
   );
 };

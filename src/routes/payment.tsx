@@ -1,9 +1,13 @@
 import { Suspense } from "react";
 import { Elements } from "@stripe/react-stripe-js";
-import { StripeElementsOptions, type Stripe, Appearance } from "@stripe/stripe-js";
+import {
+  type StripeElementsOptions,
+  type Stripe,
+  type Appearance
+} from "@stripe/stripe-js";
 import { Await, useAsyncValue } from "react-router-dom";
 
-import { AsyncError, CheckoutForm, LayoutSection, Spinner } from "../components";
+import { ErrorAlert, CheckoutForm, LayoutSection, Spinner } from "../components";
 
 import { useDeferredData, useUser } from "../hooks";
 
@@ -19,7 +23,7 @@ const AwaitedPayment = () => {
 
   if (user?.isSeller) {
     return (
-      <AsyncError
+      <ErrorAlert
         linkText="Go back"
         linkPath="/gigs"
         errorMessage="Sellers are not allowed to make orders!"

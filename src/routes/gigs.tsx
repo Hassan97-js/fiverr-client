@@ -6,7 +6,7 @@ import {
   GigCard,
   CustomInput,
   Button,
-  AsyncError,
+  ErrorAlert,
   LayoutSection,
   Heading1
 } from "../components";
@@ -118,7 +118,7 @@ const Gigs = () => {
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={gigsPromiseData?.gigsPromise}
-          errorElement={<AsyncError errorMessage="Failed to load the gigs" />}>
+          errorElement={<ErrorAlert errorMessage="Failed to load the gigs" />}>
           <AwaitedPublicGigs />
         </Await>
       </Suspense>

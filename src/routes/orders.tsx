@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Await } from "react-router-dom";
 
-import { Spinner, OrdersTable, AsyncError, LayoutSection } from "../components";
+import { Spinner, OrdersTable, ErrorAlert, LayoutSection } from "../components";
 import { useUser } from "../hooks/use-user";
 import { useDeferredData } from "../hooks";
 import { useOrders } from "../hooks/use-orders";
@@ -48,7 +48,7 @@ const Orders = () => {
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={orderPromiseData?.ordersPromise}
-          errorElement={<AsyncError errorMessage="Failed to load the orders!" />}>
+          errorElement={<ErrorAlert errorMessage="Failed to load the orders!" />}>
           <AwaitedOrders />
         </Await>
       </Suspense>

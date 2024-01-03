@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Await, Link } from "react-router-dom";
 
 import {
-  AsyncError,
+  ErrorAlert,
   Button,
   LayoutSection,
   PrivateGigsTable,
@@ -62,7 +62,7 @@ const PrivateGigs = () => {
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={gigsPromiseData?.privateGigsPromise}
-          errorElement={<AsyncError errorMessage="Failed to load your own gigs" />}>
+          errorElement={<ErrorAlert errorMessage="Failed to load your own gigs" />}>
           <AwaitedPrivateGigs />
         </Await>
       </Suspense>

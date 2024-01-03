@@ -7,7 +7,7 @@ import {
   Reviews,
   GigCTA,
   Spinner,
-  AsyncError,
+  ErrorAlert,
   LayoutSection,
   Heading1,
   Heading2
@@ -127,7 +127,7 @@ const Gig = () => {
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={gigPromiseData?.gigPromise}
-          errorElement={<AsyncError errorMessage="Failed to load the gig" />}>
+          errorElement={<ErrorAlert errorMessage="Failed to load the gig" />}>
           <AwaitedGig />
         </Await>
       </Suspense>
