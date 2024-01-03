@@ -15,6 +15,8 @@ const AwaitedOrders = () => {
   const orders = useOrders();
   const user = useUser();
 
+  console.log(orders);
+
   if (!orders?.length) {
     return (
       <p className="text-neutral-500 text-lg font-medium text-center mt-10">

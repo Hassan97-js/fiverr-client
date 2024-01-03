@@ -33,13 +33,13 @@ const AwaitedPayment = () => {
 
   const clientSecret = paymentIntentResponse.data.clientSecret;
 
-  const appearance: Appearance = {
+  const appearance = {
     theme: "stripe",
     variables: {
       colorPrimary: "#16a34a",
       colorText: "#262626"
     }
-  };
+  } satisfies Appearance;
 
   const options: StripeElementsOptions = {
     clientSecret,
