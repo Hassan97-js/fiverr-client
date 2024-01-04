@@ -6,7 +6,7 @@ import Heading2 from "./typography/heading-2";
 import { capitalize } from "../utils";
 
 type TProps = {
-  currentUserId: string;
+  currentUserId?: string;
   gigUserId: string | null;
   sellerName: string | null;
   sellerImage: string;

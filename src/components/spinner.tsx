@@ -1,34 +1,21 @@
 import { cn } from "../utils";
 
 type TProps = {
-  withMarginTop?: boolean;
-  withBlockIcon?: boolean;
-  withFullContainer?: boolean;
-  withInlineContainer?: boolean;
-  withInlineIcon?: boolean;
+  className?: string;
+  iconClassName?: string;
 };
 
-const Spinner = ({
-  withMarginTop = true,
-  withBlockIcon = true,
-  withFullContainer = true,
-  withInlineContainer = false,
-  withInlineIcon = false
-}: TProps) => {
+const Spinner = ({ className, iconClassName }: TProps) => {
   return (
     <div
       role="status"
-      className={cn("flex justify-center items-center", {
-        "mt-[220px]": withMarginTop === true,
-        "w-screen h-screen": withFullContainer === true,
-        "w-5 h-5": withInlineContainer === true
-      })}>
+      className={cn("flex justify-center items-center w-full h-[900px]", className)}>
       <svg
         aria-hidden="true"
-        className={cn("inline-block animate-spin-fast", {
-          "w-8 h-8 fill-green-400 text-neutral-100": withBlockIcon === true,
-          "fill-green-700 text-white": withInlineIcon === true
-        })}
+        className={cn(
+          "inline-block animate-spin-fast fill-green-400 text-neutral-100 w-5 h-5",
+          iconClassName
+        )}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">

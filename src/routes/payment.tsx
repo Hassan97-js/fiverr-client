@@ -41,10 +41,10 @@ const AwaitedPayment = () => {
     }
   } satisfies Appearance;
 
-  const options: StripeElementsOptions = {
+  const options = {
     clientSecret,
     appearance
-  };
+  } satisfies StripeElementsOptions;
 
   return (
     <Elements options={options} stripe={stripe}>

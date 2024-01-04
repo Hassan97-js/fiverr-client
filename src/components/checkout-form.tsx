@@ -11,11 +11,9 @@ import {
 } from "@stripe/stripe-js";
 
 import Button from "./button";
-import Spinner from "./spinner";
 
 const CheckoutForm = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [email, setEmail] = useState("");
+  const [_email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null | undefined>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [elementsLoaded, setElementsLoaded] = useState(false);

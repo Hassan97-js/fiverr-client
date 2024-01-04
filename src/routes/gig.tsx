@@ -18,10 +18,10 @@ import { useUser, useGig, useDeferredData } from "../hooks/";
 import { responsiveConfig } from "../data/client/ts/ui";
 
 const AwaitedGig = () => {
-  const user = useUser();
   const { gig, reviews } = useGig();
+  const user = useUser();
 
-  if (!user || !gig) {
+  if (!gig) {
     return (
       <p className="text-neutral-500 text-lg font-medium text-center mt-10">
         Could not load the gig
@@ -86,7 +86,6 @@ const AwaitedGig = () => {
             <p>{description}</p>
           </div>
         </div>
-
         <AboutSeller
           currentUserId={user?._id}
           gigUserId={gigUserId}
@@ -100,8 +99,7 @@ const AwaitedGig = () => {
           responseTime="4 hours"
           sellerImage={userImage || fallbackImage}
         />
-
-        <Reviews gigUserId={gigUserId} reviews={reviews} />
+        <Reviews gigUserId={gigUserId} reviews={reviews} />S
       </div>
 
       <GigCTA
@@ -123,7 +121,7 @@ const Gig = () => {
   const gigPromiseData = useDeferredData({ promiseType: "gigPromise" });
 
   return (
-    <LayoutSection className="relative text-neutral-700">
+    <LayoutSection className="relative">
       <Suspense fallback={<Spinner />}>
         <Await
           resolve={gigPromiseData?.gigPromise}

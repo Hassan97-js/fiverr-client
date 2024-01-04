@@ -2057,7 +2057,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-icons: "npm:^4.12.0"
     react-multi-carousel: "npm:^2.8.4"
-    react-router-dom: "npm:^6.21.1"
+    react-router-dom: "npm:6.21.1"
     tailwind-merge: "npm:^2.2.0"
     tailwindcss: "npm:^3.4.0"
     typescript: "npm:^5.3.3"
@@ -3614,7 +3614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^6.21.1":
+"react-router-dom@npm:6.21.1":
   version: 6.21.1
   resolution: "react-router-dom@npm:6.21.1"
   dependencies:

@@ -8,8 +8,8 @@ import CustomIcon from "./custom-icon";
 import { cn } from "../utils";
 
 type TProps = {
-  currentUserId: string;
-  isSeller: boolean;
+  currentUserId?: string;
+  isSeller?: boolean;
   className?: string;
   gigUserId: string | null;
   price: number;
