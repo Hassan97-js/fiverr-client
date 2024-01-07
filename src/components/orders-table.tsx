@@ -43,8 +43,8 @@ const OrdersTable = ({
     } = item;
 
     let image: null | string | undefined = null;
-    let title: null | string = null;
-    let price: null | number = null;
+    let title: null | string | undefined = null;
+    let price: null | number | undefined = null;
 
     if (typeof gigInfo !== "string") {
       image = gigInfo.coverImage;
@@ -89,7 +89,7 @@ const OrdersTable = ({
 
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap capitalize">
           {title}
         </td>
 
@@ -102,10 +102,12 @@ const OrdersTable = ({
         <td
           scope="row"
           className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
-          {buyerUserName && isSeller ? capitalize(buyerUserName) : "-"}
-          {sellerUserName && !isSeller ? capitalize(sellerUserName) : "-"}
+          {buyerUserName && isSeller ? capitalize(buyerUserName) : ""}
+          {sellerUserName && !isSeller ? capitalize(sellerUserName) : ""}
+          {(!buyerUserName || !sellerUserName) && "-"}
         </td>
 
+        {/* TODO: CONTINUE WITH CREATE A CHAT FROM ORDER FORM */}
         <td
           role="button"
           scope="row"

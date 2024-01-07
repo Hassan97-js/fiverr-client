@@ -33,6 +33,8 @@ export const GigSchema = z
   })
   .strict();
 
+export const OptionalGigSchema = GigSchema.partial();
+
 export const FromApiGigsSchema = z
   .object({
     success: z.boolean(),

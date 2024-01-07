@@ -10,11 +10,8 @@ import { handleError } from "../utils";
 
 import type { TAxiosResponse } from "../types/api.types";
 
-// Todo: Fix Order Zod validaton
 export const useOrders = (): TOrder[] | null => {
   const ordersResponse = useAsyncValue() as TAxiosResponse<TFromApiOrders>;
-
-  console.log(ordersResponse.data);
 
   let ordersData: TFromApiOrders | null = null;
 
