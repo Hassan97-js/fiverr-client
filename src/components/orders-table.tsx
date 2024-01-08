@@ -107,7 +107,6 @@ const OrdersTable = ({
           {(!buyerUserName || !sellerUserName) && "-"}
         </td>
 
-        {/* TODO: CONTINUE WITH CREATE A CHAT FROM ORDER FORM */}
         <td
           role="button"
           scope="row"

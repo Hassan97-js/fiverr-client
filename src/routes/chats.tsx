@@ -1,17 +1,14 @@
-import { Suspense } from "react";
-import { Await } from "react-router-dom";
+import { ChatsTable, LayoutSection } from "../components";
 
-import { Spinner, ChatsTable, ErrorAlert, LayoutSection } from "../components";
-
-import { useChats, useDeferredData, useUser } from "../hooks";
+import { usePageData, useUser } from "../hooks";
 
 export type TChatsTableHeaders = {
   id: number;
   text: string;
 }[];
 
-const AwaitedChats = () => {
-  const chats = useChats();
+const Chats = () => {
+  const chats = usePageData({ dataType: "chats" })?.chats;
   const user = useUser();
 
   if (!chats?.length) {
@@ -30,27 +27,13 @@ const AwaitedChats = () => {
   ] satisfies TChatsTableHeaders;
 
   return (
-    <ChatsTable
-      tableHeaders={tableHeaders}
-      tableData={chats}
-      isSeller={user?.isSeller}
-      clickable={true}
-    />
-  );
-};
-
-const Chats = () => {
-  const chatsPromiseData = useDeferredData({ promiseType: "chatsPromise" });
-
-  return (
     <LayoutSection>
-      <Suspense fallback={<Spinner />}>
-        <Await
-          resolve={chatsPromiseData?.chatsPromise}
-          errorElement={<ErrorAlert errorMessage="Failed to load the chats!" />}>
-          <AwaitedChats />
-        </Await>
-      </Suspense>
+      <ChatsTable
+        tableHeaders={tableHeaders}
+        tableData={chats}
+        isSeller={user?.isSeller}
+        clickable={true}
+      />
     </LayoutSection>
   );
 };

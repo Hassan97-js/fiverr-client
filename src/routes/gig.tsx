@@ -1,25 +1,22 @@
-import { Suspense } from "react";
-import { Await } from "react-router-dom";
-
 import {
   AboutSeller,
   Slider,
   Reviews,
   GigCTA,
-  Spinner,
-  ErrorAlert,
   LayoutSection,
   Heading1,
   Heading2
 } from "../components";
 
-import { useUser, useGig, useDeferredData } from "../hooks/";
-
+import { useUser, usePageData } from "../hooks/";
 import { responsiveConfig } from "../data/client/ts/ui";
 
-const AwaitedGig = () => {
-  const { gig, reviews } = useGig();
+const Gig = () => {
+  const gigData = usePageData({ dataType: "gig" })?.gig;
   const user = useUser();
+
+  const gig = gigData?.data;
+  const reviews = gigData?.reviews;
 
   if (!gig) {
     return (
@@ -58,77 +55,63 @@ const AwaitedGig = () => {
   const fallbackImage = "https://picsum.photos/200";
 
   return (
-    <div className="block grid-cols-none gap-0 xl:grid xl:grid-cols-2fr-1fr xl:gap-14">
-      <div className="flex flex-col gap-20">
-        <div>
-          <Heading1 className="capitalize mb-14">{title}</Heading1>
-
-          {!!images && (
-            <Slider
-              itemClass="mr-10 rounded-lg overflow-hidden"
-              containerClass="max-w-3xl rounded-md mb-10"
-              responsiveConfig={responsiveConfig}>
-              {images.map((image) => {
-                return (
-                  <img
-                    className="w-full h-full object-cover"
-                    key={image}
-                    src={image}
-                    alt=""
-                  />
-                );
-              })}
-            </Slider>
-          )}
-
-          <div>
-            <Heading2 className="mb-4">About This Gig</Heading2>
-            <p>{description}</p>
-          </div>
-        </div>
-        <AboutSeller
-          currentUserId={user?._id}
-          gigUserId={gigUserId}
-          sellerName={userName}
-          aboutSeller={`My name is ${userName}, I enjoy creating AI generated art in my spare time. I have a lot of experience using the AI program and that means I know what to prompt the AI with to get a great and incredibly detailed result.`}
-          country={country}
-          languages="English"
-          lastDelivery="1 day"
-          memberDate="Aug 2022"
-          rating={totalStars}
-          responseTime="4 hours"
-          sellerImage={userImage || fallbackImage}
-        />
-        <Reviews gigUserId={gigUserId} reviews={reviews} />S
-      </div>
-
-      <GigCTA
-        currentUserId={user?._id}
-        isSeller={user?.isSeller}
-        gigUserId={gigUserId}
-        deliveryDays={deliveryDays}
-        description={shortDescription}
-        price={price}
-        priceText={shortTitle}
-        revisionsNumber={revisionNumber}
-        services={services}
-      />
-    </div>
-  );
-};
-
-const Gig = () => {
-  const gigPromiseData = useDeferredData({ promiseType: "gigPromise" });
-
-  return (
     <LayoutSection className="relative">
-      <Suspense fallback={<Spinner />}>
-        <Await
-          resolve={gigPromiseData?.gigPromise}
-          errorElement={<ErrorAlert errorMessage="Failed to load the gig" />}>
-          <AwaitedGig />
-        </Await>
-      </Suspense>
+      <div className="block grid-cols-none gap-0 xl:grid xl:grid-cols-2fr-1fr xl:gap-14">
+        <div className="flex flex-col gap-20">
+          <div>
+            <Heading1 className="capitalize mb-14">{title}</Heading1>
+
+            {!!images && (
+              <Slider
+                itemClass="mr-10 rounded-lg overflow-hidden"
+                containerClass="max-w-3xl rounded-md mb-10"
+                responsiveConfig={responsiveConfig}>
+                {images.map((image) => {
+                  return (
+                    <img
+                      className="w-full h-full object-cover"
+                      key={image}
+                      src={image}
+                      alt=""
+                    />
+                  );
+                })}
+              </Slider>
+            )}
+
+            <div>
+              <Heading2 className="mb-4">About This Gig</Heading2>
+              <p>{description}</p>
+            </div>
+          </div>
+          <AboutSeller
+            currentUserId={user?._id}
+            gigUserId={gigUserId}
+            sellerName={userName}
+            aboutSeller={`My name is ${userName}, I enjoy creating AI generated art in my spare time. I have a lot of experience using the AI program and that means I know what to prompt the AI with to get a great and incredibly detailed result.`}
+            country={country}
+            languages="English"
+            lastDelivery="1 day"
+            memberDate="Aug 2022"
+            rating={totalStars}
+            responseTime="4 hours"
+            sellerImage={userImage || fallbackImage}
+          />
+          <Reviews gigUserId={gigUserId} reviews={reviews} />
+        </div>
+
+        <GigCTA
+          currentUserId={user?._id}
+          isSeller={user?.isSeller}
+          gigUserId={gigUserId}
+          deliveryDays={deliveryDays}
+          description={shortDescription}
+          price={price}
+          priceText={shortTitle}
+          revisionsNumber={revisionNumber}
+          services={services}
+        />
+      </div>
     </LayoutSection>
   );
 };

@@ -65,7 +65,7 @@ const AddReview = () => {
 };
 
 type TProps = {
-  reviews: TReview[] | null;
+  reviews?: TReview[] | null;
   gigUserId: string | null;
 };
 

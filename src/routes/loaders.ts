@@ -97,9 +97,12 @@ export const paymentLoader = async ({ params, request }: LoaderFunctionArgs) => 
     }
   });
 
-  const paymentPromise = Promise.all([loadStripePromise, paymentIntentPromise]);
+  const paymentResponses = await Promise.all([
+    loadStripePromise,
+    paymentIntentPromise
+  ]);
 
-  return defer({ paymentPromise });
+  return paymentResponses;
 };
 
 export const fetchChatMessagesLoader = async ({
@@ -120,14 +123,14 @@ export const fetchChatMessagesLoader = async ({
     throw Error("[fetchChatMessagesLoader] Unauthorized");
   }
 
-  const chatMessagesPromise = makeApiRequest({
+  const chatMessagesResponse = await makeApiRequest({
     url: `chat-messages/${params.id}`,
     headers: {
       Authorization: `Bearer ${currentToken}`
     }
   });
 
-  return defer({ chatMessagesPromise });
+  return chatMessagesResponse.data;
 };
 
 export const addGigLoader = async ({ request }: LoaderFunctionArgs) => {
@@ -167,14 +170,14 @@ export const fetchChatsLoader = async ({ request }: LoaderFunctionArgs) => {
     throw Error("[fetchChatsLoader] Unauthorized");
   }
 
-  const chatsPromise = makeApiRequest({
+  const chatsResponse = await makeApiRequest({
     url: "chats",
     headers: {
       Authorization: `Bearer ${currentToken}`
     }
   });
 
-  return defer({ chatsPromise });
+  return chatsResponse.data;
 };
 
 export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {
@@ -192,14 +195,14 @@ export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {
     throw Error("[fetchOrdersLoader] Unauthorized");
   }
 
-  const ordersPromise = makeApiRequest({
+  const response = await makeApiRequest({
     url: "orders",
     headers: {
       Authorization: `Bearer ${currentToken}`
     }
   });
 
-  return defer({ ordersPromise });
+  return response.data;
 };
 
 export const fetchPrivateGigsLoader = async ({ request }: LoaderFunctionArgs) => {
@@ -217,35 +220,43 @@ export const fetchPrivateGigsLoader = async ({ request }: LoaderFunctionArgs) =>
     throw Error("[fetchPrivateGigsLoader] Unauthorized");
   }
 
-  const privateGigsPromise = makeApiRequest({
+  const privateGigsResponse = await makeApiRequest({
     url: "gigs/private",
     headers: {
       Authorization: `Bearer ${currentToken}`
     }
   });
 
-  return defer({ privateGigsPromise });
+  return privateGigsResponse.data;
 };
 
 export const fetchGigsLoader = async ({ request }: LoaderFunctionArgs) => {
-  const url = new URL(request.url);
-  const searchParams = new URLSearchParams(url.search);
+  try {
+    const url = new URL(request.url);
+    const searchParams = new URLSearchParams(url.search);
 
-  // console.log(Object.fromEntries(searchParams.entries()));
+    const gigsResponse = await makeApiRequest({
+      url: "gigs",
+      params: searchParams
+    });
 
-  const gigsPromise = makeApiRequest({
-    url: "gigs",
-    params: searchParams
-  });
-
-  return defer({ gigsPromise });
+    return gigsResponse.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };
 
-export const fetchSingleGigLoader = ({ params }: LoaderFunctionArgs) => {
-  const gigPromise = Promise.all([
-    makeApiRequest({ url: `gigs/single/${params.id}` }),
-    makeApiRequest({ url: `reviews/${params.id}` })
-  ]);
+export const fetchSingleGigLoader = async ({ params }: LoaderFunctionArgs) => {
+  try {
+    const gigsResponse = await Promise.all([
+      makeApiRequest({ url: `gigs/single/${params.id}` }),
+      makeApiRequest({ url: `reviews/${params.id}` })
+    ]);
 
-  return defer({ gigPromise });
+    return gigsResponse;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };

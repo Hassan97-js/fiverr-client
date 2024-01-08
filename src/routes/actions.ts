@@ -42,10 +42,6 @@ export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
       }
     });
 
-    if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
-    }
-
     return null;
   } catch (error) {
     return error;
@@ -151,14 +147,18 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
         }
       });
 
+      if (!response.data.fetchId) {
+        return null;
+      }
+
       return redirect(`/chat-messages/${response.data.fetchId}`);
     }
 
-    if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
+    if (!response.data.chat.fetchId) {
+      return null;
     }
 
-    return redirect(`/chat-messages/${response.data.fetchId}`);
+    return redirect(`/chat-messages/${response.data.chat.fetchId}`);
   } catch (error) {
     return error;
   }
@@ -201,10 +201,6 @@ export const createChatMessageAction = async ({
         Authorization: `Bearer ${currentToken}`
       }
     });
-
-    if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
-    }
 
     return null;
   } catch (error) {
@@ -288,10 +284,6 @@ export const addReviewAction = async ({ request, params }: ActionFunctionArgs) =
       }
     });
 
-    if (response.status > 399 && response.status < 600) {
-      throw Error(`Something went wrong: ${response.status}`);
-    }
-
     return null;
   } catch (error) {
     return error;
@@ -320,10 +312,6 @@ export const signInAction = async ({ request }: ActionFunctionArgs) => {
       data
     });
 
-    if (response.status > 399 && response.status < 600) {
-      throw response.data.message;
-    }
-
     storeData("token", response.data.token);
     storeData("user", response.data.user);
 
@@ -349,10 +337,6 @@ export const signUpAction = async ({ request }: ActionFunctionArgs) => {
       url: "auth/sign-up",
       data
     });
-
-    if (response.status > 399 && response.status < 600) {
-      throw response.data;
-    }
 
     return redirect("/sign-in");
   } catch (error) {

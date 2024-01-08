@@ -1,20 +1,16 @@
-import { Suspense } from "react";
-import { Await, Form } from "react-router-dom";
+import { Form } from "react-router-dom";
 
 import {
-  Spinner,
   GigCard,
   CustomInput,
   Button,
-  ErrorAlert,
   LayoutSection,
   Heading1
 } from "../components";
+import { usePageData } from "../hooks";
 
-import { useDeferredData, useGigs } from "../hooks";
-
-const AwaitedPublicGigs = () => {
-  const gigs = useGigs();
+const Gigs = () => {
+  const gigs = usePageData({ dataType: "gigs" })?.gigs;
 
   if (!gigs) {
     return (
@@ -60,16 +56,9 @@ const AwaitedPublicGigs = () => {
   });
 
   return (
-    <div className="grid grid-cols-min-max-16.25rem-1fr gap-10">{gigsElements}</div>
-  );
-};
-
-const Gigs = () => {
-  const gigsPromiseData = useDeferredData({ promiseType: "gigsPromise" });
-
-  return (
-    <LayoutSection className="text-neutral-700">
+    <LayoutSection>
       <Heading1 className="mb-4">AI Artists</Heading1>
+
       <p>
         Explore the boundaries of art and technology with Fiverr&apos;s AI artists
       </p>
@@ -115,13 +104,9 @@ const Gigs = () => {
         </Button>
       </Form>
 
-      <Suspense fallback={<Spinner />}>
-        <Await
-          resolve={gigsPromiseData?.gigsPromise}
-          errorElement={<ErrorAlert errorMessage="Failed to load the gigs" />}>
-          <AwaitedPublicGigs />
-        </Await>
-      </Suspense>
+      <div className="grid grid-cols-min-max-16.25rem-1fr gap-10">
+        {gigsElements}
+      </div>
     </LayoutSection>
   );
 };

@@ -1,21 +1,14 @@
-import { Suspense } from "react";
-import { Await } from "react-router-dom";
-
-import { Spinner, OrdersTable, ErrorAlert, LayoutSection } from "../components";
-import { useUser } from "../hooks/use-user";
-import { useDeferredData } from "../hooks";
-import { useOrders } from "../hooks/use-orders";
+import { OrdersTable, LayoutSection } from "../components";
+import { usePageData, useUser } from "../hooks";
 
 export type TTableHeaders = {
   id: number;
   text: string;
 }[];
 
-const AwaitedOrders = () => {
-  const orders = useOrders();
+const Orders = () => {
+  const orders = usePageData({ dataType: "orders" })?.orders;
   const user = useUser();
-
-  console.log(orders);
 
   if (!orders?.length) {
     return (
@@ -34,26 +27,12 @@ const AwaitedOrders = () => {
   ] satisfies TTableHeaders;
 
   return (
-    <OrdersTable
-      isSeller={user?.isSeller}
-      tableHeaders={tableHeaders}
-      tableData={orders}
-    />
-  );
-};
-
-const Orders = () => {
-  const orderPromiseData = useDeferredData({ promiseType: "ordersPromise" });
-
-  return (
     <LayoutSection>
-      <Suspense fallback={<Spinner />}>
-        <Await
-          resolve={orderPromiseData?.ordersPromise}
-          errorElement={<ErrorAlert errorMessage="Failed to load the orders!" />}>
-          <AwaitedOrders />
-        </Await>
-      </Suspense>
+      <OrdersTable
+        isSeller={user?.isSeller}
+        tableHeaders={tableHeaders}
+        tableData={orders}
+      />
     </LayoutSection>
   );
 };
