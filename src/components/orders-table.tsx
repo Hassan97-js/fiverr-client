@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Form } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 
@@ -26,6 +27,8 @@ const OrdersTable = ({
   isSeller = false,
   clickable = false
 }: TProps) => {
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
   const tableHeaderElements = tableHeaders.map((tableHeader, idx) => {
     return (
       <th key={idx} scope="col" className="px-6 py-3">
@@ -116,7 +119,7 @@ const OrdersTable = ({
             <input type="hidden" name="buyerId" value={buyerId || ""} />
             <input type="hidden" name="isSeller" value={String(isSeller)} />
 
-            <Button type="submit">
+            <Button type="submit" onClick={() => setIsTransitioning(true)}>
               <CustomIcon Icon={FaEnvelope} aria-label="An Envelope icon" />
             </Button>
           </Form>
@@ -126,7 +129,7 @@ const OrdersTable = ({
   });
 
   return (
-    <Table>
+    <Table isLoading={isTransitioning}>
       <TableHead>{tableHeaderElements}</TableHead>
       <TableBody>{tableBodyElements}</TableBody>
     </Table>

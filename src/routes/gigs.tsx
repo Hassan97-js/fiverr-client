@@ -20,40 +20,42 @@ const Gigs = () => {
     );
   }
 
+  let gigsContent: JSX.Element[] | JSX.Element | null = null;
+
   if (!gigs.length) {
-    return (
+    gigsContent = (
       <p className="text-zinc-500 text-lg font-medium text-center mt-10">
         No gigs found
       </p>
     );
+  } else {
+    gigsContent = gigs.map((gig) => {
+      const {
+        _id: gigId,
+        coverImage,
+        price,
+        description,
+        category,
+        totalStars,
+        starNumber,
+        userId: userInfo
+      } = gig;
+
+      return (
+        <GigCard
+          key={gigId}
+          userInfo={userInfo}
+          gigId={gigId}
+          totalStars={totalStars}
+          starNumber={starNumber}
+          coverImage={coverImage}
+          price={price}
+          description={description}
+          category={category}
+        />
+      );
+    });
   }
-
-  const gigsElements = gigs.map((gig) => {
-    const {
-      _id: gigId,
-      coverImage,
-      price,
-      description,
-      category,
-      totalStars,
-      starNumber,
-      userId: userInfo
-    } = gig;
-
-    return (
-      <GigCard
-        key={gigId}
-        userInfo={userInfo}
-        gigId={gigId}
-        totalStars={totalStars}
-        starNumber={starNumber}
-        coverImage={coverImage}
-        price={price}
-        description={description}
-        category={category}
-      />
-    );
-  });
 
   return (
     <LayoutSection>
@@ -104,9 +106,7 @@ const Gigs = () => {
         </Button>
       </Form>
 
-      <div className="grid grid-cols-min-max-16.25rem-1fr gap-10">
-        {gigsElements}
-      </div>
+      <div className="grid grid-cols-min-max-16.25rem-1fr gap-10">{gigsContent}</div>
     </LayoutSection>
   );
 };

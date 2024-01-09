@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { TableHTMLAttributes, type ReactNode } from "react";
 
 type TTableHeadProps = {
   children: ReactNode;
@@ -8,8 +8,9 @@ type TTableBodyProps = {
   children: ReactNode;
 };
 
-type TTableProps = {
+type TTableProps = TableHTMLAttributes<HTMLTableElement> & {
   children: ReactNode;
+  isLoading?: boolean;
 };
 
 export const TableHead = ({ children }: TTableHeadProps) => {
@@ -24,9 +25,11 @@ export const TableBody = ({ children }: TTableBodyProps) => {
   return <tbody>{children}</tbody>;
 };
 
-const Table = ({ children }: TTableProps) => {
+const Table = ({ children, style, isLoading = false }: TTableProps) => {
   return (
-    <div className="relative shadow-md max-w-6xl mx-auto overflow-x-auto select-none">
+    <div
+      style={{ opacity: isLoading ? "0.5" : "1", ...style }}
+      className="relative shadow-md max-w-6xl mx-auto overflow-x-auto select-none">
       <table className="w-full text-sm text-left text-zinc-500">{children}</table>
     </div>
   );
