@@ -2,10 +2,10 @@ import { Link, useParams } from "react-router-dom";
 import { FaCheck, FaRecycle, FaRegClock } from "react-icons/fa";
 
 import Button from "./button";
-import Heading4 from "./typography/heading-4";
+import Heading3 from "./typography/heading-3";
 import CustomIcon from "./custom-icon";
 
-import { cn } from "../utils";
+import { cn, capitalizeFirstLetter } from "../utils";
 
 type TProps = {
   currentUserId?: string;
@@ -37,15 +37,15 @@ const GigCTA = ({
   return (
     <div
       className={cn(
-        "text-neutral-700 flex flex-col gap-5 max-w-xl rounded-md lg:sticky lg:top-[20.8rem] self-start border border-neutral-300 py-8 px-10 mt-20 2xl:mt-10",
+        "text-zinc-700 flex flex-col gap-5 max-w-xl rounded-md lg:sticky lg:top-[20.8rem] self-start border border-zinc-300 py-8 px-10 mt-20 2xl:mt-10",
         className
       )}>
       <div>
-        <div className="mb-3">
-          <Heading4 className="capitalize mb-2">{priceText}</Heading4>
-          <span className="font-medium text-lg">${price}</span>
+        <div className="mb-8">
+          <Heading3 className="capitalize mb-2">{priceText}</Heading3>
+          <span className="font-semibold text-xl text-zinc-600">${price}</span>
         </div>
-        <p>{description}</p>
+        <p>{capitalizeFirstLetter(description)}</p>
       </div>
 
       <div className="flex items-center gap-5">
@@ -73,8 +73,8 @@ const GigCTA = ({
         {currentUserId !== gigUserId && !isSeller ? (
           <Link
             to={`/payment/${params.id}`}
-            className="btn btn-primary block w-full mt-5 tracking-wide">
-            <Button className="block w-full mt-5 tracking-wide" variant="primary">
+            className="btn btn-primary block w-full tracking-wide mt-2">
+            <Button className="block w-full tracking-wide" variant="primary">
               Pay
             </Button>
           </Link>

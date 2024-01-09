@@ -31,11 +31,11 @@ const Features = () => {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
-                <span className="text-lg text-neutral-700 font-medium">
+                <span className="text-lg text-zinc-700 font-medium">
                   Stick to your budget
                 </span>
               </div>
-              <p className="text-neutral-600">
+              <p className="text-zinc-600">
                 Find the right service for every price point. No hourly rates, just
                 project-based pricing.
               </p>
@@ -43,11 +43,11 @@ const Features = () => {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
-                <span className="text-lg text-neutral-700 font-medium">
+                <span className="text-lg text-zinc-700 font-medium">
                   Get quality work done quickly
                 </span>
               </div>
-              <p className="text-neutral-600">
+              <p className="text-zinc-600">
                 Hand your project over to a talented freelancer in minutes, get
                 long-lasting results.
               </p>
@@ -55,11 +55,11 @@ const Features = () => {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
-                <span className="text-lg text-neutral-700 font-medium">
+                <span className="text-lg text-zinc-700 font-medium">
                   Pay when you&apos;re happy
                 </span>
               </div>
-              <p className="text-neutral-600">
+              <p className="text-zinc-600">
                 Upfront quotes mean no surprises. Payments only get released when you
                 approve.
               </p>
@@ -67,11 +67,11 @@ const Features = () => {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
-                <span className="text-lg text-neutral-700 font-medium">
+                <span className="text-lg text-zinc-700 font-medium">
                   Count on 24/7 support
                 </span>
               </div>
-              <p className="text-neutral-600">
+              <p className="text-zinc-600">
                 Our round-the-clock support team is available to help anytime,
                 anywhere.
               </p>

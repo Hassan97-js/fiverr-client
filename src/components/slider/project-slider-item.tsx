@@ -19,8 +19,8 @@ const ProjectSliderItem = ({ project }) => {
         </div>
 
         <div>
-          <strong className="text-neutral-700 text-sm">Gig: {project.id}</strong>
-          <p className="text-neutral-600 text-sm">{client.fullName}</p>
+          <strong className="text-zinc-700 text-sm">Gig: {project.id}</strong>
+          <p className="text-zinc-600 text-sm">{client.fullName}</p>
         </div>
       </div>
     </Link>

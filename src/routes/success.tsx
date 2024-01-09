@@ -22,22 +22,18 @@ const Success = () => {
         <Heading1 className="mb-4 text-green-700">
           Your Payment is Successful!
         </Heading1>
-        <p className="text-lg | text-neutral-500 | max-w-[48ch] | mx-auto | mb-6">
+        <p className="text-lg text-zinc-500 max-w-[48ch] mx-auto mb-6 mt-2">
           Thank you for your payment. An automated payment receipt will be sent your
           registered email.
         </p>
 
-        <Alert alertVariant="danger" parentClasses="max-w-lg | mx-auto">
+        <Alert parentClassName="max-w-lg mx-auto mt-10">
           Your being redirected to the orders page. Please do not close the current
           page.
         </Alert>
       </div>
 
-      {/* <Link className="btn btn-primary" to="/">
-        Back to Home
-      </Link> */}
-
-      <Spinner withMarginTop={false} />
+      <Spinner className="h-auto" />
     </LayoutSection>
   );
 };

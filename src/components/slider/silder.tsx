@@ -1,7 +1,7 @@
-import { type CSSProperties } from "react";
+import { type ReactNode, type HTMLAttributes } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-import Carousel, { type ResponsiveType } from "react-multi-carousel";
+import Carousel, { CarouselProps, type ResponsiveType } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import {
   type ButtonGroupProps,
@@ -54,43 +54,37 @@ const ButtonGroup = ({ next, previous, carouselState }: TButtonGroupProps) => {
   );
 };
 
-export type TSliderProps = {
-  children: React.ReactNode;
-  responsiveConfig: ResponsiveType;
-  className?: string;
-  containerClass?: string;
-  styles?: CSSProperties;
-  itemClass: string;
-  sliderClassName?: string;
-  slidesToSlide?: number;
-};
+export type TSliderProps = HTMLAttributes<HTMLDivElement> &
+  CarouselProps & {
+    children: ReactNode;
+  };
 
 const Slider = ({
+  responsive,
   children,
-  responsiveConfig,
-  className = "",
-  containerClass = "",
-  styles = {},
-  itemClass = "",
-  sliderClassName = "",
+  className,
+  containerClass,
+  style,
+  itemClass,
+  sliderClass,
   slidesToSlide = 1
 }: TSliderProps) => {
   return (
-    <div style={styles}>
+    <div style={style}>
       <Carousel
         centerMode={true}
         arrows={false}
         infinite={true}
-        autoPlay={true}
+        // autoPlay={true}
+        // autoPlaySpeed={3000}
         draggable={true}
-        autoPlaySpeed={3000}
         keyBoardControl={true}
         containerClass={containerClass}
         className={className}
         customButtonGroup={<ButtonGroup />}
-        sliderClass={sliderClassName}
+        sliderClass={sliderClass}
         itemClass={itemClass}
-        responsive={responsiveConfig}
+        responsive={responsive}
         removeArrowOnDeviceType={["tablet", "mobile"]}
         slidesToSlide={slidesToSlide}>
         {children}

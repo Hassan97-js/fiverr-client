@@ -21,7 +21,7 @@ const FormLabel = ({
       className={cn("block mb-2 text-sm font-medium", className)}>
       {children}
       {isRequired && (
-        <span className="text-neutral-500" aria-label="required">
+        <span className="text-zinc-500" aria-label="required">
           {" "}
           {requiredText}
         </span>

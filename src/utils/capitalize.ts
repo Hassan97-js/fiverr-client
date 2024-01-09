@@ -1,4 +1,4 @@
-export const capitalize = (text: string) => {
+export const capitalize = (text?: string | null) => {
   if (!text) {
     return "";
   }
@@ -22,4 +22,19 @@ export const capitalize = (text: string) => {
   }
 
   return result;
+};
+
+export const capitalizeFirstLetter = (text?: string | null) => {
+  if (!text) {
+    return "";
+  }
+
+  if (typeof text !== "string") {
+    return "";
+  }
+
+  const word = text.trim();
+  const capitalizedWord = word[0].toUpperCase() + word.slice(1);
+
+  return capitalizedWord;
 };

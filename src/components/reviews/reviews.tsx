@@ -8,8 +8,8 @@ import SelectInput from "../form/select-input";
 import Heading2 from "../typography/heading-2";
 import Heading3 from "../typography/heading-3";
 
-import { capitalize } from "../../utils";
-
+import { capitalize, cn } from "../../utils";
+import { type TUser } from "../../constants/user-validator";
 import { useUser } from "../../hooks/use-user";
 
 import { type TReview } from "../../constants/review-validator";
@@ -19,11 +19,17 @@ export type AddReviewOption = {
   label: string;
 };
 
-const AddReview = () => {
-  const { state } = useNavigation();
-  const formRef = useRef<HTMLFormElement>(null);
+type TReviewsProps = {
+  reviews?: TReview[] | null;
+  gigUserId: string | null;
+  gigStars: number;
+};
 
-  const isBusy = state === "submitting";
+const AddReview = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const navigation = useNavigation();
+
+  const isBusy = navigation.state === "submitting";
 
   const options = [
     { value: 0, label: "Choose a number" },
@@ -41,7 +47,7 @@ const AddReview = () => {
   }, [isBusy]);
 
   return (
-    <div>
+    <div className="max-w-[31.25rem]">
       <Heading3 className="mb-4">Add a review</Heading3>
       <Form ref={formRef} method="POST">
         <CustomInput
@@ -50,13 +56,17 @@ const AddReview = () => {
           placeholder="Write your opinion..."
         />
 
-        <SelectInput name="starNumber" defaultValue="choose" options={options} />
+        <div className="mt-2">
+          <SelectInput name="starNumber" defaultValue="choose" options={options} />
+        </div>
 
         <Button
           disabled={isBusy}
           type="submit"
           variant="primary"
-          className={`self-start mt-8 ${isBusy ? "bg-green-400" : ""}`}>
+          className={cn("self-start mt-8", {
+            "bg-green-400": isBusy
+          })}>
           {isBusy ? "Adding..." : "Add"}
         </Button>
       </Form>
@@ -64,12 +74,7 @@ const AddReview = () => {
   );
 };
 
-type TProps = {
-  reviews?: TReview[] | null;
-  gigUserId: string | null;
-};
-
-const Reviews = ({ reviews: reviewsArray, gigUserId }: TProps) => {
+const Reviews = ({ reviews: reviewsArray, gigUserId, gigStars }: TReviewsProps) => {
   const user = useUser();
 
   const currentUserId = user?._id;
@@ -81,32 +86,31 @@ const Reviews = ({ reviews: reviewsArray, gigUserId }: TProps) => {
 
       {!!reviewsArray?.length ? (
         <div className="items-center flex flex-wrap gap-10 mb-12">
-          {reviewsArray.map(({ _id: id, description, userId: userInfo }) => {
-            let userName = "";
-            let country = "";
+          {reviewsArray.map(({ _id: id, description, userId: currentUserInfo }) => {
+            let reviewUser: TUser | null = null;
 
-            if (typeof userInfo !== "string") {
-              userName = userInfo.username;
-              country = userInfo.country;
+            if (typeof currentUserInfo !== "string") {
+              reviewUser = currentUserInfo;
             }
 
             return (
               <Review
                 key={id}
-                sellerName={capitalize(userName)}
-                sellerImage="https://images.pexels.com/photos/839586/pexels-photo-839586.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                countryImage="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1fa-1f1f8.png"
-                countryName={country}
+                sellerName={capitalize(user?.username ?? "Unknown")}
+                sellerImage={reviewUser?.image}
+                countryName={reviewUser?.country}
                 description={description}
+                gigStars={gigStars}
               />
             );
           })}
         </div>
       ) : (
-        <p className="text-neutral-500 text-lg font-medium text-left my-10">
+        <p className="text-zinc-500 text-lg font-medium text-left my-10">
           No reviews yet
         </p>
       )}
+
       {currentUserId !== gigUserId && !isSeller ? <AddReview /> : null}
     </div>
   );

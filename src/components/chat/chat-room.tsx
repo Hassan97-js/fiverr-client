@@ -9,7 +9,7 @@ type TProps = {
 
 const ChatRoom = ({ userId: currentUserId, messages }: TProps) => {
   return (
-    <div className="flex flex-col bg-neutral-50/80 w-full p-8 rounded-lg flex-1 h-full">
+    <div className="flex flex-col bg-zinc-50/80 w-full p-8 rounded-lg flex-1 h-full">
       {messages?.length ? (
         messages.map((message) => {
           const { _id: id, userId: userInfo } = message;
@@ -37,7 +37,7 @@ const ChatRoom = ({ userId: currentUserId, messages }: TProps) => {
           );
         })
       ) : (
-        <p className="text-neutral-400 text-base font-medium text-center m-auto">
+        <p className="text-zinc-400 text-base font-medium text-center m-auto">
           No messages yet
         </p>
       )}

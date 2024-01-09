@@ -14,7 +14,7 @@ const Gigs = () => {
 
   if (!gigs) {
     return (
-      <p className="text-neutral-500 text-lg font-medium text-center mt-10">
+      <p className="text-zinc-500 text-lg font-medium text-center mt-10">
         Could not load gigs
       </p>
     );
@@ -22,7 +22,7 @@ const Gigs = () => {
 
   if (!gigs.length) {
     return (
-      <p className="text-neutral-500 text-lg font-medium text-center mt-10">
+      <p className="text-zinc-500 text-lg font-medium text-center mt-10">
         No gigs found
       </p>
     );
@@ -67,7 +67,7 @@ const Gigs = () => {
         <div className="flex flex-col items-start mb-5 gap-5">
           <CustomInput
             id="min"
-            labelClassName="text-neutral-600"
+            labelClassName="text-zinc-600"
             labelText="Min price"
             name="min"
             placeholder="min"
@@ -76,7 +76,7 @@ const Gigs = () => {
 
           <CustomInput
             id="max"
-            labelClassName="text-neutral-600"
+            labelClassName="text-zinc-600"
             labelText="Max price"
             name="max"
             placeholder="max"
@@ -85,11 +85,11 @@ const Gigs = () => {
         </div>
 
         <div className="flex flex-col w-96">
-          <span className="font-medium -mb-2 text-neutral-600">Sort by</span>
+          <span className="font-medium -mb-2 text-zinc-600">Sort by</span>
           <select
             name="sortBy"
             defaultValue="createdAt"
-            className="bg-white border border-neutral-300 outline-0 radius-base p-3 my-4 w-52 cursor-pointer rounded-sm">
+            className="bg-white border border-zinc-300 outline-0 radius-base p-3 my-4 w-52 cursor-pointer rounded-sm">
             <option value="createdAt">Newest</option>
             <option value="sales">Best Selling</option>
           </select>

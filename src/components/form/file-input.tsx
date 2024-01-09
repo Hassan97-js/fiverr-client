@@ -11,11 +11,11 @@ const FileInput = ({
       <div className="flex items-center justify-center w-full">
         <label
           htmlFor={inputId}
-          className="flex flex-col items-center justify-center w-full h-48 border-2 border-neutral-300 border-dashed rounded-lg cursor-pointer bg-neutral-50">
+          className="flex flex-col items-center justify-center w-full h-48 border-2 border-zinc-300 border-dashed rounded-lg cursor-pointer bg-zinc-50">
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg
               aria-hidden="true"
-              className="w-10 h-10 mb-3 text-neutral-400"
+              className="w-10 h-10 mb-3 text-zinc-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -27,11 +27,11 @@ const FileInput = ({
                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
             </svg>
 
-            <p className="mb-2 text-sm text-neutral-500">
+            <p className="mb-2 text-sm text-zinc-500">
               <span className="font-semibold">Click to upload</span>
             </p>
 
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-zinc-500">
               SVG, PNG, JPG or GIF (MAX. 800x400px)
             </p>
           </div>

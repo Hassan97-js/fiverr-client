@@ -25,15 +25,15 @@ const ErrorPage = () => {
     errorResponseContent = (
       <div className="text-center">
         <Heading1 className="text-7xl mb-10">Oops!</Heading1>
-        <p className="text-3xl font-normal text-neutral-500 mb-12">
+        <p className="text-3xl font-normal text-zinc-500 mb-12">
           Sorry, an unexpected error has occurred.
         </p>
 
-        <Heading3 className="text-lg font-normal text-neutral-500 mb-12">
+        <Heading3 className="text-lg font-normal text-zinc-500 mb-12">
           {error?.status}
         </Heading3>
 
-        <p className="text-xl font-bold text-neutral-500">
+        <p className="text-xl font-bold text-zinc-500">
           <i>
             {(error instanceof Error || error instanceof AxiosError) &&
               error.message}
@@ -52,10 +52,10 @@ const ErrorPage = () => {
       {!errorResponseContent && (
         <div className="text-center">
           <Heading1 className="text-7xl mb-7">Oops!</Heading1>
-          <p className="text-3xl font-normal text-neutral-500 mb-12">
+          <p className="text-3xl font-normal text-zinc-500 mb-12">
             Sorry, an unexpected error has occurred.
           </p>
-          <p className="text-xl font-bold text-neutral-500">
+          <p className="text-xl font-bold text-zinc-500">
             <i>
               {(error instanceof Error || error instanceof AxiosError) &&
                 error.message}

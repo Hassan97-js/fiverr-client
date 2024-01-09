@@ -71,11 +71,11 @@ const OrdersTable = ({
       <tr
         key={id}
         className={`border-b ${clickable ? "cursor-pointer" : ""} ${
-          striped && idx % 2 !== 0 ? "bg-neutral-50" : ""
+          striped && idx % 2 !== 0 ? "bg-zinc-50" : ""
         }`}>
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {image ? (
             <img
               className="max-w-none w-12 h-12 object-cover object-center rounded-full"
@@ -89,19 +89,19 @@ const OrdersTable = ({
 
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap capitalize">
+          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap capitalize">
           {title}
         </td>
 
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {price ? formatCurrency(price) : "-"}
         </td>
 
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {buyerUserName && isSeller ? capitalize(buyerUserName) : ""}
           {sellerUserName && !isSeller ? capitalize(sellerUserName) : ""}
           {(!buyerUserName || !sellerUserName) && "-"}
@@ -110,7 +110,7 @@ const OrdersTable = ({
         <td
           role="button"
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500">
+          className="px-6 py-4 font-medium text-zinc-500">
           <Form method="POST">
             <input type="hidden" name="sellerId" value={sellerId || ""} />
             <input type="hidden" name="buyerId" value={buyerId || ""} />

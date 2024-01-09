@@ -48,7 +48,7 @@ const PrivateGigsTable = ({
         }`}>
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {image ? (
             <img
               className="max-w-none w-12 h-12 object-cover object-center rounded-full"
@@ -62,19 +62,19 @@ const PrivateGigsTable = ({
 
         <td
           scope="row"
-          className="capitalize px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="capitalize px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {title}
         </td>
 
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {price ? formatCurrency(price) : "-"}
         </td>
 
         <td
           scope="row"
-          className="px-6 py-4 font-medium text-neutral-500 whitespace-nowrap">
+          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {sales ? sales : "0"}
         </td>
 

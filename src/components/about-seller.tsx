@@ -33,7 +33,7 @@ const AboutSeller = ({
   aboutSeller
 }: TProps) => {
   return (
-    <div className="text-neutral-700">
+    <div className="text-zinc-700">
       <div>
         <Heading2 className="mb-6">About The Seller</Heading2>
 
@@ -47,7 +47,7 @@ const AboutSeller = ({
 
             <div className="info flex flex-col gap-1">
               {sellerName && (
-                <span className="font-medium mt-1">{capitalize(sellerName)}</span>
+                <span className="font-medium mt-1 capitalize">{sellerName}</span>
               )}
               <div className="stars">
                 <Stars numberOfStars={rating} />
@@ -62,7 +62,7 @@ const AboutSeller = ({
         </div>
       </div>
 
-      <div className="box border border-neutral-200 w-full max-w-lg rounded-sm mt-10">
+      <div className="box border border-zinc-200 w-full max-w-lg rounded-sm mt-10">
         <div className="grid md:grid-cols-2 gap-3 p-4">
           <div>
             <p>From</p>

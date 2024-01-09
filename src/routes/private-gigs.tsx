@@ -13,7 +13,7 @@ const PrivateGigs = () => {
 
   if (!gigs) {
     return (
-      <p className="text-neutral-500 text-lg font-medium text-center mt-10">
+      <p className="text-zinc-500 text-lg font-medium text-center mt-10">
         Could not load gigs
       </p>
     );
@@ -21,7 +21,7 @@ const PrivateGigs = () => {
 
   if (!gigs?.length) {
     return (
-      <p className="text-neutral-500 text-lg font-medium text-center mt-10">
+      <p className="text-zinc-500 text-lg font-medium text-center mt-10">
         No gigs found
       </p>
     );

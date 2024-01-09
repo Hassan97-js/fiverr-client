@@ -2,7 +2,7 @@ const ArrowIcon = () => {
   return (
     <svg
       aria-hidden="true"
-      className="w-6 h-6 text-neutral-400"
+      className="w-6 h-6 text-zinc-400"
       fill="currentColor"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg">

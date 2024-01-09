@@ -13,12 +13,12 @@ const ChatInput = ({ userName }: TProps) => {
         Message {userName}
       </label>
 
-      <div className="flex items-center px-4 py-6 rounded-br-lg rounded-bl-lg bg-neutral-50/80">
+      <div className="flex items-center px-4 py-6 rounded-br-lg rounded-bl-lg bg-zinc-50/80">
         <textarea
           id="chat"
           name="text"
           rows={3}
-          className="block mx-4 p-2.5 w-full text-base bg-white rounded-lg border-[1.8px] border-neutral-300 focus:ring-green-500 focus:border-green-500 outline-none transition"
+          className="block mx-4 p-2.5 w-full text-base bg-white rounded-lg border-[1.8px] border-zinc-300 focus:ring-green-500 focus:border-green-500 outline-none transition"
           placeholder={`Message ${capitalize(userName || "")}`}
           autoFocus></textarea>
 

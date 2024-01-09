@@ -10,7 +10,7 @@ const AgreeCheckbox = ({ id }: TProps) => {
           name={id}
           id={id}
           type="checkbox"
-          className="w-4 h-4 border border-neutral-300 rounded bg-neutral-50 focus:ring-3 focus:ring-green-300 outline-none"
+          className="w-4 h-4 border border-zinc-300 rounded bg-zinc-50 focus:ring-3 focus:ring-green-300 outline-none"
           required
         />
       </div>

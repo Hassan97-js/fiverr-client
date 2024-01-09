@@ -19,10 +19,10 @@ const Home = () => (
 
     <TrustedBy />
 
-    <div className="bg-neutral-50">
+    <div className="bg-zinc-50">
       <LayoutSection>
         <CategorySlider
-          responsiveConfig={responsiveConfig}
+          responsive={responsiveConfig}
           itemClass="m-5 shadow-md rounded-md overflow-hidden">
           {categories.map((category) => {
             return <CategorySliderItem key={category.id} item={category} />;
@@ -38,7 +38,7 @@ const Home = () => (
     <LayoutSection>
       <ProjectsSlider
         itemClass="m-5 shadow-md rounded-b-md"
-        responsiveConfig={responsiveConfig}>
+        responsive={responsiveConfig}>
         {projects.map((project) => {
           return <ProjectSliderItem key={project.id} project={project} />;
         })}

@@ -11,7 +11,7 @@ import CustomIcon from "./custom-icon";
 
 const TrustedBy = () => {
   return (
-    <LayoutSection className="flex flex-col items-center text-neutral-500/60 min-h-max">
+    <LayoutSection className="flex flex-col items-center text-zinc-500/60 min-h-max">
       <strong className="text-xl mb-5">Trusted by:</strong>
 
       <div className="flex flex-col sm:flex-row justify-center items-center gap-6">

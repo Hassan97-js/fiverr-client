@@ -28,7 +28,7 @@ const SearchInput = ({
       className="bg-white flex items-center flex-1 w-full gap-2 md:rounded-none rounded-md overflow-hidden">
       <CustomIcon
         color="#a3a3a3"
-        className="w-4 h-4 m-3 text-neutral-300"
+        className="w-4 h-4 m-3 text-zinc-300"
         Icon={FaSearch}
         aria-label="A search icon"
       />

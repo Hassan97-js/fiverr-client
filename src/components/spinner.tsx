@@ -13,7 +13,7 @@ const Spinner = ({ className, iconClassName }: TProps) => {
       <svg
         aria-hidden="true"
         className={cn(
-          "inline-block animate-spin-fast fill-green-400 text-neutral-100 w-5 h-5",
+          "inline-block animate-spin-fast fill-green-400 text-zinc-100 w-5 h-5",
           iconClassName
         )}
         viewBox="0 0 100 101"

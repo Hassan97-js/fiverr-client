@@ -9,6 +9,8 @@ import {
 } from "../components";
 
 import { useUser, usePageData } from "../hooks/";
+import { capitalize } from "../utils";
+
 import { responsiveConfig } from "../data/client/ts/ui";
 
 const Gig = () => {
@@ -20,7 +22,7 @@ const Gig = () => {
 
   if (!gig) {
     return (
-      <p className="text-neutral-500 text-lg font-medium text-center mt-10">
+      <p className="text-zinc-500 text-lg font-medium text-center mt-10">
         Could not load the gig
       </p>
     );
@@ -42,7 +44,7 @@ const Gig = () => {
 
   let gigUserId: string | null = null;
   let userImage: string | null | undefined = null;
-  let userName: string | null = null;
+  let userName: string | null | undefined = null;
   let country: string | null = null;
 
   if (typeof userInfo !== "string") {
@@ -65,7 +67,7 @@ const Gig = () => {
               <Slider
                 itemClass="mr-10 rounded-lg overflow-hidden"
                 containerClass="max-w-3xl rounded-md mb-10"
-                responsiveConfig={responsiveConfig}>
+                responsive={responsiveConfig}>
                 {images.map((image) => {
                   return (
                     <img
@@ -84,11 +86,14 @@ const Gig = () => {
               <p>{description}</p>
             </div>
           </div>
+
           <AboutSeller
             currentUserId={user?._id}
             gigUserId={gigUserId}
             sellerName={userName}
-            aboutSeller={`My name is ${userName}, I enjoy creating AI generated art in my spare time. I have a lot of experience using the AI program and that means I know what to prompt the AI with to get a great and incredibly detailed result.`}
+            aboutSeller={`My name is ${capitalize(
+              userName 
+            )}, I enjoy creating AI generated art in my spare time. I have a lot of experience using the AI program and that means I know what to prompt the AI with to get a great and incredibly detailed result.`}
             country={country}
             languages="English"
             lastDelivery="1 day"
@@ -97,7 +102,7 @@ const Gig = () => {
             responseTime="4 hours"
             sellerImage={userImage || fallbackImage}
           />
-          <Reviews gigUserId={gigUserId} reviews={reviews} />
+          <Reviews gigUserId={gigUserId} reviews={reviews} gigStars={totalStars} />
         </div>
 
         <GigCTA

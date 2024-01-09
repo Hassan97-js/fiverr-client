@@ -38,7 +38,7 @@ const Payment = () => {
     <LayoutSection>
       {stripe && (
         <Elements options={options} stripe={stripe}>
-          <CheckoutForm />/
+          <CheckoutForm />
         </Elements>
       )}
     </LayoutSection>

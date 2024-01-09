@@ -10,10 +10,12 @@ import { createCloudinary } from "./cloudinary";
 import { auth } from "./user-auth";
 import { getCurrentUser } from "./current-user";
 import { handleError } from "./handle-error";
+import { capitalizeFirstLetter } from "./capitalize";
 
 import { cn } from "./cn";
 
 export {
+  capitalizeFirstLetter,
   cn,
   handleError,
   getCurrentUser,

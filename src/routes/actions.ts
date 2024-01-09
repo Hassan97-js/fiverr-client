@@ -126,7 +126,7 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
     const { sellerId, buyerId, isSeller: isCurrentSeller } = formEntries;
 
     const fetchId = String(sellerId) + String(buyerId);
-    const isSeller = !!isCurrentSeller;
+    const isSeller = isCurrentSeller === "true";
 
     const response = await makeApiRequest({
       url: `chats/single/${fetchId}`,
@@ -146,6 +146,8 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
           Authorization: `Bearer ${currentToken}`
         }
       });
+
+      console.log(response);
 
       if (!response.data.fetchId) {
         return null;
@@ -275,7 +277,7 @@ export const addReviewAction = async ({ request, params }: ActionFunctionArgs) =
       gigId: params.id
     };
 
-    const response = await makeApiRequest({
+    await makeApiRequest({
       method: "post",
       url: "reviews/single",
       data,

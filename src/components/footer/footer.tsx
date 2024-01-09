@@ -181,7 +181,7 @@ const Footer = () => {
           </ul>
         </nav>
 
-        <hr className="block w-full my-8 bg-neutral-200" />
+        <hr className="block w-full my-8 bg-zinc-200" />
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex flex-col md:flex-row gap-3">
@@ -192,35 +192,35 @@ const Footer = () => {
           <div className="flex md:justify-center items-center gap-6 py-2">
             <CustomIcon
               Icon={RiFacebookCircleFill}
-              className="text-neutral-500"
+              className="text-zinc-500"
               size="2em"
               aria-label="A facebook logo"
             />
 
             <CustomIcon
               Icon={RiInstagramFill}
-              className="text-neutral-500"
+              className="text-zinc-500"
               size="2em"
               aria-label="An instagram logo"
             />
 
             <CustomIcon
               Icon={RiPinterestFill}
-              className="text-neutral-500"
+              className="text-zinc-500"
               size="2em"
               aria-label="A pinterest logo"
             />
 
             <CustomIcon
               Icon={RiLinkedinBoxFill}
-              className="text-neutral-500"
+              className="text-zinc-500"
               size="2em"
               aria-label="A linkedIn logo"
             />
 
             <CustomIcon
               Icon={RiTwitterFill}
-              className="text-neutral-500"
+              className="text-zinc-500"
               size="2em"
               aria-label="A twitter logo"
             />

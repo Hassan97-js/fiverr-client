@@ -67,7 +67,7 @@ const GigCard = ({
 
             <strong className="font-semibold">
               <span>{capitalize(userNameToDisplay)}</span>
-              <p className="text-sm font-normal text-neutral-500">{category}</p>
+              <p className="text-sm font-normal text-zinc-500">{category}</p>
             </strong>
           </div>
         </div>
@@ -76,7 +76,7 @@ const GigCard = ({
 
         <Stars numberOfStars={gigRating} />
 
-        <div className="flex items-center justify-between pb-4 pt-4 mt-auto border-0 border-t-[0.5px] border-t-neutral-200">
+        <div className="flex items-center justify-between pb-4 pt-4 mt-auto border-0 border-t-[0.5px] border-t-zinc-200">
           <CustomIcon
             Icon={RiHeartFill}
             color=""
@@ -86,7 +86,7 @@ const GigCard = ({
           />
 
           <div className="flex flex-col items-end">
-            <p className="uppercase text-neutral-500 text-sm font-medium">
+            <p className="uppercase text-zinc-500 text-sm font-medium">
               Starting at
             </p>
             <strong className="text-lg font-semibold">{formattedPrice}</strong>

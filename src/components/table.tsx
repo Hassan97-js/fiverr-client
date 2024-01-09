@@ -14,7 +14,7 @@ type TTableProps = {
 
 export const TableHead = ({ children }: TTableHeadProps) => {
   return (
-    <thead className="text-xs bg-neutral-50 text-neutral-700 uppercase">
+    <thead className="text-xs bg-zinc-50 text-zinc-700 uppercase">
       <tr>{children}</tr>
     </thead>
   );
@@ -27,7 +27,7 @@ export const TableBody = ({ children }: TTableBodyProps) => {
 const Table = ({ children }: TTableProps) => {
   return (
     <div className="relative shadow-md max-w-6xl mx-auto overflow-x-auto select-none">
-      <table className="w-full text-sm text-left text-neutral-500">{children}</table>
+      <table className="w-full text-sm text-left text-zinc-500">{children}</table>
     </div>
   );
 };
