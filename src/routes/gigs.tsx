@@ -6,9 +6,26 @@ import {
   Button,
   LayoutSection,
   Heading1,
-  FormLabel
+  FormLabel,
+  ListBox
 } from "../components";
 import { usePageData } from "../hooks";
+
+type TOption = {
+  label: string;
+  value: string;
+};
+
+const sortGigsOptions = [
+  {
+    label: "Newest",
+    value: "createdAt"
+  },
+  {
+    label: "Best Selling",
+    value: "sales"
+  }
+] satisfies TOption[];
 
 const Gigs = () => {
   const gigs = usePageData({ dataType: "gigs" })?.gigs;
@@ -67,31 +84,36 @@ const Gigs = () => {
       </p>
 
       <Form method="GET" className="flex flex-col items-start py-5 gap-5 mt-6 mb-24">
-        <div className="flex flex-col items-start mb-5 gap-5">
-          <div>
+        <div className="flex flex-col items-start mb-5 gap-5 w-72">
+          <div className="w-full">
             <FormLabel className="mb-2" isRequired={false}>
               Min price
             </FormLabel>
-            <CustomInput id="min" name="min" placeholder="min" required={false} />
+            <CustomInput
+              id="min"
+              name="min"
+              placeholder="Type a min price"
+              required={false}
+            />
           </div>
 
-          <div>
+          <div className="w-full">
             <FormLabel className="mb-2" isRequired={false}>
               Max price
             </FormLabel>
-            <CustomInput id="max" name="max" placeholder="max" required={false} />
+            <CustomInput
+              id="max"
+              name="max"
+              placeholder="Type a max price"
+              required={false}
+            />
           </div>
         </div>
 
-        <div className="flex flex-col w-96">
-          <span className="font-medium -mb-2 text-zinc-600">Sort by</span>
-          <select
-            name="sortBy"
-            defaultValue="createdAt"
-            className="bg-white border border-zinc-300 outline-0 radius-base p-3 my-4 w-52 cursor-pointer rounded-sm">
-            <option value="createdAt">Newest</option>
-            <option value="sales">Best Selling</option>
-          </select>
+        <div className="flex flex-col w-72">
+          {/* <FormLabel className="mb-2">Sort by</FormLabel>
+          <SelectInput options={sortGigsOptions} /> */}
+          <ListBox options={sortGigsOptions} />
         </div>
 
         <Button
@@ -99,7 +121,7 @@ const Gigs = () => {
           variant="secondary"
           size="sm"
           className="tracking-wide">
-          Apply
+          Filter
         </Button>
       </Form>
 

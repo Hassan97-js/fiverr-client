@@ -2,6 +2,7 @@ import LayoutSection from "./layout/layout-section";
 
 import FormLabel from "./form/form-label";
 import FormError from "./form/form-error";
+import ListBox from "./form/list-box";
 
 import UserMenu from "./user-menu";
 import Logo from "./logo";
@@ -50,6 +51,7 @@ import Heading3 from "./typography/heading-3";
 import Heading4 from "./typography/heading-4";
 
 export {
+  ListBox,
   FormLabel,
   FormError,
   Heading1,

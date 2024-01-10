@@ -1,8 +1,5 @@
 import { SelectHTMLAttributes } from "react";
 
-import FormError from "./form-error";
-import FormLabel from "./form-label";
-
 import { cn } from "../../utils";
 
 type Option = {
