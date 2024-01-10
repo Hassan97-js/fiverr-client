@@ -11,20 +11,16 @@ type Option = {
 };
 
 type TProps = SelectHTMLAttributes<HTMLSelectElement> & {
-  label?: string;
   options: Option[];
-  hasError?: boolean;
 };
 
 const SelectInput = ({
   required = true,
   defaultValue,
-  label,
   className,
   id,
   options,
-  name,
-  hasError
+  name
 }: TProps) => {
   const optionElements = options.map((item) => {
     const disabledAttribute = item.value === "" ? { disabled: true } : {};
@@ -37,10 +33,24 @@ const SelectInput = ({
   });
 
   return (
-    <>
-      {label && <FormLabel>{label}</FormLabel>}
+    <select
+      required={required}
+      name={name}
+      defaultValue={defaultValue}
+      id={id}
+      className={cn(
+        "bg-zinc-50 border border-zinc-300 focus:border-green-500 text-sm rounded-lg focus:ring-green-500 block w-full p-2.5 outline-none",
+        className
+      )}>
+      {optionElements}
+    </select>
+  );
+};
 
-      {/* <select
+export default SelectInput;
+
+{
+  /* <select
         required={required}
         name={name}
         defaultValue={defaultValue}
@@ -50,23 +60,5 @@ const SelectInput = ({
           className
         )}>
         {optionElements}
-      </select> */}
-
-      <select
-        required={required}
-        name={name}
-        defaultValue={defaultValue}
-        id={id}
-        className={cn(
-          "bg-zinc-50 border border-zinc-300 focus:border-green-500  text-sm rounded-lg focus:ring-green-500 block w-full p-2.5 outline-none",
-          className
-        )}>
-        {optionElements}
-      </select>
-
-      <FormError hasError={hasError}>Error</FormError>
-    </>
-  );
-};
-
-export default SelectInput;
+      </select> */
+}

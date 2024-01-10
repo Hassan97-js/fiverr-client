@@ -8,6 +8,7 @@ import {
   Button,
   CustomInput,
   FormError,
+  FormLabel,
   LayoutSection,
   SelectInput,
   TextareaInput
@@ -114,18 +115,18 @@ const AddGig = () => {
 
           <div className="flex flex-col lg:flex-row lg:gap-24">
             <div className="w-full flex-1">
+              <FormLabel className="mb-2">Title</FormLabel>
               <CustomInput
                 name="title"
-                labelText="Title"
                 id="title"
                 placeholder="e.g. I will do something I am really good at"
               />
             </div>
 
             <div className="w-full flex-1">
+              <FormLabel className="mb-2">Service title</FormLabel>
               <CustomInput
                 name="shortTitle"
-                labelText="Service title"
                 id="service-title"
                 placeholder="e.g. One-page web design"
               />
@@ -134,22 +135,17 @@ const AddGig = () => {
 
           <div className="flex flex-col lg:flex-row lg:gap-24">
             <div className="w-full flex-1">
-              <SelectInput
-                name="category"
-                id="category"
-                defaultValue=""
-                label="Category"
-                options={categoryOptions}
-              />
+              <FormLabel className="mb-2">Category</FormLabel>
+              <SelectInput name="category" id="category" options={categoryOptions} />
             </div>
 
             <div className="w-full flex-1">
+              <FormLabel className="mb-2">Short description</FormLabel>
               <TextareaInput
                 minLength={1}
                 maxLength={180}
                 name="shortDescription"
                 id="shortDescription"
-                label="Short description"
                 placeholder="Short description of you service"
               />
             </div>
@@ -194,37 +190,37 @@ const AddGig = () => {
           </div> */}
 
           <div className="w-full flex-1">
+            <FormLabel className="mb-2">Description</FormLabel>
             <TextareaInput
               maxLength={240}
               minLength={1}
               name="description"
               id="description"
-              label="Description"
               placeholder="Brief description to introduce your services to customers"
             />
           </div>
 
           <div className="flex flex-col lg:flex-row lg:gap-24">
             <div className="w-full flex-1">
+              <FormLabel className="mb-2">Revision number</FormLabel>
               <CustomInput
                 min={1}
                 max={10}
                 type="number"
                 name="revisionNumber"
                 id="revision-number"
-                labelText="Revision number"
                 placeholder="e.g. 3"
               />
             </div>
 
             <div className="w-full flex-1">
+              <FormLabel className="mb-2">Delivery time</FormLabel>
               <CustomInput
                 min={1}
                 max={360}
                 type="number"
                 name="deliveryTime"
                 id="delivery-time"
-                labelText="Delivery time"
                 placeholder="e.g. 5"
               />
             </div>
@@ -232,10 +228,10 @@ const AddGig = () => {
 
           <div className="flex flex-col lg:flex-row lg:gap-24">
             <div className="w-full flex-1">
+              <FormLabel className="mb-2">Features</FormLabel>
               <CustomInput
                 name="features"
                 id="features"
-                labelText="Features"
                 maxLength={80}
                 placeholder="e.g. page design, or page design, file uploading, setting up a domain"
                 // match a string with list of items separated by commas.
@@ -245,13 +241,13 @@ const AddGig = () => {
             </div>
 
             <div className="w-full flex-1">
+              <FormLabel className="mb-2">Price</FormLabel>
               <CustomInput
                 min={1}
                 max={10000}
                 type="number"
                 name="price"
                 id="price"
-                labelText="Price"
                 placeholder="e.g. 30"
               />
             </div>
