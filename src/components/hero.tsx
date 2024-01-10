@@ -16,7 +16,7 @@ const Hero = () => {
   return (
     <section className="bg-zinc-200/60">
       <LayoutSection className="flex flex-col items-center justify-center min-h-max py-32">
-        <Heading1 className="capitalize leading-[1.1] max-w-[16ch] text-center mx-auto xl:mx-0 mb-14">
+        <Heading1 className="capitalize leading-[1.1] max-w-[16ch] text-center mx-auto xl:mx-0 mb-14 text-zinc-800">
           Find the perfect <i className="text-green-600">freelance</i> services for
           your business
         </Heading1>
