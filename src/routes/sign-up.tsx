@@ -8,7 +8,8 @@ import {
   TextareaInput,
   Button,
   LayoutSection,
-  Heading2
+  Heading2,
+  FormLabel
 } from "../components";
 
 // import { createCloudinary } from "../utils";
@@ -64,28 +65,33 @@ const SignUp = () => {
 
           <div>
             <div className="flex flex-col gap-x-8 gap-y-6">
-              <CustomInput
-                name="username"
-                labelText="Username"
-                id="username"
-                placeholder="Enter your username"
-              />
+              <div>
+                <FormLabel className="mb-2">Username</FormLabel>
+                <CustomInput
+                  name="username"
+                  id="username"
+                  placeholder="Enter your username"
+                />
+              </div>
+              <div>
+                <FormLabel className="mb-2">Email</FormLabel>
+                <CustomInput
+                  name="email"
+                  id="email"
+                  placeholder="Enter your email address"
+                />
+              </div>
 
-              <CustomInput
-                name="email"
-                labelText="Email"
-                id="email"
-                placeholder="Enter your email address"
-              />
-
-              <CustomInput
-                name="password"
-                className="mb-3"
-                type="password"
-                labelText="Password"
-                id="password"
-                placeholder="Enter your password"
-              />
+              <div>
+                <FormLabel className="mb-2">Password</FormLabel>
+                <CustomInput
+                  name="password"
+                  className="mb-3"
+                  type="password"
+                  id="password"
+                  placeholder="Enter your password"
+                />
+              </div>
 
               <div className="flex-1">
                 {/* <input type="hidden" name="image" value={uploadURL} required /> */}
@@ -102,13 +108,15 @@ const SignUp = () => {
               /> */}
               </div>
 
-              <CustomInput
-                name="country"
-                className="mb-3"
-                labelText="Country"
-                id="country"
-                placeholder="Enter your country name"
-              />
+              <div>
+                <FormLabel className="mb-2">Country</FormLabel>
+                <CustomInput
+                  name="country"
+                  className="mb-3"
+                  id="country"
+                  placeholder="Enter your country name"
+                />
+              </div>
             </div>
           </div>
 
@@ -128,22 +136,31 @@ const SignUp = () => {
 
           <div>
             <div className="flex flex-col gap-x-8 gap-y-6 mt-8">
-              <CustomToggle inputName="isSeller" labelText="Activate account" />
+              <div>
+                <FormLabel isRequired={false} className="mb-3">
+                  I am a seller
+                </FormLabel>
+                <CustomToggle name="isSeller" />
+              </div>
 
-              <CustomInput
-                name="phone"
-                labelText="Phone Number"
-                id="phone"
-                placeholder="Enter your phone number"
-                required={false}
-              />
+              <div>
+                <FormLabel className="mb-2">Phone Number</FormLabel>
+                <CustomInput
+                  name="phone"
+                  id="phone"
+                  placeholder="Enter your phone number"
+                  required={false}
+                />
+              </div>
 
-              <TextareaInput
-                inputName="description"
-                inputId="description"
-                labelText="Description"
-                placeholderText="A short description of yourself"
-              />
+              <div>
+                <FormLabel className="mb-2">Description</FormLabel>
+                <TextareaInput
+                  name="description"
+                  id="description"
+                  placeholder="A short description of yourself"
+                />
+              </div>
             </div>
           </div>
         </div>

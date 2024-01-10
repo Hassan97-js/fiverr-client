@@ -1,6 +1,12 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
-import { Button, CustomInput, Heading1, LayoutSection } from "../components";
+import {
+  Button,
+  CustomInput,
+  FormLabel,
+  Heading1,
+  LayoutSection
+} from "../components";
 
 const SignIn = () => {
   const navigation = useNavigation();
@@ -28,21 +34,26 @@ const SignIn = () => {
           <Heading1 className="self-start">Sign in</Heading1>
 
           <div className="space-y-6">
-            <CustomInput
-              name="username"
-              labelText="Username"
-              id="username"
-              placeholder="Enter your username"
-              autoFocus={true}
-            />
-            <CustomInput
-              className="mb-3"
-              name="password"
-              type="password"
-              labelText="Password"
-              id="password"
-              placeholder="Enter your password"
-            />
+            <div>
+              <FormLabel className="mb-2">Username</FormLabel>
+              <CustomInput
+                name="username"
+                id="username"
+                placeholder="Enter your username"
+                autoFocus={true}
+              />
+            </div>
+
+            <div>
+              <FormLabel className="mb-2">Password</FormLabel>
+              <CustomInput
+                className="mb-3"
+                name="password"
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+              />
+            </div>
           </div>
 
           {actionError && (
