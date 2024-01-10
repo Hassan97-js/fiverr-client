@@ -5,7 +5,8 @@ import {
   CustomInput,
   Button,
   LayoutSection,
-  Heading1
+  Heading1,
+  FormLabel
 } from "../components";
 import { usePageData } from "../hooks";
 
@@ -67,23 +68,19 @@ const Gigs = () => {
 
       <Form method="GET" className="flex flex-col items-start py-5 gap-5 mt-6 mb-24">
         <div className="flex flex-col items-start mb-5 gap-5">
-          <CustomInput
-            id="min"
-            labelClassName="text-zinc-600"
-            labelText="Min price"
-            name="min"
-            placeholder="min"
-            required={false}
-          />
+          <div>
+            <FormLabel className="mb-2" isRequired={false}>
+              Min price
+            </FormLabel>
+            <CustomInput id="min" name="min" placeholder="min" required={false} />
+          </div>
 
-          <CustomInput
-            id="max"
-            labelClassName="text-zinc-600"
-            labelText="Max price"
-            name="max"
-            placeholder="max"
-            required={false}
-          />
+          <div>
+            <FormLabel className="mb-2" isRequired={false}>
+              Max price
+            </FormLabel>
+            <CustomInput id="max" name="max" placeholder="max" required={false} />
+          </div>
         </div>
 
         <div className="flex flex-col w-96">

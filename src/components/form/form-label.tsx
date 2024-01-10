@@ -16,9 +16,7 @@ const FormLabel = ({
   requiredText = "- Required"
 }: TProps) => {
   return (
-    <label
-      htmlFor={htmlFor}
-      className={cn("block mb-2 text-sm font-medium", className)}>
+    <label htmlFor={htmlFor} className={cn("block text-sm font-medium", className)}>
       {children}
       {isRequired && (
         <span className="text-zinc-500" aria-label="required">
