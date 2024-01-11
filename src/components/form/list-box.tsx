@@ -15,14 +15,13 @@ type TProps = {
   name?: string;
 };
 
-// Todo: Fix listbox get submission
 const ListBox = ({ options, buttonClassName, name }: TProps) => {
   return (
     <HeadlessListBox name={name} defaultValue={options[0]}>
       <div className="relative">
         <HeadlessListBox.Button
           className={cn(
-            "relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-green-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-green-300 sm:text-sm h-[2.8125rem]",
+            "relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left border border-zinc-300 focus:outline-none focus-visible:border-green-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-green-300 sm:text-sm h-[2.8125rem]",
             buttonClassName
           )}>
           {({ value }) => {

@@ -10,6 +10,7 @@ import {
 } from "../utils";
 
 import { type TCreateGig } from "../constants/form/create-gig-validator";
+import axios, { AxiosError } from "axios";
 
 export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
   try {
@@ -308,18 +309,27 @@ export const signInAction = async ({ request }: ActionFunctionArgs) => {
       password
     };
 
-    const response = await makeApiRequest({
-      method: "post",
-      url: "auth/sign-in",
+    // const response = await makeApiRequest({
+    //   method: "post",
+    //   url: "auth/sign-in",
+    //   data
+    // });
+
+    const response = await axios.post(
+      "http://localhost:5000/api/auth/sign-in",
       data
-    });
+    );
 
     storeData("token", response.data.token);
     storeData("user", response.data.user);
 
     return redirect(redirectTo ? redirectTo : "/");
   } catch (error) {
-    return error;
+    if (error instanceof AxiosError) {
+      return error.response?.data.message;
+    }
+
+    return "Internal Server Error";
   }
 };
 

@@ -11,26 +11,11 @@ import {
 } from "../components";
 import { usePageData } from "../hooks";
 
-// type TOption = {
-//   label: string;
-//   value: string;
-// };
-
-// const filterGigsOptions = [
-//   {
-//     label: "Newest",
-//     value: "createdAt"
-//   },
-//   {
-//     label: "Best Selling",
-//     value: "sales"
-//   }
-// ] satisfies TOption[];
-
 const filterGigsOptions = ["Newest", "Best Selling"] satisfies string[];
 
 const Gigs = () => {
   const gigs = usePageData({ dataType: "gigs" })?.gigs;
+
 
   if (!gigs) {
     return (

@@ -10,6 +10,7 @@ import {
   FormError,
   FormLabel,
   LayoutSection,
+  ListBox,
   SelectInput,
   TextareaInput
 } from "../components";
@@ -84,12 +85,12 @@ const AddGig = () => {
   // };
 
   const categoryOptions = [
-    { value: "", label: "Choose a category" },
-    { value: "Graphic Design", label: "Graphic Design" },
-    { value: "Web Development", label: "Web Development" },
-    { value: "App Development", label: "App Development" },
-    { value: "Music & Audio", label: "Music & Audio" }
-  ];
+    "Choose a category",
+    "Graphic Design",
+    "Web Development",
+    "App Development",
+    "Music & Audio"
+  ] satisfies string[];
 
   return (
     <LayoutSection>
@@ -136,7 +137,7 @@ const AddGig = () => {
           <div className="flex flex-col lg:flex-row lg:gap-24">
             <div className="w-full flex-1">
               <FormLabel className="mb-2">Category</FormLabel>
-              <SelectInput name="category" id="category" options={categoryOptions} />
+              <ListBox name="category" options={categoryOptions} />
             </div>
 
             <div className="w-full flex-1">
