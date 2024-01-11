@@ -7,8 +7,7 @@ export const makeApiRequest = ({
   url,
   data,
   params,
-  headers,
-  validateStatus
+  headers
 }: AxiosRequestConfig) => {
   return axios({
     method,
@@ -17,8 +16,7 @@ export const makeApiRequest = ({
     params,
     headers,
     data,
-    withCredentials: true,
-    validateStatus
+    withCredentials: true
   });
 };
 

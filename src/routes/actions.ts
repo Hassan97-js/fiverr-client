@@ -309,16 +309,11 @@ export const signInAction = async ({ request }: ActionFunctionArgs) => {
       password
     };
 
-    // const response = await makeApiRequest({
-    //   method: "post",
-    //   url: "auth/sign-in",
-    //   data
-    // });
-
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/sign-in",
+    const response = await makeApiRequest({
+      method: "post",
+      url: "auth/sign-in",
       data
-    );
+    });
 
     storeData("token", response.data.token);
     storeData("user", response.data.user);
