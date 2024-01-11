@@ -11,21 +11,23 @@ import {
 } from "../components";
 import { usePageData } from "../hooks";
 
-type TOption = {
-  label: string;
-  value: string;
-};
+// type TOption = {
+//   label: string;
+//   value: string;
+// };
 
-const sortGigsOptions = [
-  {
-    label: "Newest",
-    value: "createdAt"
-  },
-  {
-    label: "Best Selling",
-    value: "sales"
-  }
-] satisfies TOption[];
+// const filterGigsOptions = [
+//   {
+//     label: "Newest",
+//     value: "createdAt"
+//   },
+//   {
+//     label: "Best Selling",
+//     value: "sales"
+//   }
+// ] satisfies TOption[];
+
+const filterGigsOptions = ["Newest", "Best Selling"] satisfies string[];
 
 const Gigs = () => {
   const gigs = usePageData({ dataType: "gigs" })?.gigs;
@@ -83,9 +85,9 @@ const Gigs = () => {
         Explore the boundaries of art and technology with Fiverr&apos;s AI artists
       </p>
 
-      <Form method="GET" className="flex flex-col items-start py-5 gap-5 mt-6 mb-24">
-        <div className="flex flex-col items-start mb-5 gap-5 w-72">
-          <div className="w-full">
+      <Form method="GET" className="flex flex-col items-start py-5 gap-1 mt-6 mb-24">
+        <div className="flex flex-col sm:flex-row sm:items-center mb-5 gap-5 max-w-[43.75rem]">
+          <div className="w-full flex-1">
             <FormLabel className="mb-2" isRequired={false}>
               Min price
             </FormLabel>
@@ -97,7 +99,7 @@ const Gigs = () => {
             />
           </div>
 
-          <div className="w-full">
+          <div className="w-full flex-1">
             <FormLabel className="mb-2" isRequired={false}>
               Max price
             </FormLabel>
@@ -108,12 +110,10 @@ const Gigs = () => {
               required={false}
             />
           </div>
-        </div>
 
-        <div className="flex flex-col w-72">
-          {/* <FormLabel className="mb-2">Sort by</FormLabel>
-          <SelectInput options={sortGigsOptions} /> */}
-          <ListBox options={sortGigsOptions} />
+          <div className="w-full flex-1 self-end">
+            <ListBox name="sortBy" options={filterGigsOptions} />
+          </div>
         </div>
 
         <Button
