@@ -4,7 +4,7 @@ import {
   Button,
   CustomInput,
   FormLabel,
-  Heading1,
+  Heading2,
   LayoutSection
 } from "../components";
 
@@ -31,7 +31,7 @@ const SignIn = () => {
         method="POST"
         className="flex flex-col justify-center items-center gap-5 max-w-[400px] mx-auto">
         <div className="space-y-16 w-full">
-          <Heading1 className="self-start">Sign in</Heading1>
+          <Heading2 className="self-start">Sign in</Heading2>
 
           <div className="space-y-6">
             <div>

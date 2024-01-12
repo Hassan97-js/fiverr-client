@@ -2,20 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import { useFetcher } from "react-router-dom";
 
 import {
-  UploadWidget,
   CustomInput,
   CustomToggle,
   TextareaInput,
   Button,
   LayoutSection,
   Heading2,
-  FormLabel
+  FormLabel,
+  UploadImage
 } from "../components";
 
-// import { createCloudinary } from "../utils";
+import { createCloudinary } from "../utils";
 
 const SignUp = () => {
-  // const { getConfig } = createCloudinary();
+  const cld = createCloudinary();
 
   // const [uploadURL, setUploadURL] = useState("");
   // const [uploadError, setUploadError] = useState(null);
@@ -106,6 +106,7 @@ const SignUp = () => {
                   handleUpload({ error, result });
                 }}
               /> */}
+                <UploadImage />
               </div>
 
               <div>

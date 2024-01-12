@@ -1,16 +1,23 @@
 import Button from "../button";
 
+type TProps = {
+  imagePreviewURL?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: "button";
+  placeholder?: string;
+};
+
 const UploadButton = ({
   imagePreviewURL,
   onClick,
   type = "button",
-  placeholderText
-}) => {
+  placeholder
+}: TProps) => {
   return (
     <>
       <Button
         type={type}
-        onClickHandler={onClick}
+        onClick={onClick}
         className="flex flex-col items-center justify-center w-full h-48 border-2 border-zinc-300 border-dashed rounded-lg cursor-pointer bg-zinc-50 mb-8 pt-5 pb-6">
         <svg
           aria-hidden="true"
@@ -30,8 +37,8 @@ const UploadButton = ({
           <span className="font-semibold">Click to upload</span>
         </p>
 
-        {!!placeholderText && (
-          <p className="mb-2 text-sm text-zinc-500">{placeholderText}</p>
+        {!!placeholder && (
+          <p className="mb-2 text-sm text-zinc-500">{placeholder}</p>
         )}
 
         <p className="text-xs text-zinc-500">

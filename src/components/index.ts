@@ -3,6 +3,7 @@ import LayoutSection from "./layout/layout-section";
 import FormLabel from "./form/form-label";
 import FormError from "./form/form-error";
 import ListBox from "./form/list-box";
+import UploadImage from "./form/upload-image";
 
 import UserMenu from "./user-menu";
 import Logo from "./logo";
@@ -31,7 +32,6 @@ import PrivateGigsTable from "./private-gigs-table";
 import ChatInput from "./chat/chat-input";
 import ChatRoom from "./chat/chat-room";
 
-import UploadWidget from "./form/upload-widget";
 import CustomInput from "./form/custom-input";
 import SelectInput from "./form/select-input";
 import TextareaInput from "./form/textarea-input";
@@ -51,6 +51,7 @@ import Heading3 from "./typography/heading-3";
 import Heading4 from "./typography/heading-4";
 
 export {
+  UploadImage,
   ListBox,
   FormLabel,
   FormError,
@@ -94,6 +95,5 @@ export {
   ErrorAlert,
   AgreeCheckbox,
   UploadButton,
-  CheckoutForm,
-  UploadWidget
+  CheckoutForm
 };

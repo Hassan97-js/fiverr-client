@@ -1,13 +1,14 @@
 import { Cloudinary, CloudinaryConfig } from "@cloudinary/url-gen";
 
+//  uploadPreset: string = "fiverr-assets-preset"
+// uploadPreset: uploadPreset
+
 export const createCloudinary = (
-  cloudName: string = "fiverr-assets-cloud",
-  uploadPreset: string = "fiverr-assets-preset"
+  cloudName: string = "fiverr-assets-cloud"
 ): Cloudinary => {
   return new Cloudinary({
     cloud: {
       cloudName: cloudName
-      // uploadPreset: uploadPreset
     }
   });
 };

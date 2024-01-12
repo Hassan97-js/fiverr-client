@@ -7,11 +7,12 @@ export const makeApiRequest = ({
   url,
   data,
   params,
+  baseURL = "http://localhost:5000/api",
   headers
 }: AxiosRequestConfig) => {
   return axios({
     method,
-    baseURL: "http://localhost:5000/api",
+    baseURL,
     url,
     params,
     headers,
