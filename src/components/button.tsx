@@ -24,6 +24,7 @@ const Button = ({
   size = "default",
   shape = "default",
   variant = "default",
+  disabled,
   ...otherProps
 }: TProps) => {
   return (
@@ -34,6 +35,7 @@ const Button = ({
         size === "xs" && "text-xs",
         shape === "sharp" && "rounded-none",
         {
+          "cursor-auto opacity-50 pointer-events-none": disabled,
           "bg-green-700 text-white hover:bg-green-800 focus-visible:ring-4 focus-visible:ring-green-300 disabled:bg-green-400":
             variant === "primary",
           "text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus-visible:ring-4 focus-visible:ring-green-300 disabled:bg-green-400 disabled:text-green-400":

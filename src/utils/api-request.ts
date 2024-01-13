@@ -16,8 +16,7 @@ export const makeApiRequest = ({
     url,
     params,
     headers,
-    data,
-    withCredentials: true
+    data
   });
 };
 

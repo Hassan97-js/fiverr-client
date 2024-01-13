@@ -339,7 +339,7 @@ export const signUpAction = async ({ request }: ActionFunctionArgs) => {
       data.isSeller = "true";
     }
 
-    const response = await makeApiRequest({
+    await makeApiRequest({
       method: "post",
       url: "auth/sign-up",
       data

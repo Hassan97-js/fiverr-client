@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useFetcher } from "react-router-dom";
 
 import {
@@ -12,14 +12,7 @@ import {
   UploadImage
 } from "../components";
 
-import { createCloudinary } from "../utils";
-
 const SignUp = () => {
-  const cld = createCloudinary();
-
-  // const [uploadURL, setUploadURL] = useState("");
-  // const [uploadError, setUploadError] = useState(null);
-
   const formRef = useRef<HTMLFormElement>(null);
 
   const fetcher = useFetcher();
@@ -32,19 +25,8 @@ const SignUp = () => {
   useEffect(() => {
     if (!isBusy) {
       formRef.current?.reset();
-      // setUploadURL("");
     }
   }, [isBusy]);
-
-  // const handleUpload = ({ error, result }) => {
-  //   if (error) {
-  //     setUploadError(error);
-
-  //     return;
-  //   }
-
-  //   setUploadURL(result?.info?.secure_url);
-  // };
 
   return (
     <LayoutSection>
@@ -58,10 +40,6 @@ const SignUp = () => {
           {actionError && (
             <span className="text-normal font-bold text-red-500">{actionError}</span>
           )}
-
-          {/* {uploadError && (
-          <span className="text-normal font-bold text-red-500">{uploadError}</span>
-        )} */}
 
           <div>
             <div className="flex flex-col gap-x-8 gap-y-6">
@@ -94,18 +72,6 @@ const SignUp = () => {
               </div>
 
               <div className="flex-1">
-                {/* <input type="hidden" name="image" value={uploadURL} required /> */}
-
-                {/* <UploadWidget
-                labelText="Profile picture"
-                placeholderText="Please upload a profile picture"
-                cloudName={cloud.cloud_name}
-                uploadPreset={cloud.upload_preset}
-                imagePreviewURL={uploadURL}
-                onUpload={({ error, result }) => {
-                  handleUpload({ error, result });
-                }}
-              /> */}
                 <UploadImage />
               </div>
 
