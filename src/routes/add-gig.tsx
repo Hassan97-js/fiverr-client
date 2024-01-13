@@ -11,28 +11,11 @@ import {
   FormLabel,
   LayoutSection,
   ListBox,
-  SelectInput,
-  TextareaInput
+  TextareaInput,
+  UploadImage
 } from "../components";
 
-// import { UploadWidget } from "../components";
-// import { createCloudinary } from "../utils";
-
 const AddGig = () => {
-  // const {
-  //   cloudinaryConfig: { cloud }
-  // } = createCloudinary();
-
-  // const [uploadURLs, setUploadURLs] = useState({
-  //   coverImage: "",
-  //   images: ""
-  // });
-
-  // const [uploadErrors, setUploadErrors] = useState({
-  //   coverImageError: null,
-  //   imagesError: null
-  // });
-
   const formRef = useRef<HTMLFormElement>(null);
 
   const actionData = useActionData();
@@ -54,35 +37,8 @@ const AddGig = () => {
   useEffect(() => {
     if (!isBusy && !hasActionError) {
       formRef.current?.reset();
-
-      // setUploadURLs({
-      //   coverImage: "",
-      //   images: []
-      // });
     }
   }, [isBusy]);
-
-  // const handleUpload = ({ error, result, isCoverImage }) => {
-  //   if (error) {
-  //     setUploadErrors((prevErrors) => {
-  //       return {
-  //         ...prevErrors,
-  //         [isCoverImage ? "coverImageError" : "imagesError"]: error
-  //       };
-  //     });
-
-  //     return;
-  //   }
-
-  // setUploadURLs((prevImages) => {
-  //   return {
-  //     ...prevImages,
-  //     [isCoverImage ? "coverImage" : "images"]: isCoverImage
-  //       ? result?.info?.secure_url
-  //       : [...prevImages.images, result?.info?.secure_url]
-  //   };
-  // });
-  // };
 
   const categoryOptions = [
     "Choose a category",
@@ -104,16 +60,6 @@ const AddGig = () => {
 
       <Form ref={formRef} method="POST">
         <div className="flex flex-col gap-x-10 gap-y-10 mb-12">
-          {/* {!!actionError && (
-            <span className="text-normal font-bold text-red-500">{actionError}</span>
-          )}
-
-          {(!!uploadErrors?.coverImageError || !!uploadErrors.imagesError) && (
-            <span className="text-normal font-bold text-red-500">
-              {uploadErrors.coverImageError || uploadErrors.imagesError}
-            </span>
-          )} */}
-
           <div className="flex flex-col lg:flex-row lg:gap-24">
             <div className="w-full flex-1">
               <FormLabel className="mb-2">Title</FormLabel>
@@ -152,8 +98,8 @@ const AddGig = () => {
             </div>
           </div>
 
-          {/* <div>
-            <input
+          <div>
+            {/* <input
               type="hidden"
               name="coverImage"
               value={uploadURLs.coverImage}
@@ -168,11 +114,14 @@ const AddGig = () => {
               onUpload={({ error, result }) => {
                 handleUpload({ error, result, isCoverImage: true });
               }}
-            />
-          </div> */}
+            /> */}
 
-          {/* <div>
-            <input
+            <FormLabel className="mb-2">Cover image</FormLabel>
+            <UploadImage field="gig-cover-image" />
+          </div>
+
+          <div>
+            {/* <input
               type="hidden"
               name="images"
               value={JSON.stringify(uploadURLs.images)}
@@ -187,8 +136,11 @@ const AddGig = () => {
               onUpload={({ error, result }) => {
                 handleUpload({ error, result, isCoverImage: false });
               }}
-            />
-          </div> */}
+            /> */}
+
+            <FormLabel className="mb-2">Images</FormLabel>
+            <UploadImage field="gig-images" />
+          </div>
 
           <div className="w-full flex-1">
             <FormLabel className="mb-2">Description</FormLabel>

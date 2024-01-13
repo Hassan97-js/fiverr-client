@@ -72,6 +72,7 @@ const SignUp = () => {
               </div>
 
               <div className="flex-1">
+                <FormLabel className="mb-2">Profile picture</FormLabel>
                 <UploadImage />
               </div>
 

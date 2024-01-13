@@ -4,7 +4,7 @@ import { cn } from "../../utils";
 
 type TProps = {
   disabled?: boolean;
-  onSelectFile: (file: File) => void;
+  onSelectFile: (files: FileList) => void;
 };
 
 const UploadButton = ({ onSelectFile, disabled }: TProps) => {
@@ -45,8 +45,8 @@ const UploadButton = ({ onSelectFile, disabled }: TProps) => {
         className="hidden"
         onChange={(e) => {
           if (e.target.files) {
-            const file = e.target.files[0];
-            onSelectFile(file);
+            const files = e.target.files;
+            onSelectFile(files);
           }
         }}
       />
