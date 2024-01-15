@@ -1,181 +1,98 @@
 import { useState } from "react";
 import { AdvancedImage } from "@cloudinary/react";
 import { type CloudinaryImage } from "@cloudinary/url-gen";
-import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
-import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 
 import UploadButton from "./upload-button";
 import Button from "../button";
 
-import { createCloudinary, makeApiRequest } from "../../utils";
+import { uploadImages } from "./utils/upload";
 
-type TCldUploaded = {
+export type TCldUploaded = {
   isSuccess: boolean;
   isUploading: boolean;
-  signUp?: {
-    file?: File;
-    profileImage?: CloudinaryImage;
-    profileImageURL?: string;
-  };
-  addGig?: {
-    files?: FileList;
-    coverImage?: CloudinaryImage;
-    gigImages?: CloudinaryImage[];
-    coverImageURL?: string;
-    gigImagesURLs?: string[];
+  image: {
+    files: File[];
+    elements: CloudinaryImage[];
+    urls: string[];
   };
 };
 
 type TProps = {
-  cloudName?: string;
-  field?: "gig-cover-image" | "gig-images" | "sign-up";
+  isMultiple?: boolean;
+  submitInputName?: string;
+  fileInputId: string;
 };
 
-const UploadImage = ({ cloudName = "fiverr-assets-cloud", field }: TProps) => {
-  const [uploaded, setUploaded] = useState<TCldUploaded>({
+const UploadImage = ({ isMultiple = false, submitInputName, fileInputId }: TProps) => {
+  const [toUpload, setToUpload] = useState<TCldUploaded>({
     isSuccess: false,
-    isUploading: false
+    isUploading: false,
+    image: {
+      files: [],
+      elements: [],
+      urls: []
+    }
   });
 
-  const cld = createCloudinary(cloudName);
-  const isBusy = uploaded.isUploading || uploaded.isSuccess;
+  const shouldDisable = toUpload.isSuccess;
+  const length = toUpload.image.files.length;
+  const filesLength = length > 5 ? 5 : length === 1 ? 1 : length;
 
   const handleImageUpload = async () => {
-    if (isBusy) {
+    if (toUpload.isUploading) {
       return;
     }
 
     try {
-      if (uploaded?.signUp?.file) {
-        setUploaded((prevState) => {
-          return { ...prevState, isUploading: true };
-        });
+      const files = toUpload?.image?.files;
 
-        const formData = new FormData();
-        formData.append("file", uploaded?.signUp.file);
-        formData.append("upload_preset", "fiverr-assets-preset");
+      uploadImages({
+        files,
+        isMultiple,
+        setToUpload
+      });
 
-        const response = await makeApiRequest({
-          method: "post",
-          url: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-          data: formData
-        });
-
-        const publicId = response.data.public_id as string;
-
-        const cldImage = cld
-          .image(publicId)
-          .resize(thumbnail().width(150).height(150))
-          .roundCorners(byRadius(20));
-
-        setUploaded((prevState) => {
-          return {
-            ...prevState,
-            signUp: {
-              ...prevState?.signUp,
-              profileImage: cldImage,
-              profileImageURL: response.data.secure_url
-            },
-            isSuccess: true
-          };
-        });
-      }
-
-      if (uploaded?.addGig?.files) {
-        setUploaded((prevState) => {
-          return { ...prevState, isUploading: true };
-        });
-
-        if (field === "gig-cover-image") {
-          const file = uploaded?.addGig.files[0];
-
-          console.log("RUN----");
-
-          const formData = new FormData();
-          formData.append("file", file);
-          formData.append("upload_preset", "fiverr-assets-preset");
-
-          const response = await makeApiRequest({
-            method: "post",
-            url: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-            data: formData
-          });
-
-          const publicId = response.data.public_id as string;
-
-          const cldImage = cld
-            .image(publicId)
-            .resize(thumbnail().width(150).height(150))
-            .roundCorners(byRadius(20));
-
-          setUploaded((prevState) => {
-            return {
-              ...prevState,
-              addGig: {
-                ...prevState?.addGig,
-                coverImage: cldImage,
-                coverImageURL: response.data.secure_url
-              },
-              isSuccess: true
-            };
-          });
-        }
-      }
-
-      // console.log(response.data);
+      setToUpload((prevState) => ({ ...prevState, isUploading: true }));
     } catch (error) {
       console.log(error);
-      setUploaded((prevState) => {
-        return { ...prevState, isSuccess: false };
-      });
+      setToUpload((prevState) => ({ ...prevState, isSuccess: false }));
     } finally {
-      setUploaded((prevState) => {
-        return { ...prevState, isUploading: false };
-      });
+      setToUpload((prevState) => ({ ...prevState, isUploading: false }));
     }
   };
 
-  const handleSelectFile = (files: FileList) => {
-    if (field === "sign-up" && files) {
-      setUploaded((prevState) => {
-        return {
-          ...prevState,
-          signUp: {
-            ...prevState.signUp,
-            file: files[0]
-          }
-        };
-      });
-    }
-
-    if (field === "gig-cover-image" && files) {
-      setUploaded((prevState) => {
-        return {
-          ...prevState,
-          addGig: {
-            ...prevState.addGig,
-            files
-          }
-        };
-      });
-    }
+  const handleFilesSelect = (files: FileList) => {
+    setToUpload((prevState) => ({
+      ...prevState,
+      image: {
+        ...prevState.image,
+        files: [...files]
+      }
+    }));
   };
 
   return (
     <>
-      {!!uploaded?.signUp?.profileImageURL && (
-        <input
-          type="hidden"
-          name="image"
-          value={uploaded.signUp.profileImageURL}
-          required
-        />
+      {!isMultiple && !!toUpload?.image?.urls && submitInputName && (
+        <input type="hidden" name={submitInputName} defaultValue={toUpload?.image.urls[0]} required />
       )}
 
-      <UploadButton disabled={isBusy} onSelectFile={handleSelectFile} />
+      {isMultiple &&
+        !!toUpload?.image?.urls &&
+        submitInputName &&
+        toUpload.image.urls.map((url, idx) => (
+          <input key={idx} type="hidden" name={submitInputName} defaultValue={url} required />
+        ))}
+
+      <UploadButton
+        isMultiple={isMultiple}
+        fileInputId={fileInputId}
+        disabled={shouldDisable}
+        onSelectFiles={handleFilesSelect}
+      />
 
       <Button
-        disabled={isBusy}
+        disabled={shouldDisable}
         className="mt-6 mb-8"
         type="button"
         variant="secondary"
@@ -183,12 +100,22 @@ const UploadImage = ({ cloudName = "fiverr-assets-cloud", field }: TProps) => {
         Upload
       </Button>
 
-      {!!uploaded?.signUp?.profileImage && (
-        <AdvancedImage cldImg={uploaded.signUp.profileImage} />
-      )}
+      <div className="flex gap-3">
+        {!!toUpload?.image?.elements.length &&
+          toUpload.image.elements.map((el, idx) => (
+            <div key={idx} className="w-20 h-20">
+              <AdvancedImage cldImg={el} />
+            </div>
+          ))}
+      </div>
 
-      {!!uploaded?.addGig?.coverImage && (
-        <AdvancedImage cldImg={uploaded.addGig.coverImage} />
+      {!toUpload.isSuccess && filesLength > 0 && (
+        <p className="flex gap-2 items-center text-xs font-bold text-zinc-600">
+          <span className="flex justify-center items-center font-bold text-green-50 w-6 h-6 bg-green-600 rounded-full">
+            {filesLength}
+          </span>
+          {filesLength === 1 ? "File selected" : "Files selected"}
+        </p>
       )}
     </>
   );

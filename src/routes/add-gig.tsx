@@ -17,13 +17,10 @@ import {
 
 const AddGig = () => {
   const formRef = useRef<HTMLFormElement>(null);
-
   const actionData = useActionData();
-
   const { state } = useNavigation();
 
   const isBusy = state === "submitting";
-
   const actionDataValidationResult = ActionErrorSchema.safeParse(actionData);
 
   let hasActionError = false;
@@ -50,12 +47,8 @@ const AddGig = () => {
 
   return (
     <LayoutSection>
-      <FormError
-        className="text-lg font-semibold m-0 p-0 mb-8"
-        hasError={hasActionError}>
-        {hasActionError && actionErrorMessage
-          ? actionErrorMessage
-          : "Something went wrong! Please try again later"}
+      <FormError className="text-lg font-semibold m-0 p-0 mb-8" hasError={hasActionError}>
+        {hasActionError && actionErrorMessage ? actionErrorMessage : "Something went wrong! Please try again later"}
       </FormError>
 
       <Form ref={formRef} method="POST">
@@ -63,20 +56,12 @@ const AddGig = () => {
           <div className="flex flex-col lg:flex-row lg:gap-24">
             <div className="w-full flex-1">
               <FormLabel className="mb-2">Title</FormLabel>
-              <CustomInput
-                name="title"
-                id="title"
-                placeholder="e.g. I will do something I am really good at"
-              />
+              <CustomInput name="title" id="title" placeholder="e.g. I will do something I am really good at" />
             </div>
 
             <div className="w-full flex-1">
               <FormLabel className="mb-2">Service title</FormLabel>
-              <CustomInput
-                name="shortTitle"
-                id="service-title"
-                placeholder="e.g. One-page web design"
-              />
+              <CustomInput name="shortTitle" id="service-title" placeholder="e.g. One-page web design" />
             </div>
           </div>
 
@@ -117,7 +102,7 @@ const AddGig = () => {
             /> */}
 
             <FormLabel className="mb-2">Cover image</FormLabel>
-            <UploadImage field="gig-cover-image" />
+            <UploadImage fileInputId="cover-upload" submitInputName="image" />
           </div>
 
           <div>
@@ -139,7 +124,7 @@ const AddGig = () => {
             /> */}
 
             <FormLabel className="mb-2">Images</FormLabel>
-            <UploadImage field="gig-images" />
+            <UploadImage fileInputId="gig-images-upload" submitInputName="images" isMultiple={true} />
           </div>
 
           <div className="w-full flex-1">
@@ -195,14 +180,7 @@ const AddGig = () => {
 
             <div className="w-full flex-1">
               <FormLabel className="mb-2">Price</FormLabel>
-              <CustomInput
-                min={1}
-                max={10000}
-                type="number"
-                name="price"
-                id="price"
-                placeholder="e.g. 30"
-              />
+              <CustomInput min={1} max={10000} type="number" name="price" id="price" placeholder="e.g. 30" />
             </div>
           </div>
         </div>

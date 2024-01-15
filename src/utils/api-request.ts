@@ -8,7 +8,8 @@ export const makeApiRequest = ({
   data,
   params,
   baseURL = "http://localhost:5000/api",
-  headers
+  headers,
+  onUploadProgress
 }: AxiosRequestConfig) => {
   return axios({
     method,
@@ -16,7 +17,8 @@ export const makeApiRequest = ({
     url,
     params,
     headers,
-    data
+    data,
+    onUploadProgress
   });
 };
 

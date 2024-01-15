@@ -1,20 +1,77 @@
-import Button from "../button";
+import { type DragEvent, useState } from "react";
 
 import { cn } from "../../utils";
 
-type TProps = {
-  disabled?: boolean;
-  onSelectFile: (files: FileList) => void;
+type TDroppable = {
+  isDraggingEnter: boolean;
+  hasDropped: boolean;
 };
 
-const UploadButton = ({ onSelectFile, disabled }: TProps) => {
+type TProps = {
+  disabled?: boolean;
+  onSelectFiles: (files: FileList) => void;
+  fileInputId: string;
+  isMultiple?: boolean;
+};
+
+const UploadButton = ({ onSelectFiles, disabled, fileInputId, isMultiple = false }: TProps) => {
+  const [droppable, setDroppable] = useState<TDroppable>({
+    isDraggingEnter: false,
+    hasDropped: false
+  });
+
+  const handleFiles = (files: FileList | null) => {
+    if (files && files?.length > 0) {
+      onSelectFiles(files);
+    }
+  };
+
+  const handleDragEnter = (e: DragEvent<HTMLLabelElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log("[DRAG_ENTER]");
+    setDroppable((prevState) => ({
+      ...prevState,
+      isDraggingEnter: true
+    }));
+  };
+
+  const handleDragLeave = (e: DragEvent<HTMLLabelElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log("[DRAG_LEAVE]");
+    setDroppable((prevState) => ({
+      ...prevState,
+      isDraggingEnter: false
+    }));
+  };
+
+  const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log("[DROP]");
+    setDroppable((prevState) => ({
+      ...prevState,
+      hasDropped: true
+    }));
+
+    const dt = e.dataTransfer;
+    const files = dt.files;
+
+    handleFiles(files);
+  };
+
   return (
     <label
-      htmlFor="dropzone-file"
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      htmlFor={fileInputId}
       className={cn(
-        "flex flex-col items-center justify-center w-full h-64 border-2 border-zinc-300 border-dashed rounded-lg cursor-pointer bg-zinc-50 hover:bg-zinc-100",
+        "flex flex-col items-center justify-center w-full h-64 border-2 border-zinc-300 border-solid rounded-lg cursor-pointer bg-zinc-50 hover:bg-zinc-100 transition",
         {
-          "opacity-50 cursor-auto": disabled
+          "opacity-50 cursor-auto pointer-events-none select-none": disabled,
+          "border-dashed bg-zinc-100": droppable.isDraggingEnter
         }
       )}>
       <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -33,22 +90,21 @@ const UploadButton = ({ onSelectFile, disabled }: TProps) => {
           />
         </svg>
         <p className="mb-2 text-sm text-zinc-500">
-          <span className="font-semibold">Click to upload</span> or drag and drop
+          <span className="font-bold">Click to upload</span> or drag and drop
         </p>
-        <p className="text-xs text-zinc-500">SVG, PNG, JPG</p>
+        <p className="text-xs text-zinc-500">
+          SVG, PNG, JPG <span className="font-semibold">({isMultiple ? "Max 5 files" : "Max 1 file"})</span>
+        </p>
       </div>
 
       <input
+        id={fileInputId}
+        multiple={isMultiple}
+        accept="image/*"
         disabled={disabled}
-        id="dropzone-file"
         type="file"
         className="hidden"
-        onChange={(e) => {
-          if (e.target.files) {
-            const files = e.target.files;
-            onSelectFile(files);
-          }
-        }}
+        onChange={(e) => handleFiles(e.target.files)}
       />
     </label>
   );
