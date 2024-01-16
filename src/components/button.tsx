@@ -2,13 +2,7 @@ import { type ButtonHTMLAttributes, type ReactNode } from "react";
 
 import { cn } from "../utils";
 
-type ButtonVariants =
-  | "default"
-  | "primary"
-  | "primary-outline"
-  | "secondary"
-  | "secondary-outline"
-  | "danger";
+type ButtonVariants = "default" | "primary" | "primary-outline" | "secondary" | "secondary-outline" | "danger";
 
 type TProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
@@ -35,6 +29,7 @@ const Button = ({
         size === "xs" && "text-xs",
         shape === "sharp" && "rounded-none",
         {
+          "focus-visible:ring-4 focus-visible:ring-green-300": variant === "default",
           "cursor-auto opacity-50 pointer-events-none": disabled,
           "bg-green-700 text-white hover:bg-green-800 focus-visible:ring-4 focus-visible:ring-green-300 disabled:bg-green-400":
             variant === "primary",
