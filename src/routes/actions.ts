@@ -1,10 +1,10 @@
+import  { AxiosError } from "axios";
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 
 import { GigSchema } from "../constants/validators/gig-validator";
 import { auth, handleError, makeApiRequest, retrieveData, storeData } from "../utils";
 
 import { type TCreateGig } from "../constants/validators/form/create-gig-validator";
-import axios, { AxiosError } from "axios";
 
 export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
   try {
