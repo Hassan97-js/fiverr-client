@@ -77,26 +77,20 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
       .map((feature) => feature.trim());
 
     const parsedImages = JSON.parse(images) as string[];
-    const data = { featuresArray, images: parsedImages, image, ...otherEntries };
+    const data = { featuresArray, images: parsedImages, coverImage: image, ...otherEntries };
 
-    // const data = { featuresArray, ...otherEntries };
+    const response = await makeApiRequest({
+      method: "post",
+      url: "gigs/single",
+      data,
+      headers: {
+        Authorization: `Bearer ${currentToken}`
+      }
+    });
 
-    console.log(data);
+    const gigValidationResult = GigSchema.parse(response.data.gig);
 
-    // const response = await makeApiRequest({
-    //   method: "post",
-    //   url: "gigs/single",
-    //   data,
-    //   headers: {
-    //     Authorization: `Bearer ${currentToken}`
-    //   }
-    // });
-
-    // const gigValidationResult = GigSchema.parse(response.data.gig);
-
-    // return redirect(`/gig/${gigValidationResult._id}`);
-
-    return null;
+    return redirect(`/gig/${gigValidationResult._id}`);
   } catch (error) {
     return handleError(error);
   }

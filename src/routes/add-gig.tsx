@@ -88,27 +88,11 @@ const AddGig = () => {
           </div>
 
           <div>
-            {/* <input
-              type="hidden"
-              name="coverImage"
-              value={uploadURLs.coverImage}
-              required
-            />
-           */}
-
             <FormLabel className="mb-2">Cover image</FormLabel>
             <UploadImage fileInputId="cover-upload" submitInputName="image" isSubmitSuccessful={isSubmitSuccessful} />
           </div>
 
           <div>
-            {/* <input
-              type="hidden"
-              name="images"
-              value={JSON.stringify(uploadURLs.images)}
-              required
-            /> 
-           */}
-
             <FormLabel className="mb-2">Images</FormLabel>
             <UploadImage
               fileInputId="gig-images-upload"

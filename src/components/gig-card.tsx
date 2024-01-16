@@ -5,7 +5,7 @@ import { RiHeartFill } from "react-icons/ri";
 import CustomIcon from "./custom-icon";
 import Stars from "./stars";
 
-import { capitalize, formatCurrency, getRatingAverage } from "../utils";
+import { capitalizeFirstLetter, formatCurrency, getRatingAverage } from "../utils";
 
 import { type TUser } from "../constants/validators/user-validator";
 
@@ -20,16 +20,7 @@ type TProps = {
   starNumber: number;
 };
 
-const GigCard = ({
-  userInfo,
-  gigId,
-  coverImage,
-  category,
-  price,
-  description,
-  totalStars,
-  starNumber
-}: TProps) => {
+const GigCard = ({ userInfo, gigId, coverImage, category, price, description, totalStars, starNumber }: TProps) => {
   const styles = {
     backgroundImage: `url(${coverImage})`,
     backgroundRepeat: "no-repeat",
@@ -66,29 +57,21 @@ const GigCard = ({
             />
 
             <strong className="font-semibold">
-              <span>{capitalize(userNameToDisplay)}</span>
-              <p className="text-sm font-normal text-zinc-500">{category}</p>
+              <span className="capitalize">{userNameToDisplay}</span>
+              <p className="text-sm font-normal text-zinc-500 capitalize">{category}</p>
             </strong>
           </div>
         </div>
 
-        <p className="mb-5 truncate">{description}</p>
+        <p className="mb-5 truncate">{capitalizeFirstLetter(description)}</p>
 
         <Stars numberOfStars={gigRating} />
 
         <div className="flex items-center justify-between pb-4 pt-4 mt-auto border-0 border-t-[0.5px] border-t-zinc-200">
-          <CustomIcon
-            Icon={RiHeartFill}
-            color=""
-            className="text-red-500"
-            size="1.2em"
-            aria-label="A heart icon"
-          />
+          <CustomIcon Icon={RiHeartFill} color="" className="text-red-500" size="1.2em" aria-label="A heart icon" />
 
           <div className="flex flex-col items-end">
-            <p className="uppercase text-zinc-500 text-sm font-medium">
-              Starting at
-            </p>
+            <p className="uppercase text-zinc-500 text-sm font-medium">Starting at</p>
             <strong className="text-lg font-semibold">{formattedPrice}</strong>
           </div>
         </div>
