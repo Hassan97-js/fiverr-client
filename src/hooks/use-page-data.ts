@@ -1,37 +1,26 @@
 import { type Stripe } from "@stripe/stripe-js";
 import { useLoaderData } from "react-router-dom";
 
-import {
-  FromApiGigSchema,
-  FromApiGigsSchema,
-  type TGig
-} from "../constants/gig-validator";
-import { FromApiOrdersSchema, TOrder } from "../constants/order-validator";
+import { FromApiGigSchema, FromApiGigsSchema, type TGig } from "../constants/validators/gig-validator";
+import { FromApiOrdersSchema, TOrder } from "../constants/validators/order-validator";
 import {
   FromApiChatMessagesSchema,
   FromApiChatsSchema,
   type TChat,
   type TChatMessage
-} from "../constants/chat-validator";
+} from "../constants/validators/chat-validator";
 import {
   StripePaymentIntentIdSchema,
   type TPaymentData,
   type TStripePaymentIntentId
-} from "../constants/payment-validator";
-import { FromApiReviewsSchema, type TReview } from "../constants/review-validator";
+} from "../constants/validators/payment-validator";
+import { FromApiReviewsSchema, type TReview } from "../constants/validators/review-validator";
 
 import { handleError } from "../utils";
 
 import { TAxiosResponses } from "../types/api.types";
 
-type TPageTypes =
-  | "gigs"
-  | "gig"
-  | "privateGigs"
-  | "orders"
-  | "chats"
-  | "chatMessages"
-  | "payment";
+type TPageTypes = "gigs" | "gig" | "privateGigs" | "orders" | "chats" | "chatMessages" | "payment";
 
 type PageData = {
   gigs?: TGig[];

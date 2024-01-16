@@ -4,7 +4,7 @@ import {
   FromApiOrdersSchema,
   type TFromApiOrders,
   type TOrder
-} from "../constants/order-validator";
+} from "../constants/validators/order-validator";
 
 import { handleError } from "../utils";
 

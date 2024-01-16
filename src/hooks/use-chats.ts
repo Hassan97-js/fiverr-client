@@ -1,10 +1,6 @@
 import { useAsyncValue } from "react-router-dom";
 
-import {
-  FromApiChatsSchema,
-  type TChat,
-  type TFromApiChats
-} from "../constants/chat-validator";
+import { FromApiChatsSchema, type TChat, type TFromApiChats } from "../constants/validators/chat-validator";
 
 import { handleError } from "../utils";
 

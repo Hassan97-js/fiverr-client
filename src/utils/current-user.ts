@@ -1,7 +1,7 @@
 import { makeApiRequest } from "./api-request";
 import { retrieveData } from "./local-storage";
 
-import { FromApiUserSchema } from "../constants/user-validator";
+import { FromApiUserSchema } from "../constants/validators/user-validator";
 
 export const getCurrentUser = async () => {
   try {

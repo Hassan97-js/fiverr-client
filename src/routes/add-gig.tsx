@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
-import { ActionErrorSchema } from "../constants/router-validator";
+import { ActionErrorSchema } from "../constants/validators/router-validator";
 
 import {
   AgreeCheckbox,
@@ -18,9 +18,9 @@ import {
 const AddGig = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const actionData = useActionData();
-  const { state } = useNavigation();
+  const navigation = useNavigation();
 
-  const isBusy = state === "submitting";
+  const isBusy = navigation.state === "submitting";
   const actionDataValidationResult = ActionErrorSchema.safeParse(actionData);
 
   let hasActionError = false;
@@ -90,16 +90,7 @@ const AddGig = () => {
               value={uploadURLs.coverImage}
               required
             />
-            <UploadWidget
-              placeholderText="Please upload a single cover image"
-              labelText="Cover image"
-              cloudName={cloud.cloud_name}
-              uploadPreset={cloud.upload_preset}
-              imagePreviewURL={uploadURLs.coverImage}
-              onUpload={({ error, result }) => {
-                handleUpload({ error, result, isCoverImage: true });
-              }}
-            /> */}
+           */}
 
             <FormLabel className="mb-2">Cover image</FormLabel>
             <UploadImage fileInputId="cover-upload" submitInputName="image" />
@@ -112,16 +103,7 @@ const AddGig = () => {
               value={JSON.stringify(uploadURLs.images)}
               required
             /> 
-           <UploadWidget
-              placeholderText="Please upload at least one gig image"
-              labelText="Gig images"
-              cloudName={cloud.cloud_name}
-              uploadPreset={cloud.upload_preset}
-              imagePreviewURL={uploadURLs.images}
-              onUpload={({ error, result }) => {
-                handleUpload({ error, result, isCoverImage: false });
-              }}
-            /> */}
+           */}
 
             <FormLabel className="mb-2">Images</FormLabel>
             <UploadImage fileInputId="gig-images-upload" submitInputName="images" isMultiple={true} />

@@ -6,6 +6,9 @@ import UploadButton from "./upload-button";
 import Button from "../button";
 
 import { uploadImages } from "./utils/upload";
+import { createCloudinary } from "../../utils";
+
+import { CLOUD_NAME } from "../../constants/strings/cloudinary";
 
 export type TCldUploaded = {
   isSuccess: boolean;
@@ -34,6 +37,8 @@ const UploadImage = ({ isMultiple = false, submitInputName, fileInputId }: TProp
     }
   });
 
+  const cld = createCloudinary(CLOUD_NAME);
+
   const shouldDisable = toUpload.isSuccess;
   const length = toUpload.image.files.length;
   const filesLength = length > 5 ? 5 : length === 1 ? 1 : length;
@@ -47,6 +52,7 @@ const UploadImage = ({ isMultiple = false, submitInputName, fileInputId }: TProp
       const files = toUpload?.image?.files;
 
       uploadImages({
+        cld,
         files,
         isMultiple,
         setToUpload

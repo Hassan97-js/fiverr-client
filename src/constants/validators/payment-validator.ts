@@ -1,7 +1,7 @@
 import { type Stripe } from "@stripe/stripe-js";
 import { z } from "zod";
 
-import type { TAxiosResponse } from "../types/api.types";
+import type { TAxiosResponse } from "../../types/api.types";
 
 export const StripePaymentIntentIdSchema = z.object({
   clientSecret: z.string().refine((id) => /^pi_\w+$/.test(id), {

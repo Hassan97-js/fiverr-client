@@ -4,13 +4,13 @@ import {
   FromApiGigSchema,
   type TFromApiGig,
   type TGig
-} from "../constants/gig-validator";
+} from "../constants/validators/gig-validator";
 
 import {
   FromApiReviewsSchema,
   type TReview,
   type TFromApiReviews
-} from "../constants/review-validator";
+} from "../constants/validators/review-validator";
 
 import { handleError } from "../utils";
 

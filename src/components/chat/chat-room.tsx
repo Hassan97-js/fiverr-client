@@ -1,6 +1,6 @@
 import ChatMessage from "./chat-message";
 
-import { type TChatMessage } from "../../constants/chat-validator";
+import { type TChatMessage } from "../../constants/validators/chat-validator";
 
 type TProps = {
   messages?: TChatMessage[] | null;
@@ -37,9 +37,7 @@ const ChatRoom = ({ userId: currentUserId, messages }: TProps) => {
           );
         })
       ) : (
-        <p className="text-zinc-400 text-base font-medium text-center m-auto">
-          No messages yet
-        </p>
+        <p className="text-zinc-400 text-base font-medium text-center m-auto">No messages yet</p>
       )}
     </div>
   );

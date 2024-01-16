@@ -2,7 +2,7 @@ import { Outlet, ScrollRestoration, useLoaderData } from "react-router-dom";
 
 import { Navbar, Footer } from "../components";
 
-import { ExternalUserSchema, type TExternalUser } from "../constants/user-validator";
+import { ExternalUserSchema, type TExternalUser } from "../constants/validators/user-validator";
 
 const Root = () => {
   const data = useLoaderData();

@@ -9,10 +9,10 @@ import Heading2 from "../typography/heading-2";
 import Heading3 from "../typography/heading-3";
 
 import { capitalize, cn } from "../../utils";
-import { type TUser } from "../../constants/user-validator";
+import { type TUser } from "../../constants/validators/user-validator";
 import { useUser } from "../../hooks/use-user";
 
-import { type TReview } from "../../constants/review-validator";
+import { type TReview } from "../../constants/validators/review-validator";
 
 export type AddReviewOption = {
   value: number;

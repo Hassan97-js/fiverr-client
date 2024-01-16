@@ -4,7 +4,7 @@ import {
   TFromApiChatMessages,
   type TChatMessage,
   FromApiChatMessagesSchema
-} from "../constants/chat-validator";
+} from "../constants/validators/chat-validator";
 
 import { handleError } from "../utils";
 

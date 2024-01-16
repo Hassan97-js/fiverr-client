@@ -1,8 +1,8 @@
 import { useOutletContext } from "react-router-dom";
-import { ContextSchema } from "../constants/context-validator";
+import { ContextSchema } from "../constants/validators/context-validator";
 import { handleError } from "../utils";
 
-import { type TUser } from "../constants/user-validator";
+import { type TUser } from "../constants/validators/user-validator";
 
 export const useUser = () => {
   const contextData = useOutletContext();

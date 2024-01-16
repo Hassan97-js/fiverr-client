@@ -1,19 +1,11 @@
-import { Cloudinary, CloudinaryConfig } from "@cloudinary/url-gen";
+import { Cloudinary } from "@cloudinary/url-gen";
 
-//  uploadPreset: string = "fiverr-assets-preset"
-// uploadPreset: uploadPreset
+import { CLOUD_NAME } from "../constants/strings/cloudinary";
 
-export const createCloudinary = (
-  cloudName: string = "fiverr-assets-cloud"
-): Cloudinary => {
+export const createCloudinary = (cloudName: string = CLOUD_NAME): Cloudinary => {
   return new Cloudinary({
     cloud: {
       cloudName: cloudName
     }
   });
 };
-
-// Todo: Upload with Cloudinary API?
-// export const openUploadWidget = (options: object, callback: Function) => {
-//   return window?.cloudinary?.openUploadWidget(options, callback);
-// };

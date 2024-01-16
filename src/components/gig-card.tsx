@@ -7,7 +7,7 @@ import Stars from "./stars";
 
 import { capitalize, formatCurrency, getRatingAverage } from "../utils";
 
-import { type TUser } from "../constants/user-validator";
+import { type TUser } from "../constants/validators/user-validator";
 
 type TProps = {
   userInfo: TUser | string;

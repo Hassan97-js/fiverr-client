@@ -8,7 +8,7 @@ import Button from "./button";
 import CustomIcon from "./custom-icon";
 import Table, { TableBody, TableHead } from "./table";
 
-import { type TOrder } from "../constants/order-validator";
+import { type TOrder } from "../constants/validators/order-validator";
 
 import { capitalize, formatCurrency } from "../utils";
 

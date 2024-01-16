@@ -5,7 +5,7 @@ import Table, { TableBody, TableHead } from "./table";
 
 import { type TChatsTableHeaders } from "../routes/chats";
 
-import { type TChat } from "../constants/chat-validator";
+import { type TChat } from "../constants/validators/chat-validator";
 import { capitalize, formatDateToNow } from "../utils";
 
 type TProps = {
@@ -15,12 +15,7 @@ type TProps = {
   clickable?: boolean;
 };
 
-const ChatsTable = ({
-  tableHeaders,
-  tableData,
-  isSeller,
-  clickable = false
-}: TProps) => {
+const ChatsTable = ({ tableHeaders, tableData, isSeller, clickable = false }: TProps) => {
   const { state } = useNavigation();
 
   const isBusy = state === "submitting";
@@ -65,10 +60,7 @@ const ChatsTable = ({
         className={`border-b ${clickable ? "cursor-pointer" : ""} ${
           isNotReadBySeller || isNotReadByBuyer ? "bg-green-100/60" : ""
         }`}>
-        <td
-          role="button"
-          scope="row"
-          className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
+        <td role="button" scope="row" className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
           <Link to={`/chat-messages/${fetchId}`}>
             {isSeller && buyerUserName
               ? capitalize(buyerUserName)
@@ -78,18 +70,11 @@ const ChatsTable = ({
           </Link>
         </td>
 
-        <td
-          role="button"
-          scope="row"
-          className="px-6 py-4 font-medium text-gray-500 truncate">
-          <Link to={`/chat-messages/${fetchId}`}>
-            {lastMessage ? lastMessage : "-"}
-          </Link>
+        <td role="button" scope="row" className="px-6 py-4 font-medium text-gray-500 truncate">
+          <Link to={`/chat-messages/${fetchId}`}>{lastMessage ? lastMessage : "-"}</Link>
         </td>
 
-        <td
-          scope="row"
-          className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
+        <td scope="row" className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
           {updatedAt ? formatDateToNow(updatedAt) : "-"}
         </td>
 

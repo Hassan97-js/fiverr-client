@@ -1,6 +1,6 @@
 import { useAsyncValue } from "react-router-dom";
 
-import { FromApiGigsSchema, type TFromApiGigs, type TGig } from "../constants/gig-validator";
+import { FromApiGigsSchema, type TFromApiGigs, type TGig } from "../constants/validators/gig-validator";
 
 import { handleError } from "../utils";
 

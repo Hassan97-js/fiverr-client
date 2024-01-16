@@ -6,7 +6,7 @@ import UserMenu from "./user-menu";
 
 import { handleError, makeApiRequest, removeData, retrieveData } from "../utils";
 
-import { type TUser } from "../constants/user-validator";
+import { type TUser } from "../constants/validators/user-validator";
 
 type TProps = {
   user?: TUser | null;
