@@ -20,10 +20,12 @@ const AddGig = () => {
   const actionData = useActionData();
   const navigation = useNavigation();
 
+  let hasActionError = false;
+
   const isBusy = navigation.state === "submitting";
+
   const actionDataValidationResult = ActionErrorSchema.safeParse(actionData);
 
-  let hasActionError = false;
   let actionErrorMessage: string | null = null;
 
   if (actionDataValidationResult.success) {
@@ -31,8 +33,10 @@ const AddGig = () => {
     actionErrorMessage = actionDataValidationResult.data.message;
   }
 
+  const isSubmitSuccessful = !isBusy && !hasActionError;
+
   useEffect(() => {
-    if (!isBusy && !hasActionError) {
+    if (isSubmitSuccessful) {
       formRef.current?.reset();
     }
   }, [isBusy]);
@@ -47,7 +51,7 @@ const AddGig = () => {
 
   return (
     <LayoutSection>
-      <FormError className="text-lg font-semibold m-0 p-0 mb-8" hasError={hasActionError}>
+      <FormError className="text-base font-semibold m-0 mb-10" hasError={hasActionError}>
         {hasActionError && actionErrorMessage ? actionErrorMessage : "Something went wrong! Please try again later"}
       </FormError>
 
@@ -93,7 +97,7 @@ const AddGig = () => {
            */}
 
             <FormLabel className="mb-2">Cover image</FormLabel>
-            <UploadImage fileInputId="cover-upload" submitInputName="image" />
+            <UploadImage fileInputId="cover-upload" submitInputName="image" isSubmitSuccessful={isSubmitSuccessful} />
           </div>
 
           <div>
@@ -106,7 +110,12 @@ const AddGig = () => {
            */}
 
             <FormLabel className="mb-2">Images</FormLabel>
-            <UploadImage fileInputId="gig-images-upload" submitInputName="images" isMultiple={true} />
+            <UploadImage
+              fileInputId="gig-images-upload"
+              submitInputName="images"
+              isMultiple={true}
+              isSubmitSuccessful={isSubmitSuccessful}
+            />
           </div>
 
           <div className="w-full flex-1">

@@ -1,13 +1,7 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 
 import { GigSchema } from "../constants/validators/gig-validator";
-import {
-  auth,
-  handleError,
-  makeApiRequest,
-  retrieveData,
-  storeData
-} from "../utils";
+import { auth, handleError, makeApiRequest, retrieveData, storeData } from "../utils";
 
 import { type TCreateGig } from "../constants/validators/form/create-gig-validator";
 import axios, { AxiosError } from "axios";
@@ -25,9 +19,7 @@ export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
     const currentToken = retrieveData("token");
 
     if (!currentToken) {
-      throw Error(
-        `[deleteGigAction] Something went wrong when trying to retrieve token`
-      );
+      throw Error(`[deleteGigAction] Something went wrong when trying to retrieve token`);
     }
 
     const formData = await request.formData();
@@ -62,18 +54,21 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
     const currentToken = retrieveData("token");
 
     if (!currentToken) {
-      throw Error(
-        `[createGigAction] Something went wrong when trying to retrieve token`
-      );
+      throw Error(`[createGigAction] Something went wrong when trying to retrieve token`);
     }
 
     const formData = await request.formData();
     const gig = Object.fromEntries(formData.entries()) as unknown as TCreateGig;
 
-    // eslint-disable-next-line no-unused-vars
-    // const { agreed, features, images, ...otherEntries } = gig;
+    const { agreed, features, images, image, ...otherEntries } = gig;
 
-    const { agreed, features, ...otherEntries } = gig;
+    if (!image) {
+      throw Error("Cover Image is required");
+    }
+
+    if (!images) {
+      throw Error("Gig Images are required");
+    }
 
     const featuresArray = features
       .trim()
@@ -81,23 +76,27 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
       .split(",")
       .map((feature) => feature.trim());
 
-    // const parsedImages = JSON.parse(images);
-    // const data = { featuresArray, images: parsedImages, ...otherEntries };
+    const parsedImages = JSON.parse(images) as string[];
+    const data = { featuresArray, images: parsedImages, image, ...otherEntries };
 
-    const data = { featuresArray, ...otherEntries };
+    // const data = { featuresArray, ...otherEntries };
 
-    const response = await makeApiRequest({
-      method: "post",
-      url: "gigs/single",
-      data,
-      headers: {
-        Authorization: `Bearer ${currentToken}`
-      }
-    });
+    console.log(data);
 
-    const gigValidationResult = GigSchema.parse(response.data.gig);
+    // const response = await makeApiRequest({
+    //   method: "post",
+    //   url: "gigs/single",
+    //   data,
+    //   headers: {
+    //     Authorization: `Bearer ${currentToken}`
+    //   }
+    // });
 
-    return redirect(`/gig/${gigValidationResult._id}`);
+    // const gigValidationResult = GigSchema.parse(response.data.gig);
+
+    // return redirect(`/gig/${gigValidationResult._id}`);
+
+    return null;
   } catch (error) {
     return handleError(error);
   }
@@ -116,9 +115,7 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
     const currentToken = retrieveData("token");
 
     if (!currentToken) {
-      throw Error(
-        `[createChatAction] Something went wrong when trying to retrieve token`
-      );
+      throw Error(`[createChatAction] Something went wrong when trying to retrieve token`);
     }
 
     const formData = await request.formData();
@@ -167,10 +164,7 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
   }
 };
 
-export const createChatMessageAction = async ({
-  request,
-  params
-}: ActionFunctionArgs) => {
+export const createChatMessageAction = async ({ request, params }: ActionFunctionArgs) => {
   try {
     const isAuthenticated = await auth();
 
@@ -183,9 +177,7 @@ export const createChatMessageAction = async ({
     const currentToken = retrieveData("token");
 
     if (!currentToken) {
-      throw Error(
-        `[createChatMessageAction] Something went wrong when trying to retrieve token`
-      );
+      throw Error(`[createChatMessageAction] Something went wrong when trying to retrieve token`);
     }
 
     const formData = await request.formData();
@@ -224,9 +216,7 @@ export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
     const currentToken = retrieveData("token");
 
     if (!currentToken) {
-      throw Error(
-        `[isMessageReadAction] Something went wrong when trying to retrieve token`
-      );
+      throw Error(`[isMessageReadAction] Something went wrong when trying to retrieve token`);
     }
 
     const formData = await request.formData();
@@ -264,9 +254,7 @@ export const addReviewAction = async ({ request, params }: ActionFunctionArgs) =
     const currentToken = retrieveData("token");
 
     if (!currentToken) {
-      throw Error(
-        `[addReviewAction] Something went wrong when trying to retrieve token`
-      );
+      throw Error(`[addReviewAction] Something went wrong when trying to retrieve token`);
     }
 
     const formData = await request.formData();

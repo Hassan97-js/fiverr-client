@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AdvancedImage } from "@cloudinary/react";
 import { type CloudinaryImage } from "@cloudinary/url-gen";
 
@@ -24,9 +24,10 @@ type TProps = {
   isMultiple?: boolean;
   submitInputName?: string;
   fileInputId: string;
+  isSubmitSuccessful: boolean;
 };
 
-const UploadImage = ({ isMultiple = false, submitInputName, fileInputId }: TProps) => {
+const UploadImage = ({ isMultiple = false, submitInputName, fileInputId, isSubmitSuccessful }: TProps) => {
   const [toUpload, setToUpload] = useState<TCldUploaded>({
     isSuccess: false,
     isUploading: false,
@@ -42,6 +43,20 @@ const UploadImage = ({ isMultiple = false, submitInputName, fileInputId }: TProp
   const shouldDisable = toUpload.isSuccess;
   const length = toUpload.image.files.length;
   const filesLength = length > 5 ? 5 : length === 1 ? 1 : length;
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      setToUpload({
+        isSuccess: false,
+        isUploading: false,
+        image: {
+          files: [],
+          elements: [],
+          urls: []
+        }
+      });
+    }
+  }, [isSubmitSuccessful]);
 
   const handleImageUpload = async () => {
     if (toUpload.isUploading) {
@@ -79,16 +94,13 @@ const UploadImage = ({ isMultiple = false, submitInputName, fileInputId }: TProp
 
   return (
     <>
-      {!isMultiple && !!toUpload?.image?.urls && submitInputName && (
-        <input type="hidden" name={submitInputName} defaultValue={toUpload?.image.urls[0]} required />
+      {!isMultiple && toUpload?.image?.urls.length > 0 && submitInputName && (
+        <input type="hidden" name={submitInputName} value={toUpload?.image.urls[0]} required />
       )}
 
-      {isMultiple &&
-        !!toUpload?.image?.urls &&
-        submitInputName &&
-        toUpload.image.urls.map((url, idx) => (
-          <input key={idx} type="hidden" name={submitInputName} defaultValue={url} required />
-        ))}
+      {isMultiple && toUpload?.image?.urls.length > 0 && submitInputName && (
+        <input type="hidden" name={submitInputName} value={JSON.stringify(toUpload?.image?.urls)} required />
+      )}
 
       <UploadButton
         isMultiple={isMultiple}
