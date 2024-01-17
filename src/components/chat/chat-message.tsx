@@ -1,31 +1,30 @@
-import { capitalize } from "../../utils";
+import { cn } from "../../utils";
 
 type TProps = {
   isSender: boolean;
-  senderUsername: string | null;
   text: string;
-  userImage?: string | null;
+  userImage: string;
 };
 
-const ChatMessage = ({ isSender, senderUsername, text, userImage }: TProps) => {
+const ChatMessage = ({ isSender, text, userImage }: TProps) => {
   return (
     <div
-      className={`flex gap-4 | max-w-lg | py-3 px-5 mb-6 ${
-        isSender
-          ? "bg-green-100 | rounded-l-xl rounded-b-xl | self-end"
-          : "bg-zinc-200/40 | rounded-r-xl rounded-b-xl | self-start"
-      } `}>
-      <img
-        className="w-7 h-7 object-cover object-center rounded-full"
-        src={userImage || ""}
-        alt=""
-      />
+      className={cn("flex items-center gap-3 mb-4 w-full", {
+        "self-end": isSender,
+        "self-start": !isSender
+      })}>
+      <div className="flex gap-2 w-9 h-9 rounded-full overflow-hidden">
+        <img className="w-full h-full object-cover object-center " src={userImage} alt="" />
+      </div>
 
-      <div>
-        <span className="block font-medium mb-1">
-          {capitalize(senderUsername || "Unknown")}
-        </span>
-        <p>{text}</p>
+      <div className="break-words text-base flex-1 w-full">
+        <p
+          className={cn("px-5 py-3 rounded-lg w-full", {
+            "bg-green-200/80": isSender,
+            "bg-zinc-200/40": !isSender
+          })}>
+          {text}
+        </p>
       </div>
     </div>
   );

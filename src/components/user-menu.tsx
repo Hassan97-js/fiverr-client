@@ -63,11 +63,13 @@ const UserMenu = ({ user, popoverClassName, onSignOut }: TUserMenuProps) => {
               className={`
             ${open ? "text-white" : "text-white/90"}
             group flex items-center rounded-md text-base font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}>
-              <img
-                className="w-10 h-10 flex-shrink- rounded-full object-cover object-center"
-                src={user?.image || "/avatar1.jpg"}
-                alt="Profile picture"
-              />
+              <div className="w-10 h-10 rounded-full min-w-[2.5rem] overflow-hidden">
+                <img
+                  className="w-full h-full object-cover object-center"
+                  src={user?.image || "/avatar1.jpg"}
+                  alt="Profile picture"
+                />
+              </div>
             </Popover.Button>
 
             <Transition
@@ -96,9 +98,7 @@ const UserMenu = ({ user, popoverClassName, onSignOut }: TUserMenuProps) => {
                           key={link.id}
                           to={link.to}
                           className="-mt-4 -mx-2  flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-green-500/50">
-                          <span className="text-sm font-medium text-gray-600">
-                            {link.text}
-                          </span>
+                          <span className="text-sm font-medium text-gray-600">{link.text}</span>
                         </Link>
                       );
                     })}

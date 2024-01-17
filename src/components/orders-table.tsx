@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Form } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form, useNavigation } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 
 import { type TTableHeaders } from "../routes/orders";
@@ -28,6 +28,13 @@ const OrdersTable = ({
   clickable = false
 }: TProps) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setIsTransitioning(false);
+    }
+  }, [navigation.state]);
 
   const tableHeaderElements = tableHeaders.map((tableHeader, idx) => {
     return (
@@ -38,12 +45,7 @@ const OrdersTable = ({
   });
 
   const tableBodyElements = tableData.map((item, idx) => {
-    const {
-      _id: id,
-      sellerId: sellerInfo,
-      buyerId: buyerInfo,
-      gigId: gigInfo
-    } = item;
+    const { _id: id, sellerId: sellerInfo, buyerId: buyerInfo, gigId: gigInfo } = item;
 
     let image: null | string | undefined = null;
     let title: null | string | undefined = null;
@@ -73,47 +75,30 @@ const OrdersTable = ({
     return (
       <tr
         key={id}
-        className={`border-b ${clickable ? "cursor-pointer" : ""} ${
-          striped && idx % 2 !== 0 ? "bg-zinc-50" : ""
-        }`}>
-        <td
-          scope="row"
-          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
+        className={`border-b ${clickable ? "cursor-pointer" : ""} ${striped && idx % 2 !== 0 ? "bg-zinc-50" : ""}`}>
+        <td scope="row" className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {image ? (
-            <img
-              className="max-w-none w-12 h-12 object-cover object-center rounded-full"
-              src={image}
-              alt=""
-            />
+            <img className="max-w-none w-12 h-12 object-cover object-center rounded-full" src={image} alt="" />
           ) : (
             "-"
           )}
         </td>
 
-        <td
-          scope="row"
-          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap capitalize">
+        <td scope="row" className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap capitalize">
           {title}
         </td>
 
-        <td
-          scope="row"
-          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
+        <td scope="row" className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {price ? formatCurrency(price) : "-"}
         </td>
 
-        <td
-          scope="row"
-          className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
+        <td scope="row" className="px-6 py-4 font-medium text-zinc-500 whitespace-nowrap">
           {buyerUserName && isSeller ? capitalize(buyerUserName) : ""}
           {sellerUserName && !isSeller ? capitalize(sellerUserName) : ""}
           {(!buyerUserName || !sellerUserName) && "-"}
         </td>
 
-        <td
-          role="button"
-          scope="row"
-          className="px-6 py-4 font-medium text-zinc-500">
+        <td role="button" scope="row" className="px-6 py-4 font-medium text-zinc-500">
           <Form method="POST">
             <input type="hidden" name="sellerId" value={sellerId || ""} />
             <input type="hidden" name="buyerId" value={buyerId || ""} />

@@ -1,28 +1,49 @@
-import { Form } from "react-router-dom";
+import { type MouseEvent, useRef, useEffect } from "react";
+import { Form, useNavigation } from "react-router-dom";
+
 import Button from "../button";
 import { capitalize } from "../../utils";
 
 type TProps = {
-  userName?: string;
+  receiverName?: string;
 };
 
-const ChatInput = ({ userName }: TProps) => {
+const ChatInput = ({ receiverName }: TProps) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const navigation = useNavigation();
+
+  const isBusy = navigation.state === "submitting";
+
+  useEffect(() => {
+    if (!isBusy) {
+      formRef.current?.reset();
+    }
+  }, [isBusy]);
+
+  const handleSendMessage = (e: MouseEvent<HTMLButtonElement>) => {
+    if (textareaRef.current?.value.length === 0) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <Form method="POST">
+    <Form ref={formRef} method="POST">
       <label htmlFor="chat" className="sr-only">
-        Message {userName}
+        Message {receiverName}
       </label>
 
-      <div className="flex items-center px-4 py-6 rounded-br-lg rounded-bl-lg bg-zinc-50/80">
+      <div className="flex items-center gap-4 py-6 rounded-br-lg rounded-bl-lg">
         <textarea
+          ref={textareaRef}
           id="chat"
           name="text"
           rows={3}
-          className="block mx-4 p-2.5 w-full text-base bg-white rounded-lg border-[1.8px] border-zinc-300 focus:ring-green-500 focus:border-green-500 outline-none transition"
-          placeholder={`Message ${capitalize(userName || "")}`}
+          className="block p-2.5 w-full text-base bg-white rounded-lg border-[1.8px] border-zinc-300 focus:ring-green-500 focus:border-green-500 outline-none transition"
+          placeholder={`Message ${capitalize(receiverName || "")}`}
           autoFocus></textarea>
 
-        <Button variant="primary" type="submit" className="rounded-full">
+        <Button onClick={handleSendMessage} variant="primary" type="submit" className="rounded-full">
           <svg
             aria-hidden="true"
             className="w-6 h-6 rotate-90"

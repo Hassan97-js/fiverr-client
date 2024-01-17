@@ -1,5 +1,4 @@
 import { ChatsTable, LayoutSection } from "../components";
-
 import { usePageData, useUser } from "../hooks";
 
 export type TChatsTableHeaders = {
@@ -12,11 +11,7 @@ const Chats = () => {
   const user = useUser();
 
   if (!chats?.length) {
-    return (
-      <p className="text-zinc-500 text-lg font-medium text-center mt-10">
-        No chats yet
-      </p>
-    );
+    return <p className="text-zinc-500 text-lg font-medium text-center mt-40">No chats yet</p>;
   }
 
   const tableHeaders = [
@@ -28,12 +23,7 @@ const Chats = () => {
 
   return (
     <LayoutSection>
-      <ChatsTable
-        tableHeaders={tableHeaders}
-        tableData={chats}
-        isSeller={user?.isSeller}
-        clickable={true}
-      />
+      <ChatsTable tableHeaders={tableHeaders} tableData={chats} isSeller={user?.isSeller} clickable={true} />
     </LayoutSection>
   );
 };

@@ -1,13 +1,7 @@
-import { type LoaderFunctionArgs, defer, redirect } from "react-router-dom";
+import { type LoaderFunctionArgs, redirect } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  auth,
-  getCurrentUser,
-  makeApiRequest,
-  removeData,
-  retrieveData
-} from "../utils";
+import { auth, getCurrentUser, makeApiRequest, removeData, retrieveData } from "../utils";
 
 export const rootLoader = async () => {
   try {
@@ -45,9 +39,7 @@ export const successLoader = async ({ request }: LoaderFunctionArgs) => {
 
   const url = new URL(request.url);
 
-  const { payment_intent: paymentIntent } = Object.fromEntries(
-    new URLSearchParams(url.search)
-  );
+  const { payment_intent: paymentIntent } = Object.fromEntries(new URLSearchParams(url.search));
 
   try {
     await makeApiRequest({
@@ -82,9 +74,7 @@ export const paymentLoader = async ({ params, request }: LoaderFunctionArgs) => 
     throw Error("[paymentLoader] Unauthorized");
   }
 
-  const loadStripePromise = loadStripe(
-    import.meta.env.VITE_STRIPE_TEST_PUBLISHABLE_KEY
-  );
+  const loadStripePromise = loadStripe(import.meta.env.VITE_STRIPE_TEST_PUBLISHABLE_KEY);
 
   const paymentIntentPromise = makeApiRequest({
     method: "post",
@@ -97,18 +87,12 @@ export const paymentLoader = async ({ params, request }: LoaderFunctionArgs) => 
     }
   });
 
-  const paymentResponses = await Promise.all([
-    loadStripePromise,
-    paymentIntentPromise
-  ]);
+  const paymentResponses = await Promise.all([loadStripePromise, paymentIntentPromise]);
 
   return paymentResponses;
 };
 
-export const fetchChatMessagesLoader = async ({
-  request,
-  params
-}: LoaderFunctionArgs) => {
+export const fetchChatMessagesLoader = async ({ request, params }: LoaderFunctionArgs) => {
   const isAuthenticated = await auth();
 
   const redirectTo = new URL(request.url).pathname;

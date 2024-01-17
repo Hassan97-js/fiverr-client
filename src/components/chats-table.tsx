@@ -16,9 +16,9 @@ type TProps = {
 };
 
 const ChatsTable = ({ tableHeaders, tableData, isSeller, clickable = false }: TProps) => {
-  const { state } = useNavigation();
+  const navigation = useNavigation();
 
-  const isBusy = state === "submitting";
+  const isBusy = navigation.state === "submitting";
 
   const tableHeaderElements = tableHeaders.map((tableHeader, idx) => {
     return (
@@ -31,7 +31,7 @@ const ChatsTable = ({ tableHeaders, tableData, isSeller, clickable = false }: TP
   const tableBodyElements = tableData.map((item) => {
     const {
       _id: id,
-      fetchId,
+      chatId,
       sellerId: sellerInfo,
       buyerId: buyerInfo,
       readByBuyer,
@@ -61,7 +61,7 @@ const ChatsTable = ({ tableHeaders, tableData, isSeller, clickable = false }: TP
           isNotReadBySeller || isNotReadByBuyer ? "bg-green-100/60" : ""
         }`}>
         <td role="button" scope="row" className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
-          <Link to={`/chat-messages/${fetchId}`}>
+          <Link to={`/chat-messages/${chatId}`}>
             {isSeller && buyerUserName
               ? capitalize(buyerUserName)
               : !isSeller && sellerUserName
@@ -70,8 +70,8 @@ const ChatsTable = ({ tableHeaders, tableData, isSeller, clickable = false }: TP
           </Link>
         </td>
 
-        <td role="button" scope="row" className="px-6 py-4 font-medium text-gray-500 truncate">
-          <Link to={`/chat-messages/${fetchId}`}>{lastMessage ? lastMessage : "-"}</Link>
+        <td role="button" scope="row" className="px-6 py-4 font-medium text-gray-500 max-w-20 truncate">
+          <Link to={`/chat-messages/${chatId}`}>{lastMessage ? lastMessage : "-"}</Link>
         </td>
 
         <td scope="row" className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
@@ -81,7 +81,7 @@ const ChatsTable = ({ tableHeaders, tableData, isSeller, clickable = false }: TP
         <td scope="row" className="px-6 py-4 whitespace-nowrap">
           {isNotReadByBuyer || isNotReadBySeller ? (
             <Form method="PUT">
-              <input type="hidden" name="id" value={fetchId} />
+              <input type="hidden" name="id" value={chatId} />
 
               <Button
                 type="submit"

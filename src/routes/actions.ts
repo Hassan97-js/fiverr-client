@@ -1,4 +1,4 @@
-import  { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 
 import { GigSchema } from "../constants/validators/gig-validator";
@@ -117,13 +117,16 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
 
     const { sellerId, buyerId, isSeller: isCurrentSeller } = formEntries;
 
-    const fetchId = String(sellerId) + String(buyerId);
     const isSeller = isCurrentSeller === "true";
+    const chatId = isSeller ? `${sellerId}-${buyerId}` : `${buyerId}-${sellerId}`;
 
     const response = await makeApiRequest({
-      url: `chats/single/${fetchId}`,
+      url: `chats/single/${chatId}`,
       headers: {
         Authorization: `Bearer ${currentToken}`
+      },
+      validateStatus: (status) => {
+        return (status >= 200 && status < 300) || status === 404;
       }
     });
 
@@ -132,27 +135,29 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
         method: "post",
         url: `chats/single`,
         data: {
-          messageToId: isSeller ? buyerId : sellerId
+          receiverId: isSeller ? buyerId : sellerId
         },
         headers: {
           Authorization: `Bearer ${currentToken}`
         }
       });
 
-      console.log(response);
+      const redirectUrl = response.data.chat.chatId as string;
 
-      if (!response.data.fetchId) {
+      if (!redirectUrl) {
         return null;
       }
 
-      return redirect(`/chat-messages/${response.data.fetchId}`);
+      return redirect(`/chat-messages/${redirectUrl}`);
     }
 
-    if (!response.data.chat.fetchId) {
+    const redirectUrl = response.data.chat.chatId as string;
+
+    if (!redirectUrl) {
       return null;
     }
 
-    return redirect(`/chat-messages/${response.data.chat.fetchId}`);
+    return redirect(`/chat-messages/${redirectUrl}`);
   } catch (error) {
     return error;
   }
@@ -191,7 +196,7 @@ export const createChatMessageAction = async ({ request, params }: ActionFunctio
       }
     });
 
-    return null;
+    return response.data;
   } catch (error) {
     return error;
   }

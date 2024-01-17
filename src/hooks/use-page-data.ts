@@ -9,6 +9,7 @@ import {
   type TChat,
   type TChatMessage
 } from "../constants/validators/chat-validator";
+import { type TUser } from "../constants/validators/user-validator";
 import {
   StripePaymentIntentIdSchema,
   type TPaymentData,
@@ -18,7 +19,7 @@ import { FromApiReviewsSchema, type TReview } from "../constants/validators/revi
 
 import { handleError } from "../utils";
 
-import { TAxiosResponses } from "../types/api.types";
+import { type TAxiosResponses } from "../types/api.types";
 
 type TPageTypes = "gigs" | "gig" | "privateGigs" | "orders" | "chats" | "chatMessages" | "payment";
 
@@ -28,7 +29,10 @@ type PageData = {
   privateGigs?: TGig[];
   orders?: TOrder[];
   chats?: TChat[];
-  chatMessages?: TChatMessage[];
+  chatMessages?: {
+    messages: TChatMessage[];
+    receiver: TUser;
+  };
   payment?: {
     stripe: Stripe | PromiseLike<Stripe | null> | null;
     paymentIntent: TStripePaymentIntentId;
@@ -107,7 +111,12 @@ export const usePageData = ({ dataType }: TProps): PageData => {
     const result = FromApiChatMessagesSchema.safeParse(data);
 
     if (result.success) {
-      return { chatMessages: result.data.chatMessages };
+      return {
+        chatMessages: {
+          messages: result.data.chatMessages,
+          receiver: result.data.receiver
+        }
+      };
     } else {
       handleError(result.error);
       return null;
