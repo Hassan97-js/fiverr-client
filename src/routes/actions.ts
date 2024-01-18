@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 
 import { GigSchema } from "../constants/validators/gig-validator";
-import { auth, handleError, makeApiRequest, retrieveData, storeData } from "../utils";
+import { auth, getErrorMessage, handleError, makeApiRequest, retrieveData, storeData } from "../utils";
 
 import { type TCreateGig } from "../constants/validators/form/create-gig-validator";
 
@@ -320,6 +320,10 @@ export const signUpAction = async ({ request }: ActionFunctionArgs) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
+    if (!data.image) {
+      throw Error("Profile image is required");
+    }
+
     if (!data?.isSeller) {
       data.isSeller = "false";
     } else if (data?.isSeller === "on") {
@@ -334,6 +338,6 @@ export const signUpAction = async ({ request }: ActionFunctionArgs) => {
 
     return redirect("/sign-in");
   } catch (error) {
-    return error;
+    return getErrorMessage(error);
   }
 };

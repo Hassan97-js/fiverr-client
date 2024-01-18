@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useFetcher } from "react-router-dom";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 
 import {
   CustomInput,
@@ -9,55 +9,49 @@ import {
   LayoutSection,
   Heading2,
   FormLabel,
-  UploadImage
+  UploadImage,
+  FormError
 } from "../components";
 
 const SignUp = () => {
   const formRef = useRef<HTMLFormElement>(null);
+  const actionData = useActionData();
+  const navigation = useNavigation();
 
-  const fetcher = useFetcher();
+  let actionError = "";
 
-  const axiosResponse = fetcher?.data?.response;
-  const actionError = axiosResponse?.data?.message;
+  const isBusy = navigation.state === "submitting";
 
-  const isBusy = fetcher.state === "submitting";
+  if (typeof actionData === "string") {
+    actionError = actionData;
+  }
+
+  const isSubmitSuccessful = !isBusy && !actionError;
 
   useEffect(() => {
-    if (!isBusy) {
+    if (isSubmitSuccessful) {
       formRef.current?.reset();
     }
   }, [isBusy]);
 
   return (
     <LayoutSection>
-      <fetcher.Form
-        ref={formRef}
-        method="post"
-        className="relative flex flex-col-reverse lg:flex-row justify-center gap-16">
+      <Form ref={formRef} method="post" className="relative flex flex-col-reverse lg:flex-row justify-center gap-16">
         <div className="flex flex-col gap-x-10 gap-y-9 w-full">
+          <FormError className="text-base font-semibold m-0" hasError={!!actionError}>
+            {actionError ? actionError : "Something went wrong! Please try again later"}
+          </FormError>
+
           <Heading2 className="mb-4">Sign up</Heading2>
-
-          {actionError && (
-            <span className="text-normal font-bold text-red-500">{actionError}</span>
-          )}
-
           <div>
             <div className="flex flex-col gap-x-8 gap-y-6">
               <div>
                 <FormLabel className="mb-2">Username</FormLabel>
-                <CustomInput
-                  name="username"
-                  id="username"
-                  placeholder="Enter your username"
-                />
+                <CustomInput name="username" id="username" placeholder="Enter your username" />
               </div>
               <div>
                 <FormLabel className="mb-2">Email</FormLabel>
-                <CustomInput
-                  name="email"
-                  id="email"
-                  placeholder="Enter your email address"
-                />
+                <CustomInput name="email" id="email" placeholder="Enter your email address" />
               </div>
 
               <div>
@@ -73,17 +67,16 @@ const SignUp = () => {
 
               <div className="flex-1">
                 <FormLabel className="mb-2">Profile picture</FormLabel>
-                <UploadImage  />
+                <UploadImage
+                  submitInputName="image"
+                  fileInputId="profile-image"
+                  isSubmitSuccessful={isSubmitSuccessful}
+                />
               </div>
 
               <div>
                 <FormLabel className="mb-2">Country</FormLabel>
-                <CustomInput
-                  name="country"
-                  className="mb-3"
-                  id="country"
-                  placeholder="Enter your country name"
-                />
+                <CustomInput name="country" className="mb-3" id="country" placeholder="Enter your country name" />
               </div>
             </div>
           </div>
@@ -112,27 +105,27 @@ const SignUp = () => {
               </div>
 
               <div>
-                <FormLabel className="mb-2">Phone Number</FormLabel>
-                <CustomInput
-                  name="phone"
-                  id="phone"
-                  placeholder="Enter your phone number"
-                  required={false}
-                />
+                <FormLabel className="mb-2" isRequired={false}>
+                  Phone Number
+                </FormLabel>
+                <CustomInput name="phone" id="phone" placeholder="Enter your phone number" required={false} />
               </div>
 
               <div>
-                <FormLabel className="mb-2">Description</FormLabel>
+                <FormLabel className="mb-2" isRequired={false}>
+                  Description
+                </FormLabel>
                 <TextareaInput
                   name="description"
                   id="description"
                   placeholder="A short description of yourself"
+                  required={false}
                 />
               </div>
             </div>
           </div>
         </div>
-      </fetcher.Form>
+      </Form>
     </LayoutSection>
   );
 };

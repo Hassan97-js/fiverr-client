@@ -13,8 +13,10 @@ import { handleError } from "./handle-error";
 import { capitalizeFirstLetter } from "./capitalize";
 
 import { cn } from "./cn";
+import { getErrorMessage } from "./error-message";
 
 export {
+  getErrorMessage,
   capitalizeFirstLetter,
   cn,
   handleError,
