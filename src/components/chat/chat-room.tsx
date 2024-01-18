@@ -15,7 +15,7 @@ const ChatRoom = ({ userId: currentUserId, messages, receiver }: TProps) => {
     <div className="flex flex-col flex-auto bg-zinc-50/40 w-full p-8 rounded-lg h-full">
       <ChatAvatar image={receiver?.image} name={receiver?.username} email={receiver?.email} />
 
-      <div className="flex flex-col pt-10 pb-5 w-full h-full flex-auto">
+      <div className="flex flex-col pt-10 pb-5 w-full h-[900px] flex-auto overflow-scroll">
         {messages?.map((message) => {
           const { _id: id, userId: userInfo } = message;
 

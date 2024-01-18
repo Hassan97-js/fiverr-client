@@ -33,7 +33,7 @@ const ChatInput = ({ receiverName }: TProps) => {
         Message {receiverName}
       </label>
 
-      <div className="flex items-center gap-4 py-6 rounded-br-lg rounded-bl-lg">
+      <div className="flex flex-col items-start sm:flex-row lg:items-center gap-4 py-6 rounded-br-lg rounded-bl-lg">
         <textarea
           ref={textareaRef}
           id="chat"
