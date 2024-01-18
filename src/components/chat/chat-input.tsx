@@ -2,6 +2,7 @@ import { type MouseEvent, useRef, useEffect } from "react";
 import { Form, useNavigation } from "react-router-dom";
 
 import Button from "../button";
+
 import { capitalize } from "../../utils";
 
 type TProps = {

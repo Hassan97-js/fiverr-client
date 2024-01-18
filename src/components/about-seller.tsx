@@ -3,8 +3,6 @@ import Stars from "./stars";
 
 import Heading2 from "./typography/heading-2";
 
-import { capitalize } from "../utils";
-
 type TProps = {
   currentUserId?: string;
   gigUserId: string | null;
@@ -46,9 +44,7 @@ const AboutSeller = ({
             />
 
             <div className="info flex flex-col gap-1">
-              {sellerName && (
-                <span className="font-medium mt-1 capitalize">{sellerName}</span>
-              )}
+              {sellerName && <span className="font-medium mt-1 capitalize">{sellerName}</span>}
               <div className="stars">
                 <Stars numberOfStars={rating} />
               </div>

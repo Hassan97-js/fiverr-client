@@ -9,12 +9,11 @@ import { ChatAvatar } from "./chat/chat-avatar";
 import UserMenu from "./user-menu";
 import Logo from "./logo";
 import Navbar from "./navbar";
-import Footer from "./footer/footer";
+import Footer from "./footer";
 import Hero from "./hero";
 import TrustedBy from "./trusted-by";
 import Slider from "./slider/silder";
 import CategorySliderItem from "./slider/category-slider-item";
-import ProjectSliderItem from "./slider/project-slider-item";
 import Features from "./features";
 import FiverrBusiness from "./fiverr-business";
 import GigCard from "./gig-card";
@@ -36,7 +35,6 @@ import ChatRoom from "./chat/chat-room";
 import CustomInput from "./form/custom-input";
 import SelectInput from "./form/select-input";
 import TextareaInput from "./form/textarea-input";
-import FileInput from "./form/file-input";
 import AgreeCheckbox from "./form/agree-checkbox";
 import CustomToggle from "./form/custom-toggle";
 import Spinner from "./spinner";
@@ -70,7 +68,6 @@ export {
   TrustedBy,
   Slider,
   CategorySliderItem,
-  ProjectSliderItem,
   GigCard,
   GigCTA,
   Features,
@@ -91,7 +88,6 @@ export {
   SelectInput,
   CustomToggle,
   TextareaInput,
-  FileInput,
   Spinner,
   Alert,
   ErrorAlert,

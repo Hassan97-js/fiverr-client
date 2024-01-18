@@ -1,12 +1,6 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
-import {
-  Button,
-  CustomInput,
-  FormLabel,
-  Heading2,
-  LayoutSection
-} from "../components";
+import { Button, CustomInput, FormLabel, Heading2, LayoutSection } from "../components";
 
 const SignIn = () => {
   const navigation = useNavigation();
@@ -20,28 +14,16 @@ const SignIn = () => {
     actionError = actionData;
   }
 
-  // Todo: Use Zod here?
-  // if (typeof actionData === "object") {
-  //   actionError = actionData?.message;
-  // }
-
   return (
     <LayoutSection>
-      <Form
-        method="POST"
-        className="flex flex-col justify-center items-center gap-5 max-w-[400px] mx-auto">
+      <Form method="POST" className="flex flex-col justify-center items-center gap-5 max-w-[400px] mx-auto">
         <div className="space-y-16 w-full">
           <Heading2 className="self-start">Sign in</Heading2>
 
           <div className="space-y-6">
             <div>
               <FormLabel className="mb-2">Username</FormLabel>
-              <CustomInput
-                name="username"
-                id="username"
-                placeholder="Enter your username"
-                autoFocus={true}
-              />
+              <CustomInput name="username" id="username" placeholder="Enter your username" autoFocus={true} />
             </div>
 
             <div>
@@ -56,9 +38,7 @@ const SignIn = () => {
             </div>
           </div>
 
-          {actionError && (
-            <span className="text-sm text-red-600">{actionError}</span>
-          )}
+          {actionError && <span className="text-sm text-red-600">{actionError}</span>}
         </div>
 
         <Button disabled={isBusy} variant="primary" type="submit" className="w-full">

@@ -8,11 +8,11 @@ import {
   RiTwitterFill
 } from "react-icons/ri";
 
-import CustomIcon from "../custom-icon";
-import Heading2 from "../typography/heading-2";
-import LayoutSection from "../layout/layout-section";
+import CustomIcon from "./custom-icon";
+import Heading2 from "./typography/heading-2";
+import LayoutSection from "./layout/layout-section";
 
-import assetsData from "../../assets";
+import assetsData from "../assets";
 const { footerLogoSVG } = assetsData.svgs;
 
 const Footer = () => {
@@ -190,40 +190,15 @@ const Footer = () => {
           </div>
 
           <div className="flex md:justify-center items-center gap-6 py-2">
-            <CustomIcon
-              Icon={RiFacebookCircleFill}
-              className="text-zinc-500"
-              size="2em"
-              aria-label="A facebook logo"
-            />
+            <CustomIcon Icon={RiFacebookCircleFill} className="text-zinc-500" size="2em" aria-label="A facebook logo" />
 
-            <CustomIcon
-              Icon={RiInstagramFill}
-              className="text-zinc-500"
-              size="2em"
-              aria-label="An instagram logo"
-            />
+            <CustomIcon Icon={RiInstagramFill} className="text-zinc-500" size="2em" aria-label="An instagram logo" />
 
-            <CustomIcon
-              Icon={RiPinterestFill}
-              className="text-zinc-500"
-              size="2em"
-              aria-label="A pinterest logo"
-            />
+            <CustomIcon Icon={RiPinterestFill} className="text-zinc-500" size="2em" aria-label="A pinterest logo" />
 
-            <CustomIcon
-              Icon={RiLinkedinBoxFill}
-              className="text-zinc-500"
-              size="2em"
-              aria-label="A linkedIn logo"
-            />
+            <CustomIcon Icon={RiLinkedinBoxFill} className="text-zinc-500" size="2em" aria-label="A linkedIn logo" />
 
-            <CustomIcon
-              Icon={RiTwitterFill}
-              className="text-zinc-500"
-              size="2em"
-              aria-label="A twitter logo"
-            />
+            <CustomIcon Icon={RiTwitterFill} className="text-zinc-500" size="2em" aria-label="A twitter logo" />
           </div>
         </div>
       </LayoutSection>

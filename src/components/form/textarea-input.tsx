@@ -1,19 +1,8 @@
 import { type TextareaHTMLAttributes } from "react";
 
-import FormError from "./form-error";
-import FormLabel from "./form-label";
-
 type TProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-const TextareaInput = ({
-  required = true,
-  name,
-  id,
-  placeholder,
-  minLength,
-  maxLength,
-  onChange
-}: TProps) => {
+const TextareaInput = ({ required = true, name, id, placeholder, minLength, maxLength, onChange }: TProps) => {
   return (
     <textarea
       minLength={minLength}

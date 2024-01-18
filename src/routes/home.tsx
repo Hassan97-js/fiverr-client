@@ -21,7 +21,7 @@ const Home = () => (
       <LayoutSection>
         <CategorySlider responsive={responsiveConfig} itemClass="m-5 shadow-md rounded-md overflow-hidden">
           {categories.map((category) => {
-            return <CategorySliderItem key={category.id} item={category} />;
+            return <CategorySliderItem key={category.id} category={category} />;
           })}
         </CategorySlider>
       </LayoutSection>
