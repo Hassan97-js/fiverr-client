@@ -34,10 +34,8 @@ export const handleError = (error: unknown) => {
     };
   }
 
-  console.error("Unexpected error", error);
-
   return {
-    message: "Unknown Error",
-    hasError: true
+    message: "",
+    hasError: false
   };
 };

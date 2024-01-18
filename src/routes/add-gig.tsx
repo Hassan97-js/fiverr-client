@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
-import { ActionErrorSchema } from "../constants/validators/router-validator";
-
 import {
   AgreeCheckbox,
   Button,
@@ -20,20 +18,15 @@ const AddGig = () => {
   const actionData = useActionData();
   const navigation = useNavigation();
 
-  let hasActionError = false;
-
   const isBusy = navigation.state === "submitting";
 
-  const actionDataValidationResult = ActionErrorSchema.safeParse(actionData);
+  let actionErrorMessage: string = "";
 
-  let actionErrorMessage: string | null = null;
-
-  if (actionDataValidationResult.success) {
-    hasActionError = true;
-    actionErrorMessage = actionDataValidationResult.data.message;
+  if (typeof actionData === "string") {
+    actionErrorMessage = actionData;
   }
 
-  const isSubmitSuccessful = !isBusy && !hasActionError;
+  const isSubmitSuccessful = !isBusy && !actionErrorMessage;
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -51,8 +44,8 @@ const AddGig = () => {
 
   return (
     <LayoutSection>
-      <FormError className="text-base font-semibold m-0 mb-10" hasError={hasActionError}>
-        {hasActionError && actionErrorMessage ? actionErrorMessage : "Something went wrong! Please try again later"}
+      <FormError className="text-base font-semibold m-0 mb-10" hasError={!!actionErrorMessage}>
+        {actionErrorMessage ? actionErrorMessage : "Something went wrong! Please try again later"}
       </FormError>
 
       <Form ref={formRef} method="POST">

@@ -125,14 +125,14 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
         Authorization: `Bearer ${currentToken}`
       },
       validateStatus: (status) => {
-        return (status >= 200 && status < 300) || status === 404;
+        return (status >= 200 && status < 400) || status === 404;
       }
     });
 
     if (response.status === 404) {
       const response = await makeApiRequest({
         method: "post",
-        url: `chats/single`,
+        url: "chats/single",
         data: {
           receiverId: isSeller ? buyerId : sellerId
         },
@@ -220,7 +220,7 @@ export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
-    const response = await makeApiRequest({
+    await makeApiRequest({
       method: "put",
       url: `chats/single`,
       data,
@@ -228,10 +228,6 @@ export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
         Authorization: `Bearer ${currentToken}`
       }
     });
-
-    if (!response.data.success) {
-      throw Error(`Something went wrong: ${response.status}`);
-    }
 
     return null;
   } catch (error) {

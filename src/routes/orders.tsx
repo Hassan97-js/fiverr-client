@@ -11,11 +11,7 @@ const Orders = () => {
   const user = useUser();
 
   if (!orders?.length) {
-    return (
-      <p className="text-zinc-500 text-lg font-medium text-center mt-10">
-        No orders yet
-      </p>
-    );
+    return <p className="text-zinc-500 text-lg font-medium text-center mt-10">No orders yet</p>;
   }
 
   const tableHeaders = [
@@ -28,11 +24,7 @@ const Orders = () => {
 
   return (
     <LayoutSection>
-      <OrdersTable
-        isSeller={user?.isSeller}
-        tableHeaders={tableHeaders}
-        tableData={orders}
-      />
+      <OrdersTable isSeller={user?.isSeller} tableHeaders={tableHeaders} tableData={orders} />
     </LayoutSection>
   );
 };
