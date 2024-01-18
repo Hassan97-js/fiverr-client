@@ -1,29 +1,25 @@
 import { z } from "zod";
 import { AxiosError } from "axios";
 
-const isKnownError = (error: unknown): error is AxiosError | z.ZodError | Error => {
-  return (
-    error instanceof z.ZodError ||
-    error instanceof AxiosError ||
-    error instanceof Error
-  );
-};
-
-const logError = (error: AxiosError | z.ZodError | Error | string) => {
-  console.error(isKnownError(error) ? error.message : `Unknown error: ${error}`);
-};
-
 export const handleError = (error: unknown) => {
   if (error instanceof z.ZodError) {
-    logError(error.message);
+    console.error(error.message);
     return {
       message: `${error.issues[0].path[0]} ${error.issues[0].message}`,
       hasError: true
     };
   }
 
-  if (error instanceof AxiosError || error instanceof Error) {
-    logError(error.message);
+  if (error instanceof AxiosError) {
+    console.error(error.message);
+    return {
+      message: error.response?.data.message || error.message,
+      hasError: true
+    };
+  }
+
+  if (error instanceof Error) {
+    console.error(error.message);
     return {
       message: error.message,
       hasError: true
@@ -31,7 +27,7 @@ export const handleError = (error: unknown) => {
   }
 
   if (typeof error === "string") {
-    logError(error);
+    console.error(error);
     return {
       message: error,
       hasError: true
@@ -39,4 +35,9 @@ export const handleError = (error: unknown) => {
   }
 
   console.error("Unexpected error", error);
+
+  return {
+    message: "Unknown Error",
+    hasError: true
+  };
 };

@@ -6,7 +6,7 @@ export const auth = async () => {
 
     return !!currentUser;
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return false;
   }

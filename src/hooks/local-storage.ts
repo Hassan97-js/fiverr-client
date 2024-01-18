@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 
-export const useLocalStorage = (
-  key: string,
-  initialValue: string | (() => void)
-) => {
+import { handleError } from "../utils";
+
+export const useLocalStorage = (key: string, initialValue: string | (() => void)) => {
   const [storedValue, setStoredValue] = useState(() => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -22,7 +21,7 @@ export const useLocalStorage = (
 
       return JSON.parse(item);
     } catch (error) {
-      console.log(error);
+      handleError(error);
       return initialValue;
     }
   });

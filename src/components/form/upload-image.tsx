@@ -6,7 +6,7 @@ import UploadButton from "./upload-button";
 import Button from "../button";
 
 import { uploadImages } from "./utils/upload";
-import { createCloudinary } from "../../utils";
+import { createCloudinary, handleError } from "../../utils";
 
 import { CLOUD_NAME } from "../../constants/strings/cloudinary";
 
@@ -75,7 +75,7 @@ const UploadImage = ({ isMultiple = false, submitInputName, fileInputId, isSubmi
 
       setToUpload((prevState) => ({ ...prevState, isUploading: true }));
     } catch (error) {
-      console.log(error);
+      handleError(error);
       setToUpload((prevState) => ({ ...prevState, isSuccess: false }));
     } finally {
       setToUpload((prevState) => ({ ...prevState, isUploading: false }));

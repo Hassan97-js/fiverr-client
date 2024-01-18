@@ -1,8 +1,7 @@
-import { AxiosError } from "axios";
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 
 import { GigSchema } from "../constants/validators/gig-validator";
-import { auth, getErrorMessage, handleError, makeApiRequest, retrieveData, storeData } from "../utils";
+import { auth, handleError, makeApiRequest, retrieveData, storeData } from "../utils";
 
 import { type TCreateGig } from "../constants/validators/form/create-gig-validator";
 
@@ -27,7 +26,7 @@ export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
 
     const { gigId } = formEntries;
 
-    const response = await makeApiRequest({
+    await makeApiRequest({
       method: "delete",
       url: `gigs/single/${gigId}`,
       headers: {
@@ -37,7 +36,7 @@ export const deleteGigAction = async ({ request }: ActionFunctionArgs) => {
 
     return null;
   } catch (error) {
-    return error;
+    return handleError(error)?.message;
   }
 };
 
@@ -92,7 +91,7 @@ export const createGigAction = async ({ request }: ActionFunctionArgs) => {
 
     return redirect(`/gig/${gigValidationResult._id}`);
   } catch (error) {
-    return handleError(error);
+    return handleError(error)?.message;
   }
 };
 
@@ -159,7 +158,7 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
 
     return redirect(`/chat-messages/${redirectUrl}`);
   } catch (error) {
-    return error;
+    return handleError(error)?.message;
   }
 };
 
@@ -198,7 +197,7 @@ export const createChatMessageAction = async ({ request, params }: ActionFunctio
 
     return response.data;
   } catch (error) {
-    return error;
+    return handleError(error)?.message;
   }
 };
 
@@ -236,7 +235,7 @@ export const isMessageReadAction = async ({ request }: ActionFunctionArgs) => {
 
     return null;
   } catch (error) {
-    return error;
+    return handleError(error)?.message;
   }
 };
 
@@ -276,7 +275,7 @@ export const addReviewAction = async ({ request, params }: ActionFunctionArgs) =
 
     return null;
   } catch (error) {
-    return error;
+    return handleError(error)?.message;
   }
 };
 
@@ -307,11 +306,7 @@ export const signInAction = async ({ request }: ActionFunctionArgs) => {
 
     return redirect(redirectTo ? redirectTo : "/");
   } catch (error) {
-    if (error instanceof AxiosError) {
-      return error.response?.data.message;
-    }
-
-    return "Internal Server Error";
+    return handleError(error)?.message;
   }
 };
 
@@ -338,6 +333,6 @@ export const signUpAction = async ({ request }: ActionFunctionArgs) => {
 
     return redirect("/sign-in");
   } catch (error) {
-    return getErrorMessage(error);
+    return handleError(error)?.message;
   }
 };
