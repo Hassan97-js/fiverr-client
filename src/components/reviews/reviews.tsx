@@ -4,15 +4,16 @@ import { Form, useNavigation } from "react-router-dom";
 import Review from "./single-review";
 import Button from "../button";
 import CustomInput from "../form/custom-input";
-import SelectInput from "../form/select-input";
 import Heading2 from "../typography/heading-2";
 import Heading3 from "../typography/heading-3";
+import ListBox from "../form/list-box";
 
 import { type TUser } from "../../constants/validators/user-validator";
 import { type TReview } from "../../constants/validators/review-validator";
 
 import { useUser } from "../../hooks/use-user";
 import { capitalize, cn } from "../../utils";
+import FormLabel from "../form/form-label";
 
 export type AddReviewOption = {
   value: number;
@@ -30,14 +31,7 @@ const AddReview = () => {
 
   const isBusy = navigation.state === "submitting";
 
-  const options = [
-    { value: 0, label: "Choose a number" },
-    { value: 1, label: "1" },
-    { value: 2, label: "2" },
-    { value: 3, label: "3" },
-    { value: 4, label: "4" },
-    { value: 5, label: "5" }
-  ] satisfies AddReviewOption[];
+  const options = ["1", "2", "3", "4", "5"] satisfies string[];
 
   useEffect(() => {
     if (!isBusy) {
@@ -47,12 +41,13 @@ const AddReview = () => {
 
   return (
     <div className="max-w-[31.25rem]">
-      <Heading3 className="mb-4">Add a review</Heading3>
       <Form ref={formRef} method="POST">
-        <CustomInput name="description" id="add-review" placeholder="Write your opinion..." />
+        <FormLabel className="mb-2">Add a review</FormLabel>
+        <CustomInput className="mb-5" name="description" id="add-review" placeholder="Write your opinion..." />
 
-        <div className="mt-2">
-          <SelectInput name="rating" defaultValue="choose" options={options} />
+        <div>
+          <FormLabel className="mb-2">Choose a rating</FormLabel>
+          <ListBox name="rating" options={options} />
         </div>
 
         <Button
@@ -77,32 +72,34 @@ const Reviews = ({ reviews: reviewsArray, gigUserId }: TReviewsProps) => {
 
   return (
     <div className="reviews">
-      <Heading2 className="mb-6">Reviews</Heading2>
+      <Heading2 className="mb-3">Reviews</Heading2>
 
-      {!!reviewsArray?.length ? (
-        <div className="items-center flex flex-wrap gap-10 mb-12">
-          {reviewsArray.map(({ _id: id, description, userId: currentUserInfo, rating }) => {
-            let reviewUser: TUser | null = null;
+      <div className="mb-20">
+        {!!reviewsArray?.length ? (
+          <div className="items-center flex flex-wrap gap-10 mb-12">
+            {reviewsArray.map(({ _id: id, description, userId: currentUserInfo, rating }) => {
+              let reviewUser: TUser | null = null;
 
-            if (typeof currentUserInfo !== "string") {
-              reviewUser = currentUserInfo;
-            }
+              if (typeof currentUserInfo !== "string") {
+                reviewUser = currentUserInfo;
+              }
 
-            return (
-              <Review
-                key={id}
-                sellerName={capitalize(user?.username ?? "Unknown")}
-                sellerImage={reviewUser?.image}
-                countryName={reviewUser?.country}
-                description={description}
-                rating={rating}
-              />
-            );
-          })}
-        </div>
-      ) : (
-        <p className="text-zinc-500 text-lg font-medium text-left my-10">No reviews yet</p>
-      )}
+              return (
+                <Review
+                  key={id}
+                  sellerName={capitalize(user?.username ?? "Unknown")}
+                  sellerImage={reviewUser?.image}
+                  countryName={reviewUser?.country}
+                  description={description}
+                  rating={rating}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-zinc-500 text-lg font-medium text-left">No reviews yet</p>
+        )}
+      </div>
 
       {currentUserId !== gigUserId && !isSeller ? <AddReview /> : null}
     </div>
