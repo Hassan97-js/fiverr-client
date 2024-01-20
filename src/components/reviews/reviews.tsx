@@ -8,11 +8,11 @@ import SelectInput from "../form/select-input";
 import Heading2 from "../typography/heading-2";
 import Heading3 from "../typography/heading-3";
 
-import { capitalize, cn } from "../../utils";
 import { type TUser } from "../../constants/validators/user-validator";
-import { useUser } from "../../hooks/use-user";
-
 import { type TReview } from "../../constants/validators/review-validator";
+
+import { useUser } from "../../hooks/use-user";
+import { capitalize, cn } from "../../utils";
 
 export type AddReviewOption = {
   value: number;
@@ -20,9 +20,8 @@ export type AddReviewOption = {
 };
 
 type TReviewsProps = {
-  reviews?: TReview[] | null;
+  reviews: TReview[];
   gigUserId: string | null;
-  gigStars: number;
 };
 
 const AddReview = () => {
@@ -50,14 +49,10 @@ const AddReview = () => {
     <div className="max-w-[31.25rem]">
       <Heading3 className="mb-4">Add a review</Heading3>
       <Form ref={formRef} method="POST">
-        <CustomInput
-          name="description"
-          id="add-review"
-          placeholder="Write your opinion..."
-        />
+        <CustomInput name="description" id="add-review" placeholder="Write your opinion..." />
 
         <div className="mt-2">
-          <SelectInput name="starNumber" defaultValue="choose" options={options} />
+          <SelectInput name="rating" defaultValue="choose" options={options} />
         </div>
 
         <Button
@@ -74,7 +69,7 @@ const AddReview = () => {
   );
 };
 
-const Reviews = ({ reviews: reviewsArray, gigUserId, gigStars }: TReviewsProps) => {
+const Reviews = ({ reviews: reviewsArray, gigUserId }: TReviewsProps) => {
   const user = useUser();
 
   const currentUserId = user?._id;
@@ -86,7 +81,7 @@ const Reviews = ({ reviews: reviewsArray, gigUserId, gigStars }: TReviewsProps) 
 
       {!!reviewsArray?.length ? (
         <div className="items-center flex flex-wrap gap-10 mb-12">
-          {reviewsArray.map(({ _id: id, description, userId: currentUserInfo }) => {
+          {reviewsArray.map(({ _id: id, description, userId: currentUserInfo, rating }) => {
             let reviewUser: TUser | null = null;
 
             if (typeof currentUserInfo !== "string") {
@@ -100,15 +95,13 @@ const Reviews = ({ reviews: reviewsArray, gigUserId, gigStars }: TReviewsProps) 
                 sellerImage={reviewUser?.image}
                 countryName={reviewUser?.country}
                 description={description}
-                gigStars={gigStars}
+                rating={rating}
               />
             );
           })}
         </div>
       ) : (
-        <p className="text-zinc-500 text-lg font-medium text-left my-10">
-          No reviews yet
-        </p>
+        <p className="text-zinc-500 text-lg font-medium text-left my-10">No reviews yet</p>
       )}
 
       {currentUserId !== gigUserId && !isSeller ? <AddReview /> : null}

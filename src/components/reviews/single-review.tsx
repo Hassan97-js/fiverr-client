@@ -9,16 +9,10 @@ type TProps = {
   sellerImage?: string;
   countryName?: string;
   description: string;
-  gigStars: number;
+  rating: number;
 };
 
-const Review = ({
-  sellerName,
-  sellerImage,
-  countryName,
-  description,
-  gigStars
-}: TProps) => {
+const Review = ({ sellerName, sellerImage, countryName, description, rating }: TProps) => {
   const fallbackImage = "https://picsum.photos/200";
 
   return (
@@ -34,13 +28,11 @@ const Review = ({
 
             <div className="flex flex-col">
               <p className="font-medium capitalize text-sm">{sellerName}</p>
-              <p className="capitalize text-zinc-500 font-normal text-sm">
-                {countryName || "Earth"}
-              </p>
+              <p className="capitalize text-zinc-500 font-normal text-sm">{countryName || "Earth"}</p>
             </div>
           </div>
 
-          <Stars numberOfStars={gigStars} className="self-start" />
+          <Stars numberOfStars={rating} className="self-start" />
         </div>
 
         <p className="max-w-[45ch] text-zinc-800">

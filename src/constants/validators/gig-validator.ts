@@ -26,9 +26,9 @@ export const GigSchema = z
     sales: z.number(),
     shortDescription: z.string().trim().toLowerCase(),
     shortTitle: z.string().trim().toLowerCase(),
-    starNumber: z.number(),
     title: z.string().trim().toLowerCase(),
-    totalStars: z.number(),
+    ratingsSum: z.number(),
+    numberOfRatings: z.number(),
     __v: z.number().optional()
   })
   .strict();

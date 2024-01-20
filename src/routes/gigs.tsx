@@ -18,15 +18,25 @@ const Gigs = () => {
     gigsContent = <p className="text-zinc-500 text-lg font-medium text-center mt-10">No gigs found</p>;
   } else {
     gigsContent = gigs.map((gig) => {
-      const { _id: gigId, coverImage, price, description, category, totalStars, starNumber, userId: userInfo } = gig;
+      const {
+        _id: gigId,
+        coverImage,
+        price,
+        description,
+        category,
+        userId: userInfo,
+        ratingsSum,
+        numberOfRatings
+      } = gig;
+
+      const avgRating = Math.round(ratingsSum / numberOfRatings);
 
       return (
         <GigCard
+          rating={avgRating || 0}
           key={gigId}
           userInfo={userInfo}
           gigId={gigId}
-          totalStars={totalStars}
-          starNumber={starNumber}
           coverImage={coverImage}
           price={price}
           description={description}

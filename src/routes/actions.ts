@@ -256,7 +256,7 @@ export const addReviewAction = async ({ request, params }: ActionFunctionArgs) =
 
     const data = {
       description: formEntries.description,
-      starNumber: formEntries.starNumber,
+      rating: formEntries.rating,
       gigId: params.id
     };
 

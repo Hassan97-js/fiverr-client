@@ -1,15 +1,7 @@
-import {
-  AboutSeller,
-  Slider,
-  Reviews,
-  GigCTA,
-  LayoutSection,
-  Heading1,
-  Heading2
-} from "../components";
+import { AboutSeller, Slider, Reviews, GigCTA, LayoutSection, Heading1, Heading2 } from "../components";
 
-import { useUser, usePageData } from "../hooks/";
-import { capitalize } from "../utils";
+import { useUser, usePageData } from "../hooks";
+import { capitalize, getRatingAverage } from "../utils";
 
 import { responsiveConfig } from "../data/client/ts/ui";
 
@@ -21,17 +13,12 @@ const Gig = () => {
   const reviews = gigData?.reviews;
 
   if (!gig) {
-    return (
-      <p className="text-zinc-500 text-lg font-medium text-center mt-10">
-        Could not load the gig
-      </p>
-    );
+    return <p className="text-zinc-500 text-lg font-medium text-center mt-10">Could not load the gig</p>;
   }
 
   const {
     title,
     description,
-    totalStars,
     images,
     userId: userInfo,
     features: services,
@@ -56,6 +43,8 @@ const Gig = () => {
 
   const fallbackImage = "https://picsum.photos/200";
 
+  const ratingAvg = getRatingAverage({ reviewsArray: reviews });
+
   return (
     <LayoutSection className="relative">
       <div className="block grid-cols-none gap-0 xl:grid xl:grid-cols-2fr-1fr xl:gap-14">
@@ -69,14 +58,7 @@ const Gig = () => {
                 containerClass="max-w-3xl rounded-md mb-10"
                 responsive={responsiveConfig}>
                 {images.map((image) => {
-                  return (
-                    <img
-                      className="w-full h-full object-cover"
-                      key={image}
-                      src={image}
-                      alt=""
-                    />
-                  );
+                  return <img className="w-full h-full object-cover" key={image} src={image} alt="" />;
                 })}
               </Slider>
             )}
@@ -88,21 +70,22 @@ const Gig = () => {
           </div>
 
           <AboutSeller
+            rating={ratingAvg}
             currentUserId={user?._id}
             gigUserId={gigUserId}
             sellerName={userName}
             aboutSeller={`My name is ${capitalize(
-              userName 
+              userName
             )}, I enjoy creating AI generated art in my spare time. I have a lot of experience using the AI program and that means I know what to prompt the AI with to get a great and incredibly detailed result.`}
             country={country}
             languages="English"
             lastDelivery="1 day"
             memberDate="Aug 2022"
-            rating={totalStars}
             responseTime="4 hours"
             sellerImage={userImage || fallbackImage}
           />
-          <Reviews gigUserId={gigUserId} reviews={reviews} gigStars={totalStars} />
+
+          {reviews && <Reviews gigUserId={gigUserId} reviews={reviews} />}
         </div>
 
         <GigCTA

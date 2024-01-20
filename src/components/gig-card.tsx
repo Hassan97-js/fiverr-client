@@ -5,22 +5,21 @@ import { RiHeartFill } from "react-icons/ri";
 import CustomIcon from "./custom-icon";
 import Stars from "./stars";
 
-import { capitalizeFirstLetter, formatCurrency, getRatingAverage } from "../utils";
+import { capitalizeFirstLetter, formatCurrency } from "../utils";
 
 import { type TUser } from "../constants/validators/user-validator";
 
 type TProps = {
+  rating: number;
   userInfo: TUser | string;
   gigId: string;
   coverImage?: string;
   category: string;
   price: number;
   description: string;
-  totalStars: number;
-  starNumber: number;
 };
 
-const GigCard = ({ userInfo, gigId, coverImage, category, price, description, totalStars, starNumber }: TProps) => {
+const GigCard = ({ userInfo, gigId, coverImage, category, price, description, rating }: TProps) => {
   const styles = {
     backgroundImage: `url(${coverImage})`,
     backgroundRepeat: "no-repeat",
@@ -37,7 +36,6 @@ const GigCard = ({ userInfo, gigId, coverImage, category, price, description, to
   }
 
   const formattedPrice = formatCurrency(price);
-  const gigRating = getRatingAverage(totalStars, starNumber);
 
   const fallbackImage = "https://picsum.photos/200";
 
@@ -65,13 +63,13 @@ const GigCard = ({ userInfo, gigId, coverImage, category, price, description, to
 
         <p className="mb-5 truncate">{capitalizeFirstLetter(description)}</p>
 
-        <Stars numberOfStars={gigRating} />
+        <Stars numberOfStars={rating} />
 
         <div className="flex items-center justify-between pb-4 pt-4 mt-auto border-0 border-t-[0.5px] border-t-zinc-200">
           <CustomIcon Icon={RiHeartFill} color="" className="text-red-500" size="1.2em" aria-label="A heart icon" />
 
           <div className="flex flex-col items-end">
-            <p className="uppercase text-zinc-500 text-sm font-medium">Starting at</p>
+            <p className="uppercase text-zinc-500 text-xs font-medium">Starting at</p>
             <strong className="text-lg font-semibold">{formattedPrice}</strong>
           </div>
         </div>

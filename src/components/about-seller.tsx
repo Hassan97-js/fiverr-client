@@ -4,11 +4,11 @@ import Stars from "./stars";
 import Heading2 from "./typography/heading-2";
 
 type TProps = {
+  rating: number;
   currentUserId?: string;
   gigUserId: string | null;
   sellerName: string | null;
   sellerImage: string;
-  rating: number;
   country: string | null;
   memberDate: string;
   responseTime: string;
@@ -22,13 +22,13 @@ const AboutSeller = ({
   gigUserId,
   sellerName,
   sellerImage,
-  rating,
   country,
   memberDate,
   responseTime,
   lastDelivery,
   languages,
-  aboutSeller
+  aboutSeller,
+  rating
 }: TProps) => {
   return (
     <div className="text-zinc-700">
@@ -46,7 +46,7 @@ const AboutSeller = ({
             <div className="info flex flex-col gap-1">
               {sellerName && <span className="font-medium mt-1 capitalize">{sellerName}</span>}
               <div className="stars">
-                <Stars numberOfStars={rating} />
+                <Stars className="mt-1" numberOfStars={rating} />
               </div>
             </div>
           </div>

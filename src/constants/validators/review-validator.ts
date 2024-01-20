@@ -9,7 +9,7 @@ export const ReviewSchema = z
     _id: ObjectIdSchema,
     gigId: z.union([GigSchema, ObjectIdSchema]),
     userId: z.union([UserSchema, ObjectIdSchema]),
-    starNumber: z.number(),
+    rating: z.number(),
     description: z.string().trim().toLowerCase().max(200, {
       message: "Review description must be max 200 characters long"
     }),
