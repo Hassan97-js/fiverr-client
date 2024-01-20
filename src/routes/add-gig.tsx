@@ -139,7 +139,7 @@ const AddGig = () => {
                 name="features"
                 id="features"
                 maxLength={80}
-                placeholder="e.g. page design, or page design, file uploading, setting up a domain"
+                placeholder="e.g. page design, file uploading, setting up a domain"
                 // match a string with list of items separated by commas.
                 pattern="^\s*[a-zA-Z0-9\s]+\s*(,\s*[a-zA-Z0-9\s]+\s*)*(,\s*[a-zA-Z0-9]+\s*)?\s*$"
                 title="Please enter a valid comma-separated list"
