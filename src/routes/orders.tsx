@@ -11,7 +11,7 @@ const Orders = () => {
   const user = useUser();
 
   if (!orders?.length) {
-    return <p className="text-zinc-500 text-lg font-medium text-center mt-10">No orders yet</p>;
+    return <p className="text-zinc-500 text-lg font-medium text-center mt-40">No orders yet</p>;
   }
 
   const tableHeaders = [
