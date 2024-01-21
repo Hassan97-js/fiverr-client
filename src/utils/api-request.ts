@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { type AxiosRequestConfig } from "axios";
 
 export type TApiRequestConfig = AxiosRequestConfig;
 
@@ -12,7 +12,7 @@ export const makeApiRequest = ({
   validateStatus = (status) => {
     return status >= 200 && status < 300;
   }
-}: AxiosRequestConfig) => {
+}: TApiRequestConfig) => {
   return axios({
     method,
     baseURL,

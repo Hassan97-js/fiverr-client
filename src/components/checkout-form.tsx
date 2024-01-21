@@ -1,14 +1,6 @@
 import { useState, useEffect, type FormEvent } from "react";
-import {
-  PaymentElement,
-  LinkAuthenticationElement,
-  useStripe,
-  useElements
-} from "@stripe/react-stripe-js";
-import {
-  type StripeError,
-  type StripePaymentElementOptions
-} from "@stripe/stripe-js";
+import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { type StripeError, type StripePaymentElementOptions } from "@stripe/stripe-js";
 
 import Button from "./button";
 
@@ -26,9 +18,7 @@ const CheckoutForm = () => {
       return;
     }
 
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
+    const clientSecret = new URLSearchParams(window.location.search).get("payment_intent_client_secret");
 
     if (!clientSecret) {
       return;
@@ -81,7 +71,7 @@ const CheckoutForm = () => {
         confirmParams: {
           // http://localhost:5173/success - dev
           // https://myfiverrclone.netlify.app/success - prod
-          return_url: "http://localhost:5173/success"
+          return_url: "https://myfiverrclone.netlify.app/success"
         }
       });
 
@@ -91,10 +81,7 @@ const CheckoutForm = () => {
     } catch (error) {
       const stripeError = error as StripeError;
 
-      if (
-        stripeError.type === "card_error" ||
-        stripeError.type === "validation_error"
-      ) {
+      if (stripeError.type === "card_error" || stripeError.type === "validation_error") {
         setMessage(stripeError?.message);
       } else {
         setMessage("An unexpected error occurred.");
@@ -116,11 +103,7 @@ const CheckoutForm = () => {
       <PaymentElement options={paymentElementOptions} />
 
       {elementsLoaded ? (
-        <Button
-          type="submit"
-          disabled={isLoading || !stripe || !elements}
-          variant="primary"
-          className="self-center">
+        <Button type="submit" disabled={isLoading || !stripe || !elements} variant="primary" className="self-center">
           {isLoading ? "Paying..." : "Pay now"}
         </Button>
       ) : null}
