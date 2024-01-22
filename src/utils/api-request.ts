@@ -24,6 +24,7 @@ export const makeApiRequest = ({
   });
 };
 
-// https://fiverr-server-2dn7.onrender.com/api
-// http://localhost:5000/api
-// https://myfiverrclone.netlify.app
+// https://fiverr-clone-app.azurewebsites.net/api Server Prod - Azure
+// https://fiverr-server-2dn7.onrender.com/api - Server Prod - Render
+// http://localhost:5000/api - Server Dev - Localhost
+// https://myfiverrclone.netlify.app - Client Prod - Netlify
