@@ -7,7 +7,7 @@ export const makeApiRequest = ({
   url,
   data,
   params,
-  baseURL = "https://fiverr-server-2dn7.onrender.com/api",
+  baseURL = "https://fiverr-clone-app.azurewebsites.net/api",
   headers,
   validateStatus = (status) => {
     return status >= 200 && status < 300;
