@@ -1,4 +1,4 @@
-import { type DragEvent, useState, useRef, useEffect } from "react";
+import { type DragEvent, useState, useRef } from "react";
 
 import { cn } from "../../utils";
 
