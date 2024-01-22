@@ -118,7 +118,6 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
     const isSeller = Boolean(formEntries.isSeller);
 
     const chatId = isSeller ? `${sellerId}-${buyerId}` : `${buyerId}-${sellerId}`;
-    console.log(chatId);
 
     const response = await makeApiRequest({
       url: `chats/single/${chatId}`,
