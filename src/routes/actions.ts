@@ -1,7 +1,7 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 
 import { GigSchema } from "../constants/validators/gig-validator";
-import { auth, handleError, makeApiRequest, retrieveData, storeData } from "../utils";
+import { auth, getChatId, handleError, makeApiRequest, retrieveData, storeData } from "../utils";
 
 import { type TCreateGig } from "../constants/validators/form/create-gig-validator";
 
@@ -114,10 +114,10 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
     const formData = await request.formData();
     const formEntries = Object.fromEntries(formData.entries());
 
-    const { sellerId, buyerId, isSeller: isCurrentSeller } = formEntries;
+    const { sellerId, buyerId } = formEntries;
+    const isSeller = Boolean(formEntries.isSeller);
 
-    const isSeller = isCurrentSeller === "true";
-    const chatId = isSeller ? `${sellerId}-${buyerId}` : `${buyerId}-${sellerId}`;
+    const chatId = getChatId(isSeller, String(sellerId), String(buyerId));
 
     const response = await makeApiRequest({
       url: `chats/single/${chatId}`,
@@ -134,6 +134,8 @@ export const createChatAction = async ({ request }: ActionFunctionArgs) => {
         method: "post",
         url: "chats/single",
         data: {
+          sellerId,
+          buyerId,
           receiverId: isSeller ? buyerId : sellerId
         },
         headers: {

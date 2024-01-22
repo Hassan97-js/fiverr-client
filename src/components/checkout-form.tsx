@@ -69,8 +69,6 @@ const CheckoutForm = () => {
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          // http://localhost:5173/success - dev
-          // https://myfiverrclone.netlify.app/success - prod
           return_url: "https://myfiverrclone.netlify.app/success"
         }
       });

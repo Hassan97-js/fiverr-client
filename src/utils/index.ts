@@ -11,10 +11,12 @@ import { getCurrentUser } from "./current-user";
 import { handleError } from "./handle-error";
 import { capitalizeFirstLetter } from "./capitalize";
 import { getAverage, getRatingAverage } from "./get-average";
+import { getChatId } from "./get-chat-id";
 
 import { cn } from "./cn";
 
 export {
+  getChatId,
   getRatingAverage,
   getAverage,
   capitalizeFirstLetter,

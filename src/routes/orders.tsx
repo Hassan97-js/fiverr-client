@@ -24,7 +24,7 @@ const Orders = () => {
 
   return (
     <LayoutSection>
-      <OrdersTable isSeller={user?.isSeller} tableHeaders={tableHeaders} tableData={orders} />
+      <OrdersTable userId={user?._id} isSeller={user?.isSeller} tableHeaders={tableHeaders} orders={orders} />
     </LayoutSection>
   );
 };

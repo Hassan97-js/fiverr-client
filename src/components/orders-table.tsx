@@ -14,17 +14,19 @@ import { capitalize, formatCurrency } from "../utils";
 
 type TProps = {
   tableHeaders: TTableHeaders;
-  tableData: TOrder[];
+  orders: TOrder[];
   striped?: boolean;
   isSeller?: boolean;
+  userId?: string;
   clickable?: boolean;
 };
 
 const OrdersTable = ({
   tableHeaders = [],
-  tableData = [],
+  orders = [],
   striped = true,
   isSeller = false,
+  userId,
   clickable = false
 }: TProps) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -44,8 +46,8 @@ const OrdersTable = ({
     );
   });
 
-  const tableBodyElements = tableData.map((item, idx) => {
-    const { _id: id, sellerId: sellerInfo, buyerId: buyerInfo, gigId: gigInfo } = item;
+  const tableBodyElements = orders.map((order, idx) => {
+    const { _id: id, sellerId: sellerInfo, buyerId: buyerInfo, gigId: gigInfo } = order;
 
     let image: null | string | undefined = null;
     let title: null | string | undefined = null;
@@ -100,9 +102,9 @@ const OrdersTable = ({
 
         <td role="button" scope="row" className="px-6 py-4 font-medium text-zinc-500">
           <Form method="POST">
-            <input type="hidden" name="sellerId" value={sellerId || ""} />
-            <input type="hidden" name="buyerId" value={buyerId || ""} />
-            <input type="hidden" name="isSeller" value={String(isSeller)} />
+            {sellerId && <input type="hidden" name="sellerId" value={sellerId} />}
+            {buyerId && <input type="hidden" name="buyerId" value={buyerId} />}
+            {isSeller && <input type="hidden" name="isSeller" value={String(isSeller)} />}
 
             <Button type="submit" onClick={() => setIsTransitioning(true)}>
               <CustomIcon Icon={FaEnvelope} aria-label="An Envelope icon" />
