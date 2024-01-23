@@ -7,7 +7,7 @@ export const makeApiRequest = ({
   url,
   data,
   params,
-  baseURL = "https://fiverr-clone-app.azurewebsites.net/api",
+  baseURL = "https://fiverr-server-2dn7.onrender.com/api",
   headers,
   validateStatus = (status) => {
     return status >= 200 && status < 300;
@@ -24,7 +24,6 @@ export const makeApiRequest = ({
   });
 };
 
-// https://fiverr-clone-app.azurewebsites.net/api Server Prod - Azure
 // https://fiverr-server-2dn7.onrender.com/api - Server Prod - Render
 // http://localhost:5000/api - Server Dev - Localhost
 // https://myfiverrclone.netlify.app - Client Prod - Netlify
