@@ -4,6 +4,7 @@ import { cn } from "../../utils";
 
 type TDroppable = {
   isDraggingEnter: boolean;
+  isDraggingOver: boolean;
   hasDropped: boolean;
 };
 
@@ -17,6 +18,7 @@ type TProps = {
 const UploadButton = ({ onSelectFiles, disabled, fileInputId, isMultiple = false }: TProps) => {
   const [droppable, setDroppable] = useState<TDroppable>({
     isDraggingEnter: false,
+    isDraggingOver: false,
     hasDropped: false
   });
 
@@ -31,6 +33,11 @@ const UploadButton = ({ onSelectFiles, disabled, fileInputId, isMultiple = false
   const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
     e.stopPropagation();
     e.preventDefault();
+
+    setDroppable((prevState) => ({
+      ...prevState,
+      isDraggingOver: true
+    }));
   };
 
   const handleDragEnter = (e: DragEvent<HTMLLabelElement>) => {
@@ -47,9 +54,14 @@ const UploadButton = ({ onSelectFiles, disabled, fileInputId, isMultiple = false
     e.stopPropagation();
     e.preventDefault();
 
+    if (e.currentTarget.contains(e.relatedTarget as Node)) {
+      return;
+    }
+
     setDroppable((prevState) => ({
       ...prevState,
-      isDraggingEnter: false
+      isDraggingEnter: false,
+      isDraggingOver: false
     }));
   };
 
@@ -92,7 +104,8 @@ const UploadButton = ({ onSelectFiles, disabled, fileInputId, isMultiple = false
         "flex flex-col items-center justify-center w-full h-64 border-2 border-zinc-300 border-solid rounded-lg cursor-pointer bg-zinc-50 hover:bg-zinc-100 transition focus-visible:ring-4 focus-visible:ring-green-300 outline-none",
         {
           "opacity-50 cursor-auto pointer-events-none select-none": disabled,
-          "border-dashed bg-zinc-100": droppable.isDraggingEnter
+          "border-dashed border-zinc-400 bg-zinc-200":
+            droppable.isDraggingOver && droppable.isDraggingEnter && !droppable.hasDropped
         }
       )}>
       <div className="flex flex-col items-center justify-center pt-5 pb-6">
