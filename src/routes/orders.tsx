@@ -10,10 +10,6 @@ const Orders = () => {
   const orders = usePageData({ dataType: "orders" })?.orders;
   const user = useUser();
 
-  if (!orders?.length) {
-    return <p className="text-zinc-500 text-lg font-medium text-center mt-40">No orders yet</p>;
-  }
-
   const tableHeaders = [
     { id: 1, text: "Image" },
     { id: 2, text: "Title" },
@@ -23,8 +19,9 @@ const Orders = () => {
   ] satisfies TTableHeaders;
 
   return (
-    <LayoutSection>
-      <OrdersTable userId={user?._id} isSeller={user?.isSeller} tableHeaders={tableHeaders} orders={orders} />
+    <LayoutSection hasLoading={false}>
+      {!!orders?.length && <OrdersTable isSeller={user?.isSeller} tableHeaders={tableHeaders} orders={orders} />}
+      {!orders?.length && <p className="text-zinc-500 text-lg font-medium text-center w-full h-full">No orders yet</p>}
     </LayoutSection>
   );
 };

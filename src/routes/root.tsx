@@ -19,9 +19,7 @@ const Root = () => {
     <>
       <Navbar user={userData?.user} />
 
-      <main>
-        <Outlet context={{ user: userData?.user }} />
-      </main>
+      <Outlet context={{ user: userData?.user }} />
 
       <Footer />
 

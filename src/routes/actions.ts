@@ -296,7 +296,8 @@ export const signInAction = async ({ request }: ActionFunctionArgs) => {
     const response = await makeApiRequest({
       method: "post",
       url: "auth/sign-in",
-      data
+      data,
+      timeout: 0
     });
 
     storeData("token", response.data.token);

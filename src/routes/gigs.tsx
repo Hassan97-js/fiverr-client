@@ -47,7 +47,7 @@ const Gigs = () => {
   }
 
   return (
-    <LayoutSection>
+    <LayoutSection className="pb-48">
       <Heading1 className="mb-4">AI Artists</Heading1>
 
       <p>Explore the boundaries of art and technology with Fiverr&apos;s AI artists</p>

@@ -15,10 +15,10 @@ const SignIn = () => {
   }
 
   return (
-    <LayoutSection>
-      <Form method="POST" className="flex flex-col justify-center items-center gap-5 max-w-[400px] mx-auto">
-        <div className="space-y-16 w-full">
-          <Heading2 className="self-start">Sign in</Heading2>
+    <LayoutSection className="flex flex-col justify-center items-center max-w-[31.25rem]">
+      <Form method="POST" className="flex flex-col justify-center items-center gap-5 w-full h-full flex-1">
+        <div className="w-full">
+          <Heading2 className="self-start mb-10">Sign in</Heading2>
 
           <div className="space-y-6">
             <div>
@@ -48,7 +48,7 @@ const SignIn = () => {
           {actionError && <span className="text-sm text-red-600">{actionError}</span>}
         </div>
 
-        <Button disabled={isBusy} variant="primary" type="submit" className="w-full">
+        <Button disabled={isBusy} variant="primary" type="submit" className="self-start">
           {isBusy ? "Signing in..." : "Sign in"}
         </Button>
       </Form>

@@ -18,7 +18,7 @@ const Home = () => (
     <TrustedBy />
 
     <div className="bg-zinc-50">
-      <LayoutSection>
+      <LayoutSection className="min-h-max">
         <CategorySlider responsive={responsiveConfig} itemClass="m-5 shadow-md rounded-md overflow-hidden">
           {categories.map((category) => {
             return <CategorySliderItem key={category.id} category={category} />;
@@ -27,7 +27,7 @@ const Home = () => (
       </LayoutSection>
     </div>
 
-    <Features />
+    <Features  />
 
     <FiverrBusiness />
   </>

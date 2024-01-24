@@ -238,6 +238,14 @@ export const fetchPrivateGigsLoader = async ({ request }: LoaderFunctionArgs) =>
 
 export const fetchGigsLoader = async ({ request }: LoaderFunctionArgs) => {
   try {
+    const isAuthenticated = await auth();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
     const url = new URL(request.url);
     const searchParams = new URLSearchParams(url.search);
 
@@ -252,8 +260,16 @@ export const fetchGigsLoader = async ({ request }: LoaderFunctionArgs) => {
   }
 };
 
-export const fetchSingleGigLoader = async ({ params }: LoaderFunctionArgs) => {
+export const fetchSingleGigLoader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
+    const isAuthenticated = await auth();
+
+    const redirectTo = new URL(request.url).pathname;
+
+    if (!isAuthenticated) {
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
+    }
+
     const gigsResponse = await Promise.all([
       makeApiRequest({ url: `gigs/single/${params.id}` }),
       makeApiRequest({ url: `reviews/${params.id}` })

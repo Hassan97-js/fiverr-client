@@ -17,7 +17,6 @@ type TProps = {
   orders: TOrder[];
   striped?: boolean;
   isSeller?: boolean;
-  userId?: string;
   clickable?: boolean;
 };
 
@@ -26,7 +25,6 @@ const OrdersTable = ({
   orders = [],
   striped = true,
   isSeller = false,
-  userId,
   clickable = false
 }: TProps) => {
   const [isTransitioning, setIsTransitioning] = useState(false);

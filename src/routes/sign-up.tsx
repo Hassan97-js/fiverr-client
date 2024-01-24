@@ -35,7 +35,7 @@ const SignUp = () => {
   }, [isBusy]);
 
   return (
-    <LayoutSection>
+    <LayoutSection className="py-32">
       <Form ref={formRef} method="post" className="relative flex flex-col-reverse lg:flex-row justify-center gap-16">
         <div className="flex flex-col gap-x-10 gap-y-9 w-full">
           <FormError className="text-base font-semibold m-0" hasError={!!actionError}>

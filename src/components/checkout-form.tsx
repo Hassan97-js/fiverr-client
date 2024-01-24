@@ -64,12 +64,13 @@ const CheckoutForm = () => {
 
     setIsLoading(true);
 
+    const origin = new URL(window.location.href).origin;
+
     try {
-      // eslint-disable-next-line no-unused-vars
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: "https://myfiverrclone.netlify.app/success"
+          return_url: `${origin}/success`
         }
       });
 

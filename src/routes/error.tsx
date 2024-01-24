@@ -1,72 +1,28 @@
-import { AxiosError } from "axios";
-import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
 
-import { Heading1, Heading3 } from "../components";
+import { Heading1 } from "../components";
+import { Section } from "../components/layout/layout-section";
 
 const ErrorPage = () => {
-  const error = useRouteError();
+  const errorData = useRouteError();
 
-  if (error instanceof Error) {
-    console.log(error?.message);
+  if (errorData instanceof Error) {
+    console.log(errorData?.message);
   }
 
-  if (typeof error === "string") {
-    console.log(error);
-  }
-
-  let errorResponseContent = null;
-
-  /* 
-  Check if the given error is an ErrorResponse
-  generated from a 4xx/5xx Response thrown from an 
-  action/loader 
-  */
-  if (isRouteErrorResponse(error)) {
-    errorResponseContent = (
-      <div className="text-center">
-        <Heading1 className="text-7xl mb-10">Oops!</Heading1>
-        <p className="text-3xl font-normal text-zinc-500 mb-12">
-          Sorry, an unexpected error has occurred.
-        </p>
-
-        <Heading3 className="text-lg font-normal text-zinc-500 mb-12">
-          {error?.status}
-        </Heading3>
-
-        <p className="text-xl font-bold text-zinc-500">
-          <i>
-            {(error instanceof Error || error instanceof AxiosError) &&
-              error.message}
-          </i>
-          <i>{typeof error === "string" && error}</i>
-          <i>{error instanceof Response && error.statusText}</i>
-        </p>
-      </div>
-    );
+  if (typeof errorData === "string") {
+    console.log(errorData);
   }
 
   return (
-    <div
-      className="flex flex-col justify-center items-center min-h-screen"
-      id="error-page">
-      {!errorResponseContent && (
-        <div className="text-center">
-          <Heading1 className="text-7xl mb-7">Oops!</Heading1>
-          <p className="text-3xl font-normal text-zinc-500 mb-12">
-            Sorry, an unexpected error has occurred.
-          </p>
-          <p className="text-xl font-bold text-zinc-500">
-            <i>
-              {(error instanceof Error || error instanceof AxiosError) &&
-                error.message}
-            </i>
-            <i>{error instanceof Response && error.statusText}</i>
-          </p>
-        </div>
-      )}
+    <Section className="flex flex-col justify-center items-center p-0">
+      <div className="text-center">
+        <Heading1 className="text-7xl mb-8">Oops!</Heading1>
+        <p className="text-2xl text-zinc-500 mb-3">An unexpected error has occurred.</p>
 
-      {errorResponseContent}
-    </div>
+        {/* <p className="text-lg text-zinc-500"><i>{error.statusText}</i></p> */}
+      </div>
+    </Section>
   );
 };
 

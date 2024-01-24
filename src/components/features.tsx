@@ -10,7 +10,7 @@ const { featuresVideo } = assetsData.videos;
 
 const Features = () => {
   return (
-    <LayoutSection>
+    <LayoutSection className="min-h-max">
       <div className="flex flex-col mx-auto px-6 xl:flex-row gap-28">
         <div className="flex-1">
           <video
@@ -31,50 +31,36 @@ const Features = () => {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
-                <span className="text-lg text-zinc-700 font-medium">
-                  Stick to your budget
-                </span>
+                <span className="text-lg text-zinc-700 font-medium">Stick to your budget</span>
               </div>
               <p className="text-zinc-600">
-                Find the right service for every price point. No hourly rates, just
-                project-based pricing.
+                Find the right service for every price point. No hourly rates, just project-based pricing.
               </p>
             </div>
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
-                <span className="text-lg text-zinc-700 font-medium">
-                  Get quality work done quickly
-                </span>
+                <span className="text-lg text-zinc-700 font-medium">Get quality work done quickly</span>
               </div>
               <p className="text-zinc-600">
-                Hand your project over to a talented freelancer in minutes, get
-                long-lasting results.
+                Hand your project over to a talented freelancer in minutes, get long-lasting results.
               </p>
             </div>
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
-                <span className="text-lg text-zinc-700 font-medium">
-                  Pay when you&apos;re happy
-                </span>
+                <span className="text-lg text-zinc-700 font-medium">Pay when you&apos;re happy</span>
               </div>
               <p className="text-zinc-600">
-                Upfront quotes mean no surprises. Payments only get released when you
-                approve.
+                Upfront quotes mean no surprises. Payments only get released when you approve.
               </p>
             </div>
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CustomIcon Icon={FaCheckCircle} aria-label="A check logo" />
-                <span className="text-lg text-zinc-700 font-medium">
-                  Count on 24/7 support
-                </span>
+                <span className="text-lg text-zinc-700 font-medium">Count on 24/7 support</span>
               </div>
-              <p className="text-zinc-600">
-                Our round-the-clock support team is available to help anytime,
-                anywhere.
-              </p>
+              <p className="text-zinc-600">Our round-the-clock support team is available to help anytime, anywhere.</p>
             </div>
           </div>
         </div>
