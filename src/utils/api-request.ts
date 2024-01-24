@@ -11,7 +11,8 @@ export const makeApiRequest = ({
   headers,
   validateStatus = (status) => {
     return status >= 200 && status < 300;
-  }
+  },
+  timeout = 0
 }: TApiRequestConfig) => {
   return axios({
     method,
@@ -20,7 +21,8 @@ export const makeApiRequest = ({
     params,
     headers,
     data,
-    validateStatus
+    validateStatus,
+    timeout
   });
 };
 

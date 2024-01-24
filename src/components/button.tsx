@@ -30,7 +30,7 @@ const Button = ({
         shape === "sharp" && "rounded-none",
         {
           "focus-visible:ring-4 focus-visible:ring-green-300": variant === "default",
-          "cursor-auto opacity-50 pointer-events-none": disabled,
+          "cursor-auto opacity-70 pointer-events-none": disabled,
           "bg-green-700 text-white hover:bg-green-800 focus-visible:ring-4 focus-visible:ring-green-300 disabled:bg-green-400":
             variant === "primary",
           "text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus-visible:ring-4 focus-visible:ring-green-300 disabled:bg-green-400 disabled:text-green-400":

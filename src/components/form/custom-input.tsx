@@ -18,19 +18,21 @@ const CustomInput = ({
   onChange,
   onFocus,
   onBlur,
+  disabled = false,
   required = true,
   autoComplete = "off",
   ...otherProps
 }: TProps) => {
   return (
     <input
+      disabled={disabled}
       type={type}
       name={name}
       id={id}
       minLength={minLength}
       maxLength={maxLength}
       className={cn(
-        "bg-zinc-50 focus:border-green-500 border border-zinc-300 text-sm rounded-lg focus:ring-green-500 outline-none block w-full p-2.5 appearance-none",
+        "bg-zinc-50 focus:border-green-500 border border-zinc-300 text-sm rounded-lg focus:ring-green-500 outline-none block w-full p-2.5 appearance-none disabled:opacity-70",
         className
       )}
       placeholder={placeholder}

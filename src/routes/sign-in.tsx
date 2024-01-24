@@ -23,12 +23,19 @@ const SignIn = () => {
           <div className="space-y-6">
             <div>
               <FormLabel className="mb-2">Username</FormLabel>
-              <CustomInput name="username" id="username" placeholder="Enter your username" autoFocus={true} />
+              <CustomInput
+                disabled={isBusy}
+                name="username"
+                id="username"
+                placeholder="Enter your username"
+                autoFocus={true}
+              />
             </div>
 
             <div>
               <FormLabel className="mb-2">Password</FormLabel>
               <CustomInput
+                disabled={isBusy}
                 className="mb-3"
                 name="password"
                 type="password"

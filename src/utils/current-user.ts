@@ -15,7 +15,8 @@ export const getCurrentUser = async () => {
       url: "user/current",
       headers: {
         Authorization: `Bearer ${token}`
-      }
+      },
+      timeout: 2000
     });
 
     const validationResult = FromApiUserSchema.parse(response.data);

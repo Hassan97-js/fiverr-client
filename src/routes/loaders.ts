@@ -14,7 +14,7 @@ export const rootLoader = async () => {
 
     return { user };
   } catch (error) {
-    throw handleError(error)?.message;
+    return handleError(error)?.message;
   }
 };
 
@@ -29,7 +29,7 @@ export const successLoader = async ({ request }: LoaderFunctionArgs) => {
     const isAuthenticated = await auth();
 
     if (!isAuthenticated) {
-      throw redirect("/sign-in?redirectTo=/gigs");
+      return redirect("/sign-in?redirectTo=/gigs");
     }
 
     const currentToken = retrieveData("token");
@@ -66,7 +66,7 @@ export const paymentLoader = async ({ params, request }: LoaderFunctionArgs) => 
     const redirectTo = new URL(request.url).pathname;
 
     if (!isAuthenticated) {
-      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
     }
 
     const currentToken = retrieveData("token");
@@ -103,7 +103,7 @@ export const fetchChatMessagesLoader = async ({ request, params }: LoaderFunctio
     const redirectTo = new URL(request.url).pathname;
 
     if (!isAuthenticated) {
-      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
     }
 
     const currentToken = retrieveData("token");
@@ -129,10 +129,12 @@ export const addGigLoader = async ({ request }: LoaderFunctionArgs) => {
   try {
     const isAuthenticated = await auth();
 
+    console.log(isAuthenticated);
+
     const redirectTo = new URL(request.url).pathname;
 
     if (!isAuthenticated) {
-      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
     }
 
     const currentToken = retrieveData("token");
@@ -154,7 +156,7 @@ export const fetchChatsLoader = async ({ request }: LoaderFunctionArgs) => {
     const redirectTo = new URL(request.url).pathname;
 
     if (!isAuthenticated) {
-      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
     }
 
     const currentToken = retrieveData("token");
@@ -183,7 +185,7 @@ export const fetchOrdersLoader = async ({ request }: LoaderFunctionArgs) => {
     const redirectTo = new URL(request.url).pathname;
 
     if (!isAuthenticated) {
-      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
     }
 
     const currentToken = retrieveData("token");
@@ -212,7 +214,7 @@ export const fetchPrivateGigsLoader = async ({ request }: LoaderFunctionArgs) =>
     const redirectTo = new URL(request.url).pathname;
 
     if (!isAuthenticated) {
-      throw redirect(`/sign-in?redirectTo=${redirectTo}`);
+      return redirect(`/sign-in?redirectTo=${redirectTo}`);
     }
 
     const currentToken = retrieveData("token");
