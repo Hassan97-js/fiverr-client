@@ -7,7 +7,7 @@ export const makeApiRequest = ({
   url,
   data,
   params,
-  baseURL = "http://localhost:5000/api",
+  baseURL = "https://server-fiverr.fly.dev/api",
   headers,
   validateStatus = (status) => {
     return status >= 200 && status < 300;
@@ -26,6 +26,7 @@ export const makeApiRequest = ({
   });
 };
 
+// https://server-fiverr.fly.dev/api - Server Prod - Fly.io
 // https://fiverr-server-2dn7.onrender.com/api - Server Prod - Render
 // http://localhost:5000/api - Server Dev - Localhost
 // https://myfiverrclone.netlify.app - Client Prod - Netlify
